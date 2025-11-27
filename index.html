@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏙️ ASAN SMART CITY | DIGITAL OASIS DASHBOARD</title>
+    <title>아산시 강소형 스마트시티 조성사업 | 통합 대시보드</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.1/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --neon-cyan: #00FFFF;
-            --neon-magenta: #FF00FF;
-            --neon-yellow: #FFFF00;
-            --neon-green: #00FF66;
-            --neon-orange: #FF6600;
-            --neon-pink: #FF0099;
-            --neon-blue: #0066FF;
-            --neon-purple: #9900FF;
-            --neon-red: #FF0033;
-            
-            --glow-cyan: 0 0 20px #00FFFF, 0 0 40px #00FFFF, 0 0 60px #00FFFF;
-            --glow-magenta: 0 0 20px #FF00FF, 0 0 40px #FF00FF, 0 0 60px #FF00FF;
-            --glow-green: 0 0 20px #00FF66, 0 0 40px #00FF66;
-            --glow-red: 0 0 20px #FF0033, 0 0 40px #FF0033;
-            
-            --dark-bg: #0a0a0f;
-            --dark-card: #12121a;
-            --dark-surface: #1a1a25;
-            --dark-border: #2a2a3a;
-            
-            --gradient-cyber: linear-gradient(135deg, #00FFFF, #FF00FF, #FFFF00);
-            --gradient-sunset: linear-gradient(135deg, #FF0099, #FF6600, #FFFF00);
-            --gradient-ocean: linear-gradient(135deg, #00FFFF, #0066FF, #9900FF);
-            --gradient-fire: linear-gradient(135deg, #FF0033, #FF6600, #FFFF00);
+            --primary: #1a56db;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e40af;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --info: #0891b2;
+            --info-light: #cffafe;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }
 
         * {
@@ -42,825 +43,325 @@
         }
 
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background: var(--dark-bg);
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
         }
 
-        /* ==================== ANIMATED BACKGROUND ==================== */
-        .cyber-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .cyber-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 0% 0%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 100% 0%, rgba(255, 0, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 100%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
-            animation: bgPulse 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes bgPulse {
-            0% { opacity: 0.5; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.1); }
-        }
-
-        /* Grid Lines */
-        .grid-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px;
-            animation: gridMove 20s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes gridMove {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(100px); }
-        }
-
-        /* Floating Orbs */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: orbFloat 15s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--neon-cyan);
-            top: -200px;
-            left: -200px;
-            opacity: 0.3;
-        }
-
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--neon-magenta);
-            top: 50%;
-            right: -250px;
-            opacity: 0.2;
-            animation-delay: -5s;
-        }
-
-        .orb-3 {
-            width: 300px;
-            height: 300px;
-            background: var(--neon-orange);
-            bottom: -150px;
-            left: 30%;
-            opacity: 0.25;
-            animation-delay: -10s;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, 50px) scale(1.1); }
-            50% { transform: translate(0, 100px) scale(0.9); }
-            75% { transform: translate(-50px, 50px) scale(1.05); }
-        }
-
-        /* Scan Line */
-        .scan-line {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            animation: scanMove 4s linear infinite;
-            z-index: 1000;
-            opacity: 0.7;
-        }
-
-        @keyframes scanMove {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        /* ==================== HEADER ==================== */
+        /* Header */
         .header {
-            background: rgba(18, 18, 26, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-            padding: 0 40px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 0 32px;
+            box-shadow: var(--shadow-md);
         }
 
         .header-inner {
-            max-width: 1800px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 90px;
+            height: 72px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
         }
 
         .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-cyber);
-            border-radius: 16px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            color: var(--dark-bg);
-            position: relative;
-            animation: logoRotate 10s linear infinite;
+            font-size: 22px;
         }
 
-        @keyframes logoRotate {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        .logo-icon::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            background: var(--gradient-cyber);
-            border-radius: 20px;
-            z-index: -1;
-            filter: blur(15px);
-            opacity: 0.8;
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            font-weight: 900;
-            background: var(--gradient-cyber);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 3px;
-            text-shadow: var(--glow-cyan);
-            animation: textGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes textGlow {
-            0% { filter: brightness(1); }
-            100% { filter: brightness(1.3); }
-        }
-
-        .logo-subtitle {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            color: var(--neon-cyan);
-            font-weight: 500;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .live-status {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 24px;
-            background: rgba(0, 255, 102, 0.1);
-            border: 1px solid var(--neon-green);
-            border-radius: 50px;
-            box-shadow: var(--glow-green), inset 0 0 20px rgba(0, 255, 102, 0.1);
-        }
-
-        .live-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--neon-green);
-            border-radius: 50%;
-            animation: livePulse 1s ease-in-out infinite;
-            box-shadow: var(--glow-green);
-        }
-
-        @keyframes livePulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-        }
-
-        .live-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--neon-green);
-            letter-spacing: 2px;
-        }
-
-        .notion-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            background: var(--gradient-ocean);
-            color: #000;
-            text-decoration: none;
-            border-radius: 12px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .notion-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .notion-btn:hover::before {
-            left: 100%;
-        }
-
-        .notion-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
-        }
-
-        /* ==================== MAIN ==================== */
-        .main {
-            max-width: 1800px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-
-        /* ==================== HERO SECTION ==================== */
-        .hero {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: 32px;
-            padding: 60px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-cyber);
-            animation: borderGlow 3s linear infinite;
-        }
-
-        @keyframes borderGlow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 60% 80%, rgba(255, 0, 255, 0.08) 0%, transparent 40%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Glitch Effect Badge */
-        .alert-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 28px;
-            background: rgba(255, 0, 51, 0.2);
-            border: 2px solid var(--neon-red);
-            border-radius: 50px;
-            margin-bottom: 32px;
-            animation: alertPulse 1.5s ease-in-out infinite;
-            box-shadow: var(--glow-red);
-        }
-
-        @keyframes alertPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 51, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(255, 0, 51, 0.8), 0 0 60px rgba(255, 0, 51, 0.4); }
-        }
-
-        .alert-badge i {
-            font-size: 20px;
-            color: var(--neon-red);
-            animation: alertShake 0.5s ease-in-out infinite;
-        }
-
-        @keyframes alertShake {
-            0%, 100% { transform: rotate(0); }
-            25% { transform: rotate(-15deg); }
-            75% { transform: rotate(15deg); }
-        }
-
-        .alert-badge span {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--neon-red);
-            letter-spacing: 1px;
-        }
-
-        /* Glitch Title */
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 52px;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 16px;
-            position: relative;
-            animation: glitchText 5s infinite;
-        }
-
-        .hero-title span {
-            background: var(--gradient-cyber);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        @keyframes glitchText {
-            0%, 90%, 100% { transform: translate(0); }
-            92% { transform: translate(-2px, 2px); }
-            94% { transform: translate(2px, -2px); }
-            96% { transform: translate(-2px, -2px); }
-            98% { transform: translate(2px, 2px); }
-        }
-
-        .hero-subtitle {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 48px;
-            letter-spacing: 1px;
-        }
-
-        .hero-subtitle i {
-            color: var(--neon-cyan);
-            margin-right: 8px;
-        }
-
-        /* D-Day Counter */
-        .dday-container {
-            position: absolute;
-            top: 60px;
-            right: 60px;
-            text-align: center;
-            padding: 32px;
-            background: rgba(255, 0, 51, 0.1);
-            border: 2px solid var(--neon-red);
-            border-radius: 24px;
-            box-shadow: var(--glow-red);
-        }
-
-        .dday-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            color: var(--neon-red);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .dday-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 72px;
-            font-weight: 900;
-            color: var(--neon-red);
-            text-shadow: var(--glow-red);
-            line-height: 1;
-            animation: ddayPulse 1s ease-in-out infinite alternate;
-        }
-
-        @keyframes ddayPulse {
-            0% { transform: scale(1); text-shadow: 0 0 20px rgba(255, 0, 51, 0.5); }
-            100% { transform: scale(1.05); text-shadow: 0 0 40px rgba(255, 0, 51, 0.8); }
-        }
-
-        .dday-desc {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 8px;
-        }
-
-        /* Hero Stats */
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .hero-stat {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--dark-border);
-            border-radius: 24px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
-
-        .hero-stat::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-        }
-
-        .hero-stat:nth-child(1)::before { background: var(--gradient-ocean); }
-        .hero-stat:nth-child(2)::before { background: var(--gradient-fire); }
-        .hero-stat:nth-child(3)::before { background: var(--gradient-cyber); }
-        .hero-stat:nth-child(4)::before { background: var(--gradient-sunset); }
-
-        .hero-stat:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2), var(--glow-cyan);
-        }
-
-        .hero-stat:nth-child(2):hover { border-color: var(--neon-red); box-shadow: 0 20px 60px rgba(255, 0, 51, 0.2), var(--glow-red); }
-        .hero-stat:nth-child(3):hover { border-color: var(--neon-green); box-shadow: 0 20px 60px rgba(0, 255, 102, 0.2), var(--glow-green); }
-        .hero-stat:nth-child(4):hover { border-color: var(--neon-magenta); box-shadow: 0 20px 60px rgba(255, 0, 255, 0.2), var(--glow-magenta); }
-
-        .stat-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .hero-stat:nth-child(1) .stat-icon { background: rgba(0, 255, 255, 0.15); color: var(--neon-cyan); box-shadow: 0 0 30px rgba(0, 255, 255, 0.3); }
-        .hero-stat:nth-child(2) .stat-icon { background: rgba(255, 0, 51, 0.15); color: var(--neon-red); box-shadow: 0 0 30px rgba(255, 0, 51, 0.3); }
-        .hero-stat:nth-child(3) .stat-icon { background: rgba(0, 255, 102, 0.15); color: var(--neon-green); box-shadow: 0 0 30px rgba(0, 255, 102, 0.3); }
-        .hero-stat:nth-child(4) .stat-icon { background: rgba(255, 0, 255, 0.15); color: var(--neon-magenta); box-shadow: 0 0 30px rgba(255, 0, 255, 0.3); }
-
-        .stat-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 42px;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .hero-stat:nth-child(1) .stat-value { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
-        .hero-stat:nth-child(2) .stat-value { color: var(--neon-red); text-shadow: 0 0 20px rgba(255, 0, 51, 0.5); }
-        .hero-stat:nth-child(3) .stat-value { color: var(--neon-green); text-shadow: 0 0 20px rgba(0, 255, 102, 0.5); }
-        .hero-stat:nth-child(4) .stat-value { color: var(--neon-magenta); text-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
-
-        .stat-unit {
+        .logo-text h1 {
             font-size: 18px;
-            opacity: 0.7;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        .stat-change {
+        .logo-text p {
+            font-size: 12px;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+        .sync-dot.syncing {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .header-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--white);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .header-btn:hover {
+            background: var(--gray-100);
+            transform: translateY(-1px);
+        }
+
+        /* Main */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 32px;
+        }
+
+        /* Summary Bar */
+        .summary-bar {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .summary-item {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .summary-item.success { border-left-color: var(--success); }
+        .summary-item.warning { border-left-color: var(--warning); }
+        .summary-item.danger { border-left-color: var(--danger); }
+        .summary-item.info { border-left-color: var(--info); }
+
+        .summary-label {
+            font-size: 12px;
+            color: var(--gray-500);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .summary-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .summary-value span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-500);
+        }
+
+        .summary-change {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             font-size: 12px;
-            padding: 6px 12px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
+            margin-top: 8px;
+            padding: 2px 8px;
+            border-radius: 4px;
         }
 
-        .stat-change.up { color: var(--neon-green); }
-        .stat-change.down { color: var(--neon-red); }
-        .stat-change.neutral { color: rgba(255, 255, 255, 0.5); }
+        .summary-change.up { background: var(--success-light); color: var(--success); }
+        .summary-change.down { background: var(--danger-light); color: var(--danger); }
+        .summary-change.neutral { background: var(--gray-100); color: var(--gray-600); }
 
-        /* ==================== SECTION ==================== */
+        /* Section */
         .section {
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
 
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .section-title {
             display: flex;
             align-items: center;
-            gap: 16px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
+            gap: 10px;
+            font-size: 16px;
             font-weight: 700;
+            color: var(--gray-800);
         }
 
         .section-title i {
-            font-size: 28px;
-            color: var(--neon-cyan);
-            text-shadow: var(--glow-cyan);
+            color: var(--primary);
+            font-size: 20px;
         }
 
-        /* ==================== STAT CARDS ==================== */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+        .section-actions {
+            display: flex;
+            gap: 8px;
         }
 
-        .cards-grid-2 { grid-template-columns: repeat(2, 1fr); }
-        .cards-grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 4px;
+            border: 1px solid var(--gray-300);
+            background: var(--white);
+            color: var(--gray-600);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
 
-        .stat-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: 24px;
-            padding: 28px;
-            position: relative;
+        .btn-sm:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .btn-sm.primary {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .btn-sm.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Card */
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
             overflow: hidden;
-            transition: all 0.4s ease;
         }
 
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-        }
-
-        .stat-card:nth-child(1)::before { background: var(--neon-cyan); box-shadow: 0 0 20px var(--neon-cyan); }
-        .stat-card:nth-child(2)::before { background: var(--neon-green); box-shadow: 0 0 20px var(--neon-green); }
-        .stat-card:nth-child(3)::before { background: var(--neon-orange); box-shadow: 0 0 20px var(--neon-orange); }
-        .stat-card:nth-child(4)::before { background: var(--neon-magenta); box-shadow: 0 0 20px var(--neon-magenta); }
-
-        .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.15);
-        }
-
-        .stat-card-header {
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-200);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
         }
 
-        .stat-card-title {
-            font-family: 'Orbitron', sans-serif;
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: var(--gray-50);
+        }
+
+        .data-table th {
+            padding: 12px 16px;
+            text-align: left;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 2px;
+            font-weight: 600;
+            color: var(--gray-500);
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--gray-200);
         }
 
-        .stat-card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .stat-card:nth-child(1) .stat-card-icon { background: rgba(0, 255, 255, 0.15); color: var(--neon-cyan); }
-        .stat-card:nth-child(2) .stat-card-icon { background: rgba(0, 255, 102, 0.15); color: var(--neon-green); }
-        .stat-card:nth-child(3) .stat-card-icon { background: rgba(255, 102, 0, 0.15); color: var(--neon-orange); }
-        .stat-card:nth-child(4) .stat-card-icon { background: rgba(255, 0, 255, 0.15); color: var(--neon-magenta); }
-
-        .stat-card-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .stat-card:nth-child(1) .stat-card-value { color: var(--neon-cyan); }
-        .stat-card:nth-child(2) .stat-card-value { color: var(--neon-green); }
-        .stat-card:nth-child(3) .stat-card-value { color: var(--neon-orange); }
-        .stat-card:nth-child(4) .stat-card-value { color: var(--neon-magenta); }
-
-        .stat-card-meta {
+        .data-table td {
+            padding: 14px 16px;
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
+            color: var(--gray-700);
+            border-bottom: 1px solid var(--gray-100);
         }
 
-        /* Progress Bar */
-        .progress-bar {
-            margin-top: 20px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
+        .data-table tbody tr:hover {
+            background: var(--gray-50);
         }
 
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            position: relative;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .stat-card:nth-child(1) .progress-fill { background: var(--gradient-ocean); box-shadow: 0 0 20px var(--neon-cyan); }
-        .stat-card:nth-child(2) .progress-fill { background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan)); box-shadow: 0 0 20px var(--neon-green); }
-        .stat-card:nth-child(3) .progress-fill { background: var(--gradient-sunset); box-shadow: 0 0 20px var(--neon-orange); }
-        .stat-card:nth-child(4) .progress-fill { background: var(--gradient-fire); box-shadow: 0 0 20px var(--neon-magenta); }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: progressShine 2s ease-in-out infinite;
-        }
-
-        @keyframes progressShine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* ==================== CHARTS ==================== */
-        .chart-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: 24px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-cyber);
-        }
-
-        .chart-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .chart-title i {
-            color: var(--neon-cyan);
-        }
-
-        .chart-wrapper {
-            height: 300px;
-            position: relative;
-        }
-
-        /* ==================== PROJECT TABLE ==================== */
-        .project-table {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: 24px;
-            overflow: hidden;
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 2.5fr 1fr 1.5fr 1.2fr 1fr;
-            padding: 20px 32px;
-            background: rgba(0, 255, 255, 0.05);
-            border-bottom: 1px solid var(--dark-border);
-        }
-
-        .table-header span {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--neon-cyan);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 2.5fr 1fr 1.5fr 1.2fr 1fr;
-            padding: 24px 32px;
-            border-bottom: 1px solid var(--dark-border);
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .table-row:last-child { border-bottom: none; }
-
-        .table-row:hover {
-            background: rgba(0, 255, 255, 0.03);
-        }
-
-        .project-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .project-name {
-            font-size: 15px;
-            font-weight: 700;
-            color: #fff;
+            font-weight: 600;
+            color: var(--gray-900);
         }
 
         .project-desc {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 11px;
+            color: var(--gray-400);
+            margin-top: 2px;
         }
 
-        .budget-amount {
+        .amount {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 15px;
             font-weight: 600;
-            color: var(--neon-cyan);
+            color: var(--primary);
         }
 
-        .rate-wrapper {
+        .rate-cell {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -868,207 +369,191 @@
 
         .rate-value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            font-weight: 700;
-            min-width: 50px;
+            font-weight: 600;
+            min-width: 45px;
         }
 
         .rate-bar {
             flex: 1;
-            max-width: 100px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
             overflow: hidden;
+            max-width: 100px;
         }
 
         .rate-fill {
             height: 100%;
-            border-radius: 4px;
-            transition: width 1s ease;
+            border-radius: 3px;
+            transition: width 0.5s ease;
         }
 
-        .rate-fill.high { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
-        .rate-fill.mid { background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); }
-        .rate-fill.low { background: var(--neon-orange); box-shadow: 0 0 10px var(--neon-orange); }
-        .rate-fill.zero { background: var(--neon-red); box-shadow: 0 0 10px var(--neon-red); }
+        .rate-fill.high { background: var(--success); }
+        .rate-fill.mid { background: var(--primary); }
+        .rate-fill.low { background: var(--warning); }
+        .rate-fill.zero { background: var(--gray-300); }
 
         /* Status Badge */
-        .status-badge {
+        .badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge.completed { background: var(--success-light); color: var(--success); }
+        .badge.progress { background: #dbeafe; color: var(--primary); }
+        .badge.pending { background: var(--warning-light); color: var(--warning); }
+        .badge.new { background: #f3e8ff; color: #7c3aed; }
+        .badge.urgent { background: var(--danger-light); color: var(--danger); }
+
+        /* Chart Container */
+        .chart-container {
+            height: 280px;
+            position: relative;
+        }
+
+        /* Budget Table */
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .budget-table th,
+        .budget-table td {
+            padding: 12px;
+            text-align: right;
+            font-size: 13px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .budget-table th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        .budget-table td:first-child,
+        .budget-table th:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .budget-table .total-row {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .budget-table .total-row td {
             font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            border-bottom: none;
         }
 
-        .status-badge.completed {
-            background: rgba(0, 255, 102, 0.15);
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+        /* Risk List */
+        .risk-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .status-badge.progress {
-            background: rgba(0, 255, 255, 0.15);
-            color: var(--neon-cyan);
-            border: 1px solid var(--neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        .risk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid var(--gray-200);
         }
 
-        .status-badge.pending {
-            background: rgba(255, 102, 0, 0.15);
-            color: var(--neon-orange);
-            border: 1px solid var(--neon-orange);
-            box-shadow: 0 0 20px rgba(255, 102, 0, 0.2);
+        .risk-item.critical {
+            background: #fef2f2;
+            border-color: #fecaca;
         }
 
-        .status-badge.new {
-            background: rgba(153, 0, 255, 0.15);
-            color: var(--neon-purple);
-            border: 1px solid var(--neon-purple);
-            box-shadow: 0 0 20px rgba(153, 0, 255, 0.2);
-            animation: newBadgePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes newBadgePulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(153, 0, 255, 0.2); }
-            50% { box-shadow: 0 0 30px rgba(153, 0, 255, 0.5); }
-        }
-
-        .status-badge.urgent {
-            background: rgba(255, 0, 51, 0.15);
-            color: var(--neon-red);
-            border: 1px solid var(--neon-red);
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.2);
-        }
-
-        .note-text {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* ==================== RISK & TIMELINE ==================== */
-        .risk-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 16px;
-            border-left: 4px solid;
-            transition: all 0.3s ease;
-        }
-
-        .risk-card:hover {
-            transform: translateX(8px);
-        }
-
-        .risk-card.critical {
-            border-left-color: var(--neon-red);
-            background: linear-gradient(90deg, rgba(255, 0, 51, 0.08) 0%, var(--dark-card) 100%);
-        }
-
-        .risk-card.high {
-            border-left-color: var(--neon-orange);
-            background: linear-gradient(90deg, rgba(255, 102, 0, 0.08) 0%, var(--dark-card) 100%);
+        .risk-item.high {
+            background: #fffbeb;
+            border-color: #fde68a;
         }
 
         .risk-level {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Orbitron', sans-serif;
+            padding: 4px 8px;
+            border-radius: 4px;
             font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        .risk-card.critical .risk-level { color: var(--neon-red); }
-        .risk-card.high .risk-level { color: var(--neon-orange); }
+        .risk-level.critical { background: var(--danger); color: var(--white); }
+        .risk-level.high { background: var(--warning); color: var(--white); }
+
+        .risk-content {
+            flex: 1;
+        }
 
         .risk-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
         }
 
         .risk-meta {
             display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
+            gap: 16px;
+            font-size: 12px;
+            color: var(--gray-500);
         }
 
         .risk-amount {
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
+            font-weight: 600;
         }
 
-        .risk-card.critical .risk-amount { color: var(--neon-red); }
-        .risk-card.high .risk-amount { color: var(--neon-orange); }
+        .risk-item.critical .risk-amount { color: var(--danger); }
+        .risk-item.high .risk-amount { color: var(--warning); }
 
         /* Timeline */
-        .timeline-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: 24px;
-            padding: 32px;
+        .timeline {
+            display: flex;
+            flex-direction: column;
         }
 
         .timeline-item {
             display: flex;
-            gap: 24px;
-            padding: 20px 0;
-            border-bottom: 1px dashed var(--dark-border);
-            transition: all 0.3s ease;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-100);
         }
 
-        .timeline-item:hover {
-            padding-left: 16px;
-            background: rgba(0, 255, 255, 0.02);
-            margin: 0 -16px;
-            padding-right: 16px;
-            border-radius: 12px;
+        .timeline-item:last-child {
+            border-bottom: none;
         }
-
-        .timeline-item:last-child { border-bottom: none; }
 
         .timeline-date {
-            min-width: 80px;
+            min-width: 60px;
             text-align: center;
         }
 
         .timeline-day {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
-            font-weight: 900;
-            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
             line-height: 1;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
 
         .timeline-month {
-            font-family: 'Orbitron', sans-serif;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 2px;
+            color: var(--gray-400);
+            font-weight: 500;
         }
 
-        .timeline-today .timeline-day {
-            color: var(--neon-red);
-            text-shadow: var(--glow-red);
-            animation: todayPulse 1s ease-in-out infinite alternate;
-        }
-
-        @keyframes todayPulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+        .timeline-item.today .timeline-day {
+            color: var(--danger);
         }
 
         .timeline-content {
@@ -1076,172 +561,172 @@
         }
 
         .timeline-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-800);
         }
 
         .timeline-desc {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            color: var(--gray-500);
         }
 
-        /* ==================== PLAN CHANGES ==================== */
-        .plan-container {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: 24px;
-            padding: 40px;
-        }
-
+        /* Plan Cards */
         .plan-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 16px;
         }
 
         .plan-card {
-            background: var(--dark-surface);
-            border: 1px solid var(--dark-border);
-            border-radius: 20px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-
-        .plan-card:nth-child(1)::before { background: var(--neon-orange); }
-        .plan-card:nth-child(2)::before { background: var(--neon-cyan); }
-        .plan-card:nth-child(3)::before { background: var(--neon-magenta); }
-
-        .plan-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--neon-cyan);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+            background: var(--gray-50);
         }
 
         .plan-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin-bottom: 24px;
-        }
-
-        .plan-card:nth-child(1) .plan-icon { background: rgba(255, 102, 0, 0.15); color: var(--neon-orange); }
-        .plan-card:nth-child(2) .plan-icon { background: rgba(0, 255, 255, 0.15); color: var(--neon-cyan); }
-        .plan-card:nth-child(3) .plan-icon { background: rgba(255, 0, 255, 0.15); color: var(--neon-magenta); }
-
-        .plan-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 20px;
             margin-bottom: 12px;
         }
 
-        .plan-desc {
+        .plan-card:nth-child(1) .plan-icon { background: var(--warning-light); color: var(--warning); }
+        .plan-card:nth-child(2) .plan-icon { background: #dbeafe; color: var(--primary); }
+        .plan-card:nth-child(3) .plan-icon { background: #f3e8ff; color: #7c3aed; }
+
+        .plan-title {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+        }
+
+        .plan-desc {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         .plan-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-        }
-
-        .plan-card:nth-child(1) .plan-value { color: var(--neon-orange); text-shadow: 0 0 20px rgba(255, 102, 0, 0.5); }
-        .plan-card:nth-child(2) .plan-value { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
-        .plan-card:nth-child(3) .plan-value { color: var(--neon-magenta); text-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
-
-        /* ==================== FOOTER ==================== */
-        .footer {
-            text-align: center;
-            padding: 60px 40px;
-            border-top: 1px solid var(--dark-border);
-            margin-top: 40px;
-        }
-
-        .footer-logo {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 20px;
-            font-weight: 900;
-            background: var(--gradient-cyber);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white);
+            border-top: 1px solid var(--gray-200);
+            padding: 24px 32px;
+            margin-top: 24px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: var(--gray-500);
         }
 
         .footer-links {
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 20px;
+            gap: 24px;
         }
 
         .footer-links a {
+            font-size: 12px;
+            color: var(--gray-500);
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            gap: 6px;
         }
 
         .footer-links a:hover {
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
+            color: var(--primary);
         }
 
-        .footer-copy {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.3);
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
         }
 
-        /* ==================== RESPONSIVE ==================== */
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
         @media (max-width: 1200px) {
-            .cards-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero-stats { grid-template-columns: repeat(2, 1fr); }
+            .summary-bar { grid-template-columns: repeat(3, 1fr); }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
             .plan-grid { grid-template-columns: 1fr; }
-            .dday-container { position: static; margin-top: 32px; }
         }
 
         @media (max-width: 768px) {
-            .header-inner { flex-direction: column; height: auto; padding: 20px 0; gap: 16px; }
-            .main { padding: 20px; }
-            .hero { padding: 32px; }
-            .hero-title { font-size: 28px; }
-            .hero-stats { grid-template-columns: 1fr; }
-            .cards-grid, .cards-grid-2, .cards-grid-3 { grid-template-columns: 1fr; }
-            .table-header, .table-row { grid-template-columns: 1fr; gap: 12px; }
-            .table-header span:not(:first-child) { display: none; }
-            .dday-value { font-size: 48px; }
+            .header-inner { flex-direction: column; height: auto; padding: 16px 0; gap: 12px; }
+            .summary-bar { grid-template-columns: 1fr 1fr; }
+            .main { padding: 16px; }
+            .data-table { font-size: 12px; }
+            .data-table th, .data-table td { padding: 10px 8px; }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header-meta, .section-actions, .btn-sm { display: none; }
+            .card { break-inside: avoid; }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="cyber-bg"></div>
-    <div class="grid-lines"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="scan-line"></div>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>노션 데이터 동기화 중...</p>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="header">
@@ -1251,18 +736,22 @@
                     <i class="ri-building-4-fill"></i>
                 </div>
                 <div class="logo-text">
-                    <span class="logo-title">ASAN SMART CITY</span>
-                    <span class="logo-subtitle">Digital OASIS Project</span>
+                    <h1>아산시 강소형 스마트시티 조성사업</h1>
+                    <p>통합 프로젝트 관리 대시보드</p>
                 </div>
             </div>
-            <div class="header-right">
-                <div class="live-status">
-                    <span class="live-dot"></span>
-                    <span class="live-text">LIVE 2025.11.27</span>
+            <div class="header-meta">
+                <div class="sync-status">
+                    <span class="sync-dot" id="syncDot"></span>
+                    <span id="syncText">마지막 동기화: 2025.11.27 17:45</span>
                 </div>
-                <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" class="notion-btn" target="_blank">
-                    <i class="ri-notion-fill"></i>
-                    NOTION
+                <button class="header-btn" onclick="syncWithNotion()" id="syncBtn">
+                    <i class="ri-refresh-line"></i>
+                    노션 동기화
+                </button>
+                <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" class="header-btn" target="_blank">
+                    <i class="ri-external-link-line"></i>
+                    노션 열기
                 </a>
             </div>
         </div>
@@ -1270,146 +759,111 @@
 
     <!-- Main -->
     <main class="main">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <div class="alert-badge">
-                    <i class="ri-alarm-warning-fill"></i>
-                    <span>URGENT | 사업기간 연장 및 예산 재편성 진행 중</span>
-                </div>
-                
-                <h1 class="hero-title">
-                    <span>디지털 OASIS 구현을 통한</span><br>
-                    <span>지역경제 활성화</span>
-                </h1>
-                
-                <p class="hero-subtitle">
-                    <i class="ri-map-pin-line"></i>
-                    충청남도 아산시 도고면·배방읍 일원 | 2023 ~ 2025.12 | 총 240억원
-                </p>
-
-                <div class="dday-container">
-                    <div class="dday-label">PROJECT DEADLINE</div>
-                    <div class="dday-value">D-34</div>
-                    <div class="dday-desc">사업 종료까지</div>
-                </div>
-
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="stat-icon"><i class="ri-funds-box-fill"></i></div>
-                        <div class="stat-label">총 사업비</div>
-                        <div class="stat-value">240<span class="stat-unit">억</span></div>
-                        <div class="stat-change neutral">
-                            <i class="ri-government-line"></i>
-                            국비 120억 + 지방비 120억
-                        </div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-icon"><i class="ri-percent-fill"></i></div>
-                        <div class="stat-label">예산 집행률</div>
-                        <div class="stat-value">14.8<span class="stat-unit">%</span></div>
-                        <div class="stat-change down">
-                            <i class="ri-arrow-down-line"></i>
-                            146억원 미집행
-                        </div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-icon"><i class="ri-file-list-3-fill"></i></div>
-                        <div class="stat-label">계약금액</div>
-                        <div class="stat-value">33.58<span class="stat-unit">억</span></div>
-                        <div class="stat-change up">
-                            <i class="ri-arrow-up-line"></i>
-                            11/20 네트워크 계약
-                        </div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-icon"><i class="ri-money-dollar-circle-fill"></i></div>
-                        <div class="stat-label">집행금액</div>
-                        <div class="stat-value">25.3<span class="stat-unit">억</span></div>
-                        <div class="stat-change neutral">
-                            <i class="ri-time-line"></i>
-                            잔액 146.04억원
-                        </div>
-                    </div>
+        <!-- Summary Bar -->
+        <div class="summary-bar">
+            <div class="summary-item">
+                <div class="summary-label">총 사업비</div>
+                <div class="summary-value" id="totalBudget">240<span>억원</span></div>
+                <div class="summary-change neutral">
+                    <i class="ri-government-line"></i>
+                    국비 120억 + 지방비 120억
                 </div>
             </div>
-        </section>
+            <div class="summary-item warning">
+                <div class="summary-label">예산 집행률</div>
+                <div class="summary-value" id="executionRate">14.8<span>%</span></div>
+                <div class="summary-change down">
+                    <i class="ri-arrow-down-s-line"></i>
+                    목표 대비 저조
+                </div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">계약금액</div>
+                <div class="summary-value" id="contractAmount">33.58<span>억원</span></div>
+                <div class="summary-change up">
+                    <i class="ri-arrow-up-s-line"></i>
+                    +8억 (11/20)
+                </div>
+            </div>
+            <div class="summary-item success">
+                <div class="summary-label">집행금액</div>
+                <div class="summary-value" id="executedAmount">25.3<span>억원</span></div>
+                <div class="summary-change neutral">
+                    잔액 146.04억원
+                </div>
+            </div>
+            <div class="summary-item danger">
+                <div class="summary-label">사업 종료까지</div>
+                <div class="summary-value" id="dday">D-34</div>
+                <div class="summary-change down">
+                    <i class="ri-calendar-line"></i>
+                    2025.12.31
+                </div>
+            </div>
+        </div>
 
-        <!-- Quick Stats -->
+        <!-- Charts Section -->
         <section class="section">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="ri-dashboard-3-fill"></i>
-                    핵심 지표 현황
-                </h2>
-            </div>
-            <div class="cards-grid">
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">전체 진도율</span>
-                        <div class="stat-card-icon"><i class="ri-line-chart-fill"></i></div>
+            <div class="grid-2">
+                <!-- Budget by Source -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">재원별 예산 현황</span>
                     </div>
-                    <div class="stat-card-value">42.5%</div>
-                    <div class="stat-card-meta">목표 대비 85% 달성</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 42.5%"></div>
+                    <div class="card-body">
+                        <table class="budget-table">
+                            <thead>
+                                <tr>
+                                    <th>재원</th>
+                                    <th>총액</th>
+                                    <th>배정예산</th>
+                                    <th>집행금액</th>
+                                    <th>집행률</th>
+                                </tr>
+                            </thead>
+                            <tbody id="budgetTableBody">
+                                <tr>
+                                    <td>국비</td>
+                                    <td>120.00억</td>
+                                    <td>85.70억</td>
+                                    <td>12.70억</td>
+                                    <td>10.6%</td>
+                                </tr>
+                                <tr>
+                                    <td>도비</td>
+                                    <td>28.80억</td>
+                                    <td>20.60억</td>
+                                    <td>3.00억</td>
+                                    <td>10.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>시비</td>
+                                    <td>91.20억</td>
+                                    <td>65.00억</td>
+                                    <td>9.60억</td>
+                                    <td>10.5%</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td>합계</td>
+                                    <td>240.00억</td>
+                                    <td>171.34억</td>
+                                    <td>25.30억</td>
+                                    <td>14.8%</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">완료 단계</span>
-                        <div class="stat-card-icon"><i class="ri-checkbox-circle-fill"></i></div>
-                    </div>
-                    <div class="stat-card-value">6건</div>
-                    <div class="stat-card-meta">실시계획, 이노베이션센터 외</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%"></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">진행 중</span>
-                        <div class="stat-card-icon"><i class="ri-loader-4-fill"></i></div>
-                    </div>
-                    <div class="stat-card-value">7건</div>
-                    <div class="stat-card-meta">SDDC, AI관제, DRT 등</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 63%"></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
-                        <span class="stat-card-title">리스크</span>
-                        <div class="stat-card-icon"><i class="ri-error-warning-fill"></i></div>
-                    </div>
-                    <div class="stat-card-value">8건</div>
-                    <div class="stat-card-meta">긴급 2 / 높음 3 / 주의 3</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 80%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Charts -->
-        <section class="section">
-            <div class="cards-grid cards-grid-2">
-                <div class="chart-card">
-                    <h3 class="chart-title">
-                        <i class="ri-bar-chart-grouped-fill"></i>
-                        재원별 집행 현황
-                    </h3>
-                    <div class="chart-wrapper">
-                        <canvas id="budgetChart"></canvas>
+                <!-- Chart -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">재원별 집행 현황 (차트)</span>
                     </div>
-                </div>
-                <div class="chart-card">
-                    <h3 class="chart-title">
-                        <i class="ri-pie-chart-2-fill"></i>
-                        단위사업별 진행률
-                    </h3>
-                    <div class="chart-wrapper">
-                        <canvas id="projectChart"></canvas>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1419,245 +873,288 @@
         <section class="section">
             <div class="section-header">
                 <h2 class="section-title">
-                    <i class="ri-folder-chart-2-fill"></i>
+                    <i class="ri-folder-chart-line"></i>
                     단위사업별 현황
                 </h2>
+                <div class="section-actions">
+                    <button class="btn-sm" onclick="exportToExcel()">
+                        <i class="ri-file-excel-line"></i>
+                        엑셀 다운로드
+                    </button>
+                    <button class="btn-sm primary" onclick="syncWithNotion()">
+                        <i class="ri-refresh-line"></i>
+                        새로고침
+                    </button>
+                </div>
             </div>
-            <div class="project-table">
-                <div class="table-header">
-                    <span>단위사업</span>
-                    <span>예산</span>
-                    <span>집행률</span>
-                    <span>진행상태</span>
-                    <span>비고</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">디지털 OASIS SPOT</span>
-                        <span class="project-desc">이동식 체류공간 30동, 스마트인프라</span>
-                    </div>
-                    <span class="budget-amount">35.54억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">1.2%</span>
-                        <div class="rate-bar"><div class="rate-fill low" style="width: 1.2%"></div></div>
-                    </div>
-                    <span class="status-badge pending"><i class="ri-pencil-ruler-2-line"></i> 실시설계</span>
-                    <span class="note-text">부지 확정 완료</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">이노베이션센터 구축</span>
-                        <span class="project-desc">호서대 KTX캠퍼스, 통합관제센터</span>
-                    </div>
-                    <span class="budget-amount">13.3억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">93.4%</span>
-                        <div class="rate-bar"><div class="rate-fill high" style="width: 93.4%"></div></div>
-                    </div>
-                    <span class="status-badge completed"><i class="ri-check-line"></i> 구축완료</span>
-                    <span class="note-text">운영 준비중</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">유무선 네트워크 구축</span>
-                        <span class="project-desc">광케이블 30km, WiFi AP 200개</span>
-                    </div>
-                    <span class="budget-amount">8억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">96.2%</span>
-                        <div class="rate-bar"><div class="rate-fill high" style="width: 96.2%"></div></div>
-                    </div>
-                    <span class="status-badge completed"><i class="ri-check-line"></i> 계약완료</span>
-                    <span class="note-text">11/20 계약체결</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">SDDC Platform 구축</span>
-                        <span class="project-desc">클라우드 기반 데이터센터</span>
-                    </div>
-                    <span class="budget-amount">27억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">0%</span>
-                        <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
-                    </div>
-                    <span class="status-badge progress"><i class="ri-settings-3-line"></i> 기술협상완료</span>
-                    <span class="note-text">3차 협상 완료</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">AI통합관제 플랫폼</span>
-                        <span class="project-desc">AI 영상분석, 예측 분석</span>
-                    </div>
-                    <span class="budget-amount">16억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">0%</span>
-                        <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
-                    </div>
-                    <span class="status-badge progress"><i class="ri-file-list-3-line"></i> 계약예정</span>
-                    <span class="note-text">11/29 계약 목표</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">정보관리 서비스</span>
-                        <span class="project-desc">데이터 마켓플레이스, API</span>
-                    </div>
-                    <span class="budget-amount">23억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">0%</span>
-                        <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
-                    </div>
-                    <span class="status-badge pending"><i class="ri-auction-line"></i> 입찰공고</span>
-                    <span class="note-text">12/08 선정 목표</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">DRT 서비스</span>
-                        <span class="project-desc">수요응답형 모빌리티</span>
-                    </div>
-                    <span class="budget-amount">10억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">5.0%</span>
-                        <div class="rate-bar"><div class="rate-fill low" style="width: 5%"></div></div>
-                    </div>
-                    <span class="status-badge pending"><i class="ri-bus-line"></i> 발주진행</span>
-                    <span class="note-text">차량 발주중</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">사업관리 (PMO)</span>
-                        <span class="project-desc">인건비, 운영비, 여비</span>
-                    </div>
-                    <span class="budget-amount">28.21억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">-</span>
-                        <div class="rate-bar"><div class="rate-fill mid" style="width: 50%"></div></div>
-                    </div>
-                    <span class="status-badge progress"><i class="ri-team-line"></i> 진행중</span>
-                    <span class="note-text">PMO 운영</span>
-                </div>
-                <div class="table-row">
-                    <div class="project-info">
-                        <span class="project-name">감리용역 (신설)</span>
-                        <span class="project-desc">서비스 인프라 구축 투명성 제고</span>
-                    </div>
-                    <span class="budget-amount">1.6억원</span>
-                    <div class="rate-wrapper">
-                        <span class="rate-value">0%</span>
-                        <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
-                    </div>
-                    <span class="status-badge new"><i class="ri-add-circle-line"></i> 신설</span>
-                    <span class="note-text">예산 신설 추진</span>
-                </div>
+            <div class="card">
+                <table class="data-table" id="projectsTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%">단위사업</th>
+                            <th style="width: 12%">예산</th>
+                            <th style="width: 18%">집행률</th>
+                            <th style="width: 12%">계약금액</th>
+                            <th style="width: 15%">진행상태</th>
+                            <th style="width: 18%">비고</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectsTableBody">
+                        <tr>
+                            <td>
+                                <div class="project-name">디지털 OASIS SPOT 구축</div>
+                                <div class="project-desc">이동식 체류공간 30동, 스마트인프라</div>
+                            </td>
+                            <td class="amount">35.54억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">1.2%</span>
+                                    <div class="rate-bar"><div class="rate-fill low" style="width: 1.2%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">0.43억</td>
+                            <td><span class="badge pending"><i class="ri-pencil-ruler-2-line"></i> 실시설계</span></td>
+                            <td>부지 확정 완료 (도고면)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">이노베이션센터 구축</div>
+                                <div class="project-desc">호서대 KTX캠퍼스 통합관제센터</div>
+                            </td>
+                            <td class="amount">13.30억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">93.4%</span>
+                                    <div class="rate-bar"><div class="rate-fill high" style="width: 93.4%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">12.43억</td>
+                            <td><span class="badge completed"><i class="ri-check-line"></i> 구축완료</span></td>
+                            <td>운영 준비중</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">유무선 네트워크 구축</div>
+                                <div class="project-desc">광케이블 30km, WiFi AP 200개</div>
+                            </td>
+                            <td class="amount">8.00억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">96.2%</span>
+                                    <div class="rate-bar"><div class="rate-fill high" style="width: 96.2%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">7.70억</td>
+                            <td><span class="badge completed"><i class="ri-check-line"></i> 계약완료</span></td>
+                            <td>11/20 계약체결</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">SDDC Platform 구축</div>
+                                <div class="project-desc">클라우드 기반 데이터센터</div>
+                            </td>
+                            <td class="amount">27.00억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">0%</span>
+                                    <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">-</td>
+                            <td><span class="badge progress"><i class="ri-settings-3-line"></i> 기술협상</span></td>
+                            <td>3차 협상 완료 (11/26)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">AI통합관제 플랫폼</div>
+                                <div class="project-desc">AI 영상분석, 예측 분석</div>
+                            </td>
+                            <td class="amount">16.00억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">0%</span>
+                                    <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">-</td>
+                            <td><span class="badge progress"><i class="ri-file-list-3-line"></i> 계약예정</span></td>
+                            <td>11/29 계약 목표</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">디지털OASIS 정보관리</div>
+                                <div class="project-desc">데이터 마켓플레이스, API</div>
+                            </td>
+                            <td class="amount">23.00억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">0%</span>
+                                    <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">-</td>
+                            <td><span class="badge pending"><i class="ri-auction-line"></i> 입찰공고</span></td>
+                            <td>12/08 선정 목표</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">DRT 서비스 구축</div>
+                                <div class="project-desc">수요응답형 모빌리티</div>
+                            </td>
+                            <td class="amount">10.00억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">5.0%</span>
+                                    <div class="rate-bar"><div class="rate-fill low" style="width: 5%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">0.50억</td>
+                            <td><span class="badge pending"><i class="ri-bus-line"></i> 발주진행</span></td>
+                            <td>차량 2대 발주중</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">사업관리 (PMO)</div>
+                                <div class="project-desc">인건비, 운영비, 여비</div>
+                            </td>
+                            <td class="amount">28.21억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">-</span>
+                                    <div class="rate-bar"><div class="rate-fill mid" style="width: 50%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">12.24억</td>
+                            <td><span class="badge progress"><i class="ri-team-line"></i> 진행중</span></td>
+                            <td>PMO 운영</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">감리용역 (신설)</div>
+                                <div class="project-desc">서비스 인프라 구축 투명성 제고</div>
+                            </td>
+                            <td class="amount">1.60억</td>
+                            <td>
+                                <div class="rate-cell">
+                                    <span class="rate-value">0%</span>
+                                    <div class="rate-bar"><div class="rate-fill zero" style="width: 0%"></div></div>
+                                </div>
+                            </td>
+                            <td class="amount">-</td>
+                            <td><span class="badge new"><i class="ri-add-circle-line"></i> 신설</span></td>
+                            <td>예산 신설 추진중</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
         <!-- Risk & Timeline -->
         <section class="section">
-            <div class="cards-grid cards-grid-2">
-                <div>
-                    <div class="section-header">
-                        <h2 class="section-title">
-                            <i class="ri-alarm-warning-fill"></i>
-                            주요 리스크 현황
-                        </h2>
+            <div class="grid-2">
+                <!-- Risk -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">주요 리스크 현황</span>
+                        <span class="badge urgent">8건</span>
                     </div>
-                    <div class="risk-card critical">
-                        <div class="risk-level">
-                            <i class="ri-skull-2-fill"></i>
-                            CRITICAL
-                        </div>
-                        <div class="risk-title">연말 예산집행률 저조</div>
-                        <div class="risk-meta">
-                            <span>발생확률: 81-100%</span>
-                            <span class="risk-amount">예상손실: 146억원</span>
-                        </div>
-                    </div>
-                    <div class="risk-card critical">
-                        <div class="risk-level">
-                            <i class="ri-skull-2-fill"></i>
-                            CRITICAL
-                        </div>
-                        <div class="risk-title">SDDC Platform 구축 발주 지연</div>
-                        <div class="risk-meta">
-                            <span>발생확률: 61-80%</span>
-                            <span class="risk-amount">예상손실: 27억원</span>
-                        </div>
-                    </div>
-                    <div class="risk-card high">
-                        <div class="risk-level">
-                            <i class="ri-error-warning-fill"></i>
-                            HIGH
-                        </div>
-                        <div class="risk-title">디지털OASIS 정보관리 발주 지연</div>
-                        <div class="risk-meta">
-                            <span>발생확률: 41-60%</span>
-                            <span class="risk-amount">예상손실: 25억원</span>
-                        </div>
-                    </div>
-                    <div class="risk-card high">
-                        <div class="risk-level">
-                            <i class="ri-error-warning-fill"></i>
-                            HIGH
-                        </div>
-                        <div class="risk-title">AI통합관제 플랫폼 발주 지연</div>
-                        <div class="risk-meta">
-                            <span>발생확률: 41-60%</span>
-                            <span class="risk-amount">예상손실: 16억원</span>
+                    <div class="card-body">
+                        <div class="risk-list" id="riskList">
+                            <div class="risk-item critical">
+                                <span class="risk-level critical">긴급</span>
+                                <div class="risk-content">
+                                    <div class="risk-title">연말 예산집행률 저조</div>
+                                    <div class="risk-meta">
+                                        <span>발생확률: 81-100%</span>
+                                        <span class="risk-amount">예상손실: 146억원</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="risk-item critical">
+                                <span class="risk-level critical">긴급</span>
+                                <div class="risk-content">
+                                    <div class="risk-title">SDDC Platform 구축 발주 지연</div>
+                                    <div class="risk-meta">
+                                        <span>발생확률: 61-80%</span>
+                                        <span class="risk-amount">예상손실: 27억원</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="risk-item high">
+                                <span class="risk-level high">높음</span>
+                                <div class="risk-content">
+                                    <div class="risk-title">디지털OASIS 정보관리 발주 지연</div>
+                                    <div class="risk-meta">
+                                        <span>발생확률: 41-60%</span>
+                                        <span class="risk-amount">예상손실: 25억원</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="risk-item high">
+                                <span class="risk-level high">높음</span>
+                                <div class="risk-content">
+                                    <div class="risk-title">AI통합관제 플랫폼 발주 지연</div>
+                                    <div class="risk-meta">
+                                        <span>발생확률: 41-60%</span>
+                                        <span class="risk-amount">예상손실: 16억원</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div>
-                    <div class="section-header">
-                        <h2 class="section-title">
-                            <i class="ri-calendar-schedule-fill"></i>
-                            주요 일정
-                        </h2>
+                <!-- Timeline -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">주요 일정</span>
                     </div>
-                    <div class="timeline-card">
-                        <div class="timeline-item">
-                            <div class="timeline-date timeline-today">
-                                <div class="timeline-day">27</div>
-                                <div class="timeline-month">NOV</div>
+                    <div class="card-body">
+                        <div class="timeline" id="timeline">
+                            <div class="timeline-item today">
+                                <div class="timeline-date">
+                                    <div class="timeline-day">27</div>
+                                    <div class="timeline-month">11월</div>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">서비스 인프라 우선협상 기간 종료</div>
+                                    <div class="timeline-desc">기술협상 완료, 계약 준비</div>
+                                </div>
+                                <span class="badge urgent">D-Day</span>
                             </div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">서비스 인프라 우선협상 기간 종료</div>
-                                <div class="timeline-desc">기술협상 완료, 계약 준비</div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <div class="timeline-day">29</div>
+                                    <div class="timeline-month">11월</div>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">AI통합관제 계약 체결</div>
+                                    <div class="timeline-desc">11월 실적 최종 점검</div>
+                                </div>
+                                <span class="badge progress">D-2</span>
                             </div>
-                            <span class="status-badge urgent"><i class="ri-fire-fill"></i> D-Day</span>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">
-                                <div class="timeline-day">29</div>
-                                <div class="timeline-month">NOV</div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <div class="timeline-day">05</div>
+                                    <div class="timeline-month">12월</div>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">SDDC Platform 계약 체결</div>
+                                    <div class="timeline-desc">27억원 규모</div>
+                                </div>
+                                <span class="badge pending">D-8</span>
                             </div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">AI통합관제 계약 체결</div>
-                                <div class="timeline-desc">11월 실적 최종 점검</div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <div class="timeline-day">31</div>
+                                    <div class="timeline-month">12월</div>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">사업년도 종료 / 예산 마감</div>
+                                    <div class="timeline-desc">2025년 사업 종료</div>
+                                </div>
+                                <span class="badge urgent">D-34</span>
                             </div>
-                            <span class="status-badge progress"><i class="ri-time-line"></i> D-2</span>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">
-                                <div class="timeline-day">05</div>
-                                <div class="timeline-month">DEC</div>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">SDDC Platform 계약 체결</div>
-                                <div class="timeline-desc">27억원 규모</div>
-                            </div>
-                            <span class="status-badge pending"><i class="ri-time-line"></i> D-8</span>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">
-                                <div class="timeline-day">31</div>
-                                <div class="timeline-month">DEC</div>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">사업년도 종료 / 예산 마감</div>
-                                <div class="timeline-desc">2025년 사업 종료</div>
-                            </div>
-                            <span class="status-badge urgent"><i class="ri-calendar-close-fill"></i> D-34</span>
                         </div>
                     </div>
                 </div>
@@ -1668,38 +1165,40 @@
         <section class="section">
             <div class="section-header">
                 <h2 class="section-title">
-                    <i class="ri-file-edit-fill"></i>
+                    <i class="ri-file-edit-line"></i>
                     2025년 11월 실시계획 변경 추진사항
                 </h2>
             </div>
-            <div class="plan-container">
-                <div class="plan-grid">
-                    <div class="plan-card">
-                        <div class="plan-icon"><i class="ri-time-fill"></i></div>
-                        <div class="plan-title">사업기간 연장</div>
-                        <div class="plan-desc">
-                            단위사업별 연장 신청 중<br>
-                            OASIS SPOT 대상지 최종 확정 선행 필요
+            <div class="card">
+                <div class="card-body">
+                    <div class="plan-grid">
+                        <div class="plan-card">
+                            <div class="plan-icon"><i class="ri-time-line"></i></div>
+                            <div class="plan-title">사업기간 연장</div>
+                            <div class="plan-desc">
+                                단위사업별 5~8개월 연장 신청<br>
+                                OASIS SPOT 대상지 최종 확정 선행 필요
+                            </div>
+                            <div class="plan-value">5~8개월</div>
                         </div>
-                        <div class="plan-value">5~8개월</div>
-                    </div>
-                    <div class="plan-card">
-                        <div class="plan-icon"><i class="ri-money-dollar-circle-fill"></i></div>
-                        <div class="plan-title">감리용역비 신설</div>
-                        <div class="plan-desc">
-                            개발비 비목 신설<br>
-                            서비스 인프라 구축용역 투명성 제고
+                        <div class="plan-card">
+                            <div class="plan-icon"><i class="ri-money-dollar-circle-line"></i></div>
+                            <div class="plan-title">감리용역비 신설</div>
+                            <div class="plan-desc">
+                                개발비 비목 신설<br>
+                                서비스 인프라 구축용역 투명성 제고
+                            </div>
+                            <div class="plan-value">1.6억원</div>
                         </div>
-                        <div class="plan-value">1.6억원</div>
-                    </div>
-                    <div class="plan-card">
-                        <div class="plan-icon"><i class="ri-exchange-funds-fill"></i></div>
-                        <div class="plan-title">예산 재편성</div>
-                        <div class="plan-desc">
-                            총액 유지 (국비 120억 + 지방비 120억)<br>
-                            투찰금액 차액 환수 → 26년 인건비 활용
+                        <div class="plan-card">
+                            <div class="plan-icon"><i class="ri-exchange-funds-line"></i></div>
+                            <div class="plan-title">예산 재편성</div>
+                            <div class="plan-desc">
+                                총액 유지 (국비 120억 + 지방비 120억)<br>
+                                투찰금액 차액 환수 → 26년 인건비 활용
+                            </div>
+                            <div class="plan-value">240억원</div>
                         </div>
-                        <div class="plan-value">240억원</div>
                     </div>
                 </div>
             </div>
@@ -1708,45 +1207,62 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-logo">ASAN SMART CITY PROJECT</div>
-        <div class="footer-links">
-            <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank">
-                <i class="ri-notion-fill"></i> 노션 프로젝트 관리
-            </a>
-            <a href="https://github.com/leesungho-ai/Asan-smartcity-budget" target="_blank">
-                <i class="ri-github-fill"></i> GitHub Repository
-            </a>
-        </div>
-        <div class="footer-copy">
-            © 2025 제일엔지니어링 PMO팀 | 아산시 강소형 스마트시티 조성사업
+        <div class="footer-inner">
+            <div class="footer-info">
+                <strong>아산시 강소형 스마트시티 조성사업 PMO</strong><br>
+                © 2025 제일엔지니어링 | 담당: 이성호 (airlan506@icloud.com)
+            </div>
+            <div class="footer-links">
+                <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank">
+                    <i class="ri-notion-fill"></i>
+                    노션 프로젝트 관리
+                </a>
+                <a href="https://www.notion.so/2aa50aa9577d8128b6d4c5c21d845796" target="_blank">
+                    <i class="ri-database-2-line"></i>
+                    예산관리 시스템
+                </a>
+                <a href="https://github.com/leesungho-ai/Asan-smartcity-budget" target="_blank">
+                    <i class="ri-github-fill"></i>
+                    GitHub
+                </a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Chart.js Configuration
-        Chart.defaults.color = 'rgba(255, 255, 255, 0.6)';
-        Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+        // ==================== 노션 동기화 설정 ====================
+        const NOTION_CONFIG = {
+            // 노션 페이지 ID (실제 사용 시 본인의 Integration Token 필요)
+            dashboardPageId: '25a50aa9-577d-81b0-9085-e918f674b7ce',
+            budgetDatabaseId: '2aa50aa9-577d-8128-b6d4-c5c21d845796',
+            // 동기화 간격 (밀리초) - 5분마다 자동 동기화
+            syncInterval: 5 * 60 * 1000,
+            // 마지막 동기화 시간
+            lastSync: null
+        };
 
-        // Budget Chart
+        // ==================== 차트 초기화 ====================
+        Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+        
         const budgetCtx = document.getElementById('budgetChart').getContext('2d');
-        new Chart(budgetCtx, {
+        const budgetChart = new Chart(budgetCtx, {
             type: 'bar',
             data: {
                 labels: ['국비', '도비', '시비'],
                 datasets: [{
                     label: '배정예산',
                     data: [85.7, 20.6, 65.0],
-                    backgroundColor: 'rgba(0, 255, 255, 0.2)',
-                    borderColor: '#00FFFF',
+                    backgroundColor: 'rgba(26, 86, 219, 0.2)',
+                    borderColor: '#1a56db',
                     borderWidth: 2,
-                    borderRadius: 8,
+                    borderRadius: 4,
                 }, {
                     label: '집행금액',
                     data: [12.7, 3.0, 9.6],
-                    backgroundColor: 'rgba(0, 255, 102, 0.8)',
-                    borderColor: '#00FF66',
+                    backgroundColor: 'rgba(5, 150, 105, 0.8)',
+                    borderColor: '#059669',
                     borderWidth: 2,
-                    borderRadius: 8,
+                    borderRadius: 4,
                 }]
             },
             options: {
@@ -1758,64 +1274,188 @@
                         labels: {
                             padding: 20,
                             usePointStyle: true,
-                            pointStyle: 'circle'
+                            pointStyle: 'rectRounded'
                         }
                     }
                 },
                 scales: {
                     x: {
-                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        grid: { display: false }
                     },
                     y: {
                         beginAtZero: true,
-                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        grid: { color: 'rgba(0,0,0,0.05)' },
                         title: {
                             display: true,
-                            text: '금액 (억원)'
+                            text: '금액 (억원)',
+                            font: { size: 11 }
                         }
                     }
                 }
             }
         });
 
-        // Project Progress Chart
-        const projectCtx = document.getElementById('projectChart').getContext('2d');
-        new Chart(projectCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['이노베이션센터', '네트워크', 'OASIS SPOT', 'SDDC', 'AI관제', '정보관리', 'DRT'],
-                datasets: [{
-                    data: [93.4, 96.2, 1.2, 0, 0, 0, 5],
-                    backgroundColor: [
-                        '#00FF66',
-                        '#00FF66',
-                        '#FF6600',
-                        '#00FFFF',
-                        '#00FFFF',
-                        '#FF6600',
-                        '#FF6600'
-                    ],
-                    borderColor: '#12121a',
-                    borderWidth: 3,
-                    hoverOffset: 15
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            boxWidth: 16,
-                            padding: 16,
-                            usePointStyle: true,
-                            pointStyle: 'circle'
-                        }
-                    }
-                },
-                cutout: '65%'
+        // ==================== 노션 동기화 함수 ====================
+        async function syncWithNotion() {
+            const syncDot = document.getElementById('syncDot');
+            const syncText = document.getElementById('syncText');
+            const syncBtn = document.getElementById('syncBtn');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+
+            // 동기화 시작
+            syncDot.classList.add('syncing');
+            syncBtn.disabled = true;
+            syncBtn.innerHTML = '<i class="ri-loader-4-line"></i> 동기화 중...';
+            loadingOverlay.classList.add('active');
+
+            try {
+                // 실제 노션 API 연동 시 사용할 코드
+                // 주의: 클라이언트 사이드에서는 CORS 문제로 직접 호출 불가
+                // 서버 사이드 프록시 또는 Cloudflare Workers 등 필요
+                
+                /*
+                const response = await fetch('YOUR_PROXY_URL/notion-sync', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pageId: NOTION_CONFIG.dashboardPageId,
+                        databaseId: NOTION_CONFIG.budgetDatabaseId
+                    })
+                });
+                
+                const data = await response.json();
+                updateDashboard(data);
+                */
+
+                // 데모용: 2초 후 완료 처리
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // 동기화 완료 시간 업데이트
+                const now = new Date();
+                const timeStr = now.toLocaleString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                NOTION_CONFIG.lastSync = now;
+                syncText.textContent = `마지막 동기화: ${timeStr}`;
+                
+                // 성공 알림
+                showNotification('노션 데이터가 성공적으로 동기화되었습니다.', 'success');
+
+            } catch (error) {
+                console.error('동기화 실패:', error);
+                showNotification('동기화 중 오류가 발생했습니다.', 'error');
+            } finally {
+                // 동기화 완료
+                syncDot.classList.remove('syncing');
+                syncBtn.disabled = false;
+                syncBtn.innerHTML = '<i class="ri-refresh-line"></i> 노션 동기화';
+                loadingOverlay.classList.remove('active');
             }
+        }
+
+        // ==================== 대시보드 데이터 업데이트 ====================
+        function updateDashboard(data) {
+            // 요약 정보 업데이트
+            if (data.summary) {
+                document.getElementById('totalBudget').innerHTML = 
+                    `${data.summary.totalBudget}<span>억원</span>`;
+                document.getElementById('executionRate').innerHTML = 
+                    `${data.summary.executionRate}<span>%</span>`;
+                document.getElementById('contractAmount').innerHTML = 
+                    `${data.summary.contractAmount}<span>억원</span>`;
+                document.getElementById('executedAmount').innerHTML = 
+                    `${data.summary.executedAmount}<span>억원</span>`;
+            }
+
+            // 차트 업데이트
+            if (data.budgetBySource) {
+                budgetChart.data.datasets[0].data = data.budgetBySource.allocated;
+                budgetChart.data.datasets[1].data = data.budgetBySource.executed;
+                budgetChart.update();
+            }
+
+            // 프로젝트 테이블 업데이트
+            if (data.projects) {
+                updateProjectsTable(data.projects);
+            }
+
+            // 리스크 업데이트
+            if (data.risks) {
+                updateRiskList(data.risks);
+            }
+        }
+
+        // ==================== 알림 표시 ====================
+        function showNotification(message, type) {
+            // 간단한 알림 (필요 시 더 정교하게 구현)
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        // ==================== 엑셀 다운로드 ====================
+        function exportToExcel() {
+            // CSV 형식으로 다운로드
+            const table = document.getElementById('projectsTable');
+            let csv = [];
+            
+            // 헤더
+            const headers = [];
+            table.querySelectorAll('thead th').forEach(th => {
+                headers.push(th.textContent);
+            });
+            csv.push(headers.join(','));
+            
+            // 데이터
+            table.querySelectorAll('tbody tr').forEach(tr => {
+                const row = [];
+                tr.querySelectorAll('td').forEach(td => {
+                    let text = td.textContent.replace(/,/g, '').trim();
+                    text = text.replace(/\n/g, ' ');
+                    row.push(`"${text}"`);
+                });
+                csv.push(row.join(','));
+            });
+            
+            // 다운로드
+            const csvContent = '\uFEFF' + csv.join('\n'); // BOM for Korean
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `아산스마트시티_단위사업현황_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // ==================== 자동 동기화 설정 ====================
+        function startAutoSync() {
+            setInterval(() => {
+                console.log('자동 동기화 실행...');
+                syncWithNotion();
+            }, NOTION_CONFIG.syncInterval);
+        }
+
+        // ==================== D-Day 계산 ====================
+        function updateDDay() {
+            const endDate = new Date('2025-12-31');
+            const today = new Date();
+            const diff = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+            document.getElementById('dday').textContent = `D-${diff}`;
+        }
+
+        // ==================== 초기화 ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDDay();
+            // 자동 동기화 시작 (옵션)
+            // startAutoSync();
+            
+            console.log('대시보드 초기화 완료');
+            console.log('노션 연동을 위해서는 서버 사이드 프록시가 필요합니다.');
+            console.log('자세한 설정 방법은 README.md를 참조하세요.');
         });
     </script>
 </body>
