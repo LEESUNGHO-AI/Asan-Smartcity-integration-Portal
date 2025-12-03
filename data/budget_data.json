@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "source": "Notion + 실시계획서",
+    "synced_at": "2025-12-03T16:02:57.905811+09:00",
+    "basis_date": "2025-12-03"
+  },
+  "summary": {
+    "total_budget": 24000000000,
+    "national_fund": 12000000000,
+    "local_fund": 12000000000,
+    "allocated": 17134000000,
+    "contracted": 3358000000,
+    "executed": 2530000000,
+    "execution_rate": 14.8,
+    "remaining": 14604000000
+  },
+  "unit_projects": [
+    {
+      "id": "network",
+      "name": "유무선 네트워크 구축",
+      "budget": 800000000,
+      "status": "계약완료",
+      "progress": 96.2
+    },
+    {
+      "id": "service_infra",
+      "name": "서비스 인프라 구축",
+      "budget": 2700000000,
+      "status": "협상완료",
+      "progress": 45.0
+    },
+    {
+      "id": "innovation_center",
+      "name": "이노베이션센터 구축",
+      "budget": 1330000000,
+      "status": "진행중",
+      "progress": 93.4
+    },
+    {
+      "id": "oasis_spot",
+      "name": "디지털 OASIS SPOT",
+      "budget": 3554000000,
+      "status": "설계중",
+      "progress": 1.2
+    },
+    {
+      "id": "sddc_platform",
+      "name": "SDDC Platform",
+      "budget": 2700000000,
+      "status": "기술협상",
+      "progress": 15.0
+    },
+    {
+      "id": "ai_control",
+      "name": "AI통합관제",
+      "budget": 1600000000,
+      "status": "계약진행",
+      "progress": 5.0
+    },
+    {
+      "id": "drt",
+      "name": "DRT 모빌리티",
+      "budget": 1000000000,
+      "status": "발주진행",
+      "progress": 5.0
+    },
+    {
+      "id": "info_management",
+      "name": "정보관리 서비스",
+      "budget": 2300000000,
+      "status": "입찰공고",
+      "progress": 0.0
+    }
+  ]
+}

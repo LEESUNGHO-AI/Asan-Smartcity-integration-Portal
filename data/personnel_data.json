@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "source": "Notion 인력관리 DB",
+    "synced_at": "2025-12-03T16:02:57.906679+09:00"
+  },
+  "summary": {
+    "total_personnel": 50
+  },
+  "by_organization": [
+    {
+      "organization": "제일엔지니어링",
+      "role": "PMO/주관사",
+      "count": 15
+    },
+    {
+      "organization": "충남연구원",
+      "role": "리빙랩 운영",
+      "count": 8
+    },
+    {
+      "organization": "KAIST",
+      "role": "기술 자문",
+      "count": 5
+    },
+    {
+      "organization": "호서대학교",
+      "role": "산학협력",
+      "count": 7
+    },
+    {
+      "organization": "협력업체",
+      "role": "용역 수행",
+      "count": 15
+    }
+  ],
+  "pmo_team": [
+    {
+      "name": "김주용",
+      "position": "PM",
+      "responsibility": "프로젝트 총괄"
+    },
+    {
+      "name": "임혁",
+      "position": "PL",
+      "responsibility": "계약/행정"
+    },
+    {
+      "name": "이성호",
+      "position": "PL",
+      "responsibility": "기술/인프라"
+    },
+    {
+      "name": "함정영",
+      "position": "PM",
+      "responsibility": "조달/입찰"
+    }
+  ]
+}

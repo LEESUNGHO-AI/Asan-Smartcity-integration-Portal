@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "source": "Notion 자산관리 DB",
+    "synced_at": "2025-12-03T16:02:57.906221+09:00"
+  },
+  "summary": {
+    "total_assets": 85,
+    "total_value": 19500000
+  },
+  "by_category": [
+    {
+      "category": "서버",
+      "count": 8,
+      "value": 5500000
+    },
+    {
+      "category": "네트워크",
+      "count": 12,
+      "value": 3200000
+    },
+    {
+      "category": "IoT 장비",
+      "count": 25,
+      "value": 4800000
+    },
+    {
+      "category": "PC/모니터",
+      "count": 15,
+      "value": 2800000
+    },
+    {
+      "category": "사무기기",
+      "count": 10,
+      "value": 1500000
+    },
+    {
+      "category": "소프트웨어",
+      "count": 8,
+      "value": 1200000
+    },
+    {
+      "category": "기타",
+      "count": 7,
+      "value": 500000
+    }
+  ]
+}
