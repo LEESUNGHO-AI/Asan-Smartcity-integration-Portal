@@ -119,13 +119,9 @@ def save_metrics():
     metrics = calculate_metrics()
     
     os.makedirs('data', exist_ok=True)
-    os.makedirs('docs/data', exist_ok=True)
     
     # 저장
     with open('data/metrics.json', 'w', encoding='utf-8') as f:
-        json.dump(metrics, f, ensure_ascii=False, indent=2)
-    
-    with open('docs/data/metrics.json', 'w', encoding='utf-8') as f:
         json.dump(metrics, f, ensure_ascii=False, indent=2)
     
     # 요약 출력

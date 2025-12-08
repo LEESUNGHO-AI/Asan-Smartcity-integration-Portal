@@ -142,18 +142,12 @@ def save_dashboard_json():
     """대시보드 JSON 저장"""
     dashboard = generate_dashboard_json()
     
-    # docs/data 폴더에 저장 (GitHub Pages용)
-    os.makedirs('docs/data', exist_ok=True)
-    with open('docs/data/dashboard.json', 'w', encoding='utf-8') as f:
-        json.dump(dashboard, f, ensure_ascii=False, indent=2)
-    
-    # data 폴더에도 저장
+    # 루트의 data 폴더에 저장 (GitHub Pages용)
     os.makedirs('data', exist_ok=True)
     with open('data/dashboard.json', 'w', encoding='utf-8') as f:
         json.dump(dashboard, f, ensure_ascii=False, indent=2)
     
     print(f"✅ 대시보드 JSON 생성 완료")
-    print(f"   - docs/data/dashboard.json")
     print(f"   - data/dashboard.json")
     
     return dashboard

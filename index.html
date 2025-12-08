@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아산시 강소형 스마트시티 구축사업 대시보드</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.3) 0%, rgba(30, 41, 59, 0.9) 100%);
+        }
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 1s ease-in-out;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .d-day-counter {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+        .glow {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- 로딩 화면 -->
+    <div id="loading" class="loading">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-gray-400 text-lg">대시보드 로딩 중...</p>
+        </div>
+    </div>
+
+    <!-- 메인 대시보드 -->
+    <div id="dashboard" class="hidden">
+        <!-- 헤더 -->
+        <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 py-8 px-4 border-b border-blue-700">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-4xl">🏙️</span>
+                            <h1 class="text-2xl md:text-4xl font-black" id="project-name">아산시 강소형 스마트시티 구축사업</h1>
+                        </div>
+                        <p class="text-blue-200 text-lg" id="project-subtitle">디지털 OASIS 구현을 통한 지역경제 활성화 및 데이터 기반 스마트시티 조성</p>
+                        <p class="text-blue-300 text-sm mt-2">📍 충청남도 아산시 도고면·배방읍 일원 | 2023.08 ~ 2025.12</p>
+                    </div>
+                    <div class="text-right bg-blue-800/50 rounded-lg px-4 py-3">
+                        <p class="text-sm text-blue-300">마지막 업데이트</p>
+                        <p class="text-xl font-bold" id="last-updated">-</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 py-8">
+            <!-- 알림 배너 -->
+            <div class="bg-gradient-to-r from-red-900/50 to-orange-900/50 border border-red-700 rounded-xl p-4 mb-8" id="alert-banner">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🔥</span>
+                    <div>
+                        <p class="font-bold text-lg" id="alert-title">긴급 알림</p>
+                        <p class="text-red-200" id="alert-message">실시계획 변경 국토부 제출 완료 (2025-12-04)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D-Day & 핵심 지표 -->
+            <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <!-- D-Day 카운터 -->
+                <div class="card p-8 text-center glow">
+                    <p class="text-gray-400 mb-2 text-lg">🗓️ 사업 종료까지</p>
+                    <div class="d-day-counter" id="d-day">D-0</div>
+                    <p class="text-gray-300 mt-2 text-lg">2025년 12월 31일</p>
+                    <p class="text-yellow-400 text-sm mt-2">⚠️ 예산 집행 마감일</p>
+                </div>
+
+                <!-- 전체 진행률 -->
+                <div class="stat-card card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-4xl">📈</span>
+                        <div>
+                            <p class="text-gray-400">전체 진행률</p>
+                            <p class="text-4xl font-black" id="overall-progress">0%</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar h-4">
+                        <div class="progress-fill bg-gradient-to-r from-blue-500 to-cyan-400" id="progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">가중평균 기준</p>
+                </div>
+
+                <!-- 예산 집행률 -->
+                <div class="stat-card card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-4xl">💰</span>
+                        <div>
+                            <p class="text-gray-400">예산 집행률</p>
+                            <p class="text-4xl font-black text-green-400" id="budget-rate">0%</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar h-4">
+                        <div class="progress-fill bg-gradient-to-r from-green-500 to-emerald-400" id="budget-bar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">총 240억원 기준</p>
+                </div>
+
+                <!-- 리스크 현황 -->
+                <div class="stat-card card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-4xl">⚠️</span>
+                        <div>
+                            <p class="text-gray-400">긴급 리스크</p>
+                            <p class="text-4xl font-black text-red-400" id="risk-count">0건</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mt-2">
+                        <span class="status-badge bg-red-600">긴급 <span id="badge-critical">0</span></span>
+                        <span class="status-badge bg-orange-600">높음 <span id="badge-high">0</span></span>
+                        <span class="status-badge bg-yellow-600">주의 <span id="badge-medium">0</span></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 예산 현황 상세 -->
+            <section class="card p-6 mb-8">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span>💵</span> 예산 집행 현황 (2025년 12월 기준)
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                    <div class="text-center p-4 bg-gray-800/50 rounded-xl">
+                        <p class="text-gray-400 text-sm mb-1">총 사업비</p>
+                        <p class="text-3xl font-black text-white" id="total-budget">240억</p>
+                        <p class="text-xs text-gray-500">국비 120억 + 지방비 120억</p>
+                    </div>
+                    <div class="text-center p-4 bg-blue-900/30 rounded-xl">
+                        <p class="text-gray-400 text-sm mb-1">배정예산</p>
+                        <p class="text-3xl font-black text-blue-400" id="allocated-budget">0억</p>
+                    </div>
+                    <div class="text-center p-4 bg-purple-900/30 rounded-xl">
+                        <p class="text-gray-400 text-sm mb-1">계약금액</p>
+                        <p class="text-3xl font-black text-purple-400" id="contracted-budget">0억</p>
+                    </div>
+                    <div class="text-center p-4 bg-green-900/30 rounded-xl">
+                        <p class="text-gray-400 text-sm mb-1">집행금액</p>
+                        <p class="text-3xl font-black text-green-400" id="executed-budget">0억</p>
+                    </div>
+                    <div class="text-center p-4 bg-yellow-900/30 rounded-xl">
+                        <p class="text-gray-400 text-sm mb-1">잔액</p>
+                        <p class="text-3xl font-black text-yellow-400" id="remaining-budget">0억</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 단위사업별 현황 -->
+            <section class="card p-6 mb-8">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span>📊</span> 단위사업별 진행 현황 (9개 사업)
+                </h2>
+                <div class="space-y-4" id="projects-container">
+                    <!-- 동적으로 생성됨 -->
+                </div>
+            </section>
+
+            <!-- 일정 & 리스크 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- 주요 일정 -->
+                <section class="card p-6">
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
+                        <span>📅</span> 12월 주요 일정
+                    </h2>
+                    <div class="space-y-3" id="timeline-container">
+                        <!-- 동적으로 생성됨 -->
+                    </div>
+                </section>
+
+                <!-- 리스크 현황 -->
+                <section class="card p-6">
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
+                        <span>⚠️</span> 리스크 현황
+                    </h2>
+                    <div class="grid grid-cols-4 gap-4 mb-6">
+                        <div class="text-center p-3 bg-red-900/30 rounded-lg">
+                            <p class="text-3xl font-black text-red-500" id="risk-critical">0</p>
+                            <p class="text-xs text-gray-400">긴급</p>
+                        </div>
+                        <div class="text-center p-3 bg-orange-900/30 rounded-lg">
+                            <p class="text-3xl font-black text-orange-500" id="risk-high">0</p>
+                            <p class="text-xs text-gray-400">높음</p>
+                        </div>
+                        <div class="text-center p-3 bg-yellow-900/30 rounded-lg">
+                            <p class="text-3xl font-black text-yellow-500" id="risk-medium">0</p>
+                            <p class="text-xs text-gray-400">주의</p>
+                        </div>
+                        <div class="text-center p-3 bg-green-900/30 rounded-lg">
+                            <p class="text-3xl font-black text-green-500" id="risk-low">0</p>
+                            <p class="text-xs text-gray-400">낮음</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3" id="risk-items">
+                        <!-- 동적으로 생성됨 -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- 최근 변경사항 -->
+            <section class="card p-6 mb-8">
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-3">
+                    <span>📝</span> 최근 실시계획 변경 (7차)
+                </h2>
+                <div class="bg-gradient-to-r from-blue-900/50 to-indigo-900/50 rounded-xl p-5 border border-blue-700">
+                    <div class="flex flex-wrap justify-between items-start mb-4 gap-4">
+                        <div>
+                            <span class="status-badge bg-green-600 text-white text-sm" id="change-status">국토부 제출완료</span>
+                            <span class="ml-3 text-gray-300" id="change-date">2025-12-04</span>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-400">승인 예상일</p>
+                            <p class="text-lg font-bold text-yellow-400">2025-12-10</p>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3" id="change-title">7차 실시계획 변경</h3>
+                    <ul class="space-y-2 text-gray-300" id="change-items">
+                        <li>• 사업기간 연장: 단위사업별 5~8개월</li>
+                        <li>• 감리용역비 신설: 1.6억원</li>
+                        <li>• 시유지 변경: OASIS SPOT 부지</li>
+                        <li>• 예산 재편성: 총액 240억원 유지</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="bg-gray-900 py-8 px-4 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left">
+                        <p class="text-gray-400">
+                            📊 데이터 소스: 
+                            <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank" class="text-blue-400 hover:underline">Notion 프로젝트 관리</a>
+                        </p>
+                        <p class="text-gray-500 text-sm mt-1">
+                            © 2025 제일엔지니어링 PMO팀 | 아산시 스마트도시팀
+                        </p>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <p class="text-gray-400 text-sm">🔄 자동 업데이트: 매일 09:00 KST</p>
+                        <p class="text-gray-500 text-xs mt-1">GitHub Actions 기반 Notion 동기화</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // 기본 데이터 (JSON 로드 실패 시 사용)
+        // ============================================
+        const DEFAULT_DATA = {
+            project: {
+                name: "아산시 강소형 스마트시티 구축사업",
+                subtitle: "디지털 OASIS 구현을 통한 지역경제 활성화"
+            },
+            summary: {
+                remaining_days: Math.max(0, Math.floor((new Date('2025-12-31') - new Date()) / (1000 * 60 * 60 * 24))),
+                overall_progress: 42.5,
+                budget_execution_rate: 14.8,
+                risk_count: 2,
+                status_message: "실시계획 변경 국토부 제출 완료"
+            },
+            budget: {
+                total: 24000000000,
+                allocated: 17134000000,
+                contracted: 3358000000,
+                executed: 2530000000,
+                remaining: 14604000000
+            },
+            projects: [
+                {id: "network", name: "유무선 네트워크 구축", budget: 800000000, progress: 96.2, status: "계약완료"},
+                {id: "service_infra", name: "서비스 인프라 플랫폼", budget: 2700000000, progress: 85.0, status: "협상완료"},
+                {id: "innovation", name: "이노베이션센터", budget: 1330000000, progress: 93.4, status: "구축완료"},
+                {id: "oasis_spot", name: "디지털 OASIS SPOT", budget: 3554000000, progress: 1.2, status: "시유지변경"},
+                {id: "sddc", name: "SDDC Platform", budget: 2700000000, progress: 40.0, status: "기술협상완료"},
+                {id: "ai_control", name: "AI통합관제", budget: 1600000000, progress: 30.0, status: "개발중"},
+                {id: "data_hub", name: "정보관리서비스", budget: 2300000000, progress: 15.0, status: "업체선정중"},
+                {id: "drt", name: "DRT 모빌리티", budget: 1000000000, progress: 5.0, status: "개발중"},
+                {id: "supervision", name: "감리용역", budget: 160000000, progress: 0, status: "신설(1.6억)"}
+            ],
+            timeline: [
+                {date: "12/04", event: "실시계획 변경서 국토부 제출", status: "completed"},
+                {date: "12/05", event: "SDDC Platform 계약 체결 목표", status: "upcoming"},
+                {date: "12/08", event: "정보관리서비스 업체선정", status: "upcoming"},
+                {date: "12/10", event: "국토부 승인 예상", status: "upcoming"},
+                {date: "12/15", event: "4분기 중간점검", status: "upcoming"},
+                {date: "12/20", event: "DRT 서비스 완료", status: "upcoming"},
+                {date: "12/27", event: "연간 최종 성과보고서 제출", status: "upcoming"},
+                {date: "12/31", event: "사업년도 종료 / 예산 마감", status: "upcoming"}
+            ],
+            risks: {
+                summary: {critical: 2, high: 3, medium: 3, low: 0},
+                top_items: [
+                    {title: "OASIS SPOT 시유지 변경", level: "critical", status: "진행중"},
+                    {title: "사업기간 연장 승인", level: "critical", status: "국토부 제출완료"},
+                    {title: "예산 집행률 14.8%", level: "high", status: "모니터링"}
+                ]
+            },
+            metadata: {
+                updated_at: new Date().toLocaleString('ko-KR', {timeZone: 'Asia/Seoul'})
+            }
+        };
+
+        // 금액 포맷팅
+        function formatBudget(amount) {
+            if (amount >= 100000000) {
+                return (amount / 100000000).toFixed(1).replace('.0', '') + '억';
+            } else if (amount >= 10000) {
+                return (amount / 10000).toFixed(0) + '만';
+            }
+            return amount.toLocaleString() + '원';
+        }
+
+        // 상태에 따른 색상
+        function getStatusColor(status) {
+            if (status.includes('완료') || status.includes('계약')) return 'bg-green-600';
+            if (status.includes('진행') || status.includes('개발')) return 'bg-blue-600';
+            if (status.includes('선정') || status.includes('변경')) return 'bg-yellow-600';
+            if (status.includes('신설')) return 'bg-purple-600';
+            return 'bg-gray-600';
+        }
+
+        // 진행률에 따른 색상
+        function getProgressColor(progress) {
+            if (progress >= 80) return 'from-green-500 to-emerald-400';
+            if (progress >= 50) return 'from-blue-500 to-cyan-400';
+            if (progress >= 20) return 'from-yellow-500 to-orange-400';
+            return 'from-red-500 to-pink-400';
+        }
+
+        // 대시보드 렌더링
+        function renderDashboard(data) {
+            // D-Day 계산
+            const today = new Date();
+            const endDate = new Date('2025-12-31');
+            const remaining = Math.max(0, Math.floor((endDate - today) / (1000 * 60 * 60 * 24)));
+            
+            // 핵심 지표
+            document.getElementById('d-day').textContent = `D-${remaining}`;
+            document.getElementById('overall-progress').textContent = (data.summary?.overall_progress || 42.5) + '%';
+            document.getElementById('progress-bar').style.width = (data.summary?.overall_progress || 42.5) + '%';
+            document.getElementById('budget-rate').textContent = (data.summary?.budget_execution_rate || 14.8) + '%';
+            document.getElementById('budget-bar').style.width = (data.summary?.budget_execution_rate || 14.8) + '%';
+            document.getElementById('risk-count').textContent = (data.summary?.risk_count || 2) + '건';
+            document.getElementById('last-updated').textContent = data.metadata?.updated_at || new Date().toLocaleString('ko-KR');
+
+            // 리스크 배지
+            const risks = data.risks?.summary || {critical: 2, high: 3, medium: 3};
+            document.getElementById('badge-critical').textContent = risks.critical || 0;
+            document.getElementById('badge-high').textContent = risks.high || 0;
+            document.getElementById('badge-medium').textContent = risks.medium || 0;
+
+            // 예산 현황
+            document.getElementById('total-budget').textContent = formatBudget(data.budget?.total || 24000000000);
+            document.getElementById('allocated-budget').textContent = formatBudget(data.budget?.allocated || 17134000000);
+            document.getElementById('contracted-budget').textContent = formatBudget(data.budget?.contracted || 3358000000);
+            document.getElementById('executed-budget').textContent = formatBudget(data.budget?.executed || 2530000000);
+            document.getElementById('remaining-budget').textContent = formatBudget(data.budget?.remaining || 14604000000);
+
+            // 단위사업별 현황
+            const projectsContainer = document.getElementById('projects-container');
+            projectsContainer.innerHTML = '';
+            
+            const projects = data.projects || DEFAULT_DATA.projects;
+            projects.forEach(project => {
+                const progressColor = getProgressColor(project.progress);
+                projectsContainer.innerHTML += `
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 p-3 bg-gray-800/30 rounded-lg">
+                        <div class="w-full md:w-56 flex-shrink-0">
+                            <p class="font-bold">${project.name}</p>
+                            <p class="text-xs text-gray-400">${formatBudget(project.budget)}</p>
+                        </div>
+                        <div class="flex-grow w-full">
+                            <div class="progress-bar h-8 relative">
+                                <div class="progress-fill bg-gradient-to-r ${progressColor}" style="width: ${project.progress}%"></div>
+                                <span class="absolute inset-0 flex items-center justify-center text-sm font-bold">${project.progress}%</span>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-28 text-left md:text-right mt-2 md:mt-0">
+                            <span class="status-badge ${getStatusColor(project.status)} text-white">${project.status}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // 일정
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineContainer.innerHTML = '';
+            
+            const timeline = data.timeline || DEFAULT_DATA.timeline;
+            timeline.forEach(item => {
+                const isCompleted = item.status === 'completed';
+                timelineContainer.innerHTML += `
+                    <div class="flex items-center gap-3 p-2 rounded-lg ${isCompleted ? 'bg-green-900/20' : 'hover:bg-gray-800/50'}">
+                        <span class="text-xl">${isCompleted ? '✅' : '📌'}</span>
+                        <div class="flex-grow">
+                            <p class="${isCompleted ? 'line-through text-gray-500' : 'text-white'}">${item.event}</p>
+                        </div>
+                        <span class="text-sm ${isCompleted ? 'text-green-400' : 'text-gray-400'} font-mono">${item.date}</span>
+                    </div>
+                `;
+            });
+
+            // 리스크
+            document.getElementById('risk-critical').textContent = risks.critical || 0;
+            document.getElementById('risk-high').textContent = risks.high || 0;
+            document.getElementById('risk-medium').textContent = risks.medium || 0;
+            document.getElementById('risk-low').textContent = risks.low || 0;
+
+            const riskItems = document.getElementById('risk-items');
+            riskItems.innerHTML = '';
+            
+            const riskList = data.risks?.top_items || DEFAULT_DATA.risks.top_items;
+            riskList.forEach(item => {
+                const levelColor = item.level === 'critical' ? 'text-red-400' : item.level === 'high' ? 'text-orange-400' : 'text-yellow-400';
+                const bgColor = item.level === 'critical' ? 'bg-red-900/20' : item.level === 'high' ? 'bg-orange-900/20' : 'bg-yellow-900/20';
+                riskItems.innerHTML += `
+                    <div class="flex items-center gap-3 p-3 rounded-lg ${bgColor}">
+                        <span class="${levelColor} text-xl">●</span>
+                        <p class="flex-grow font-medium">${item.title}</p>
+                        <span class="text-sm text-gray-400">${item.status}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // 데이터 로드
+        async function loadData() {
+            try {
+                // 여러 경로에서 JSON 로드 시도
+                const paths = [
+                    'data/dashboard.json',
+                    './data/dashboard.json',
+                    '/Asan-Smartcity-integration-Portal/data/dashboard.json'
+                ];
+                
+                let data = null;
+                
+                for (const path of paths) {
+                    try {
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            data = await response.json();
+                            console.log('✅ 데이터 로드 성공:', path);
+                            break;
+                        }
+                    } catch (e) {
+                        console.log('⚠️ 경로 시도 실패:', path);
+                    }
+                }
+                
+                // JSON 로드 실패 시 기본 데이터 사용
+                if (!data) {
+                    console.log('📌 기본 데이터 사용');
+                    data = DEFAULT_DATA;
+                }
+                
+                // 로딩 숨기고 대시보드 표시
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                
+                // 대시보드 렌더링
+                renderDashboard(data);
+                
+            } catch (error) {
+                console.error('데이터 로드 오류:', error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                renderDashboard(DEFAULT_DATA);
+            }
+        }
+
+        // 페이지 로드 시 실행
+        document.addEventListener('DOMContentLoaded', loadData);
+        
+        // 5분마다 자동 새로고침
+        setInterval(loadData, 5 * 60 * 1000);
+    </script>
+</body>
+</html>

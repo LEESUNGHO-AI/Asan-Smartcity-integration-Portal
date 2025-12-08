@@ -1,0 +1,89 @@
+{
+  "project": {
+    "name": "아산시 강소형 스마트시티 구축사업",
+    "subtitle": "디지털 OASIS 구현을 통한 지역경제 활성화 및 데이터 기반 스마트시티 조성",
+    "code": "ASAN-SMARTCITY-2025",
+    "period": "2023.08 ~ 2025.12",
+    "location": "충청남도 아산시 도고면·배방읍 일원",
+    "total_budget": 24000000000,
+    "status": "진행중"
+  },
+  "summary": {
+    "remaining_days": 23,
+    "overall_progress": 42.5,
+    "budget_execution_rate": 14.8,
+    "risk_count": 2,
+    "status_message": "D-23 | 실시계획 변경 국토부 제출 완료"
+  },
+  "budget": {
+    "total": 24000000000,
+    "national": 12000000000,
+    "local": 12000000000,
+    "allocated": 17134000000,
+    "contracted": 3358000000,
+    "executed": 2530000000,
+    "execution_rate": 14.8,
+    "remaining": 14604000000,
+    "by_source": {
+      "national": {"total": 12000000000, "executed": 1270000000, "rate": 10.6},
+      "provincial": {"total": 2880000000, "executed": 300000000, "rate": 10.4},
+      "municipal": {"total": 9120000000, "executed": 960000000, "rate": 10.5}
+    }
+  },
+  "projects": [
+    {"id": "network", "name": "유무선 네트워크 구축", "budget": 800000000, "progress": 96.2, "status": "계약완료"},
+    {"id": "service_infra", "name": "서비스 인프라 플랫폼", "budget": 2700000000, "progress": 85.0, "status": "협상완료"},
+    {"id": "innovation", "name": "이노베이션센터", "budget": 1330000000, "progress": 93.4, "status": "구축완료"},
+    {"id": "oasis_spot", "name": "디지털 OASIS SPOT", "budget": 3554000000, "progress": 1.2, "status": "시유지변경"},
+    {"id": "sddc", "name": "SDDC Platform", "budget": 2700000000, "progress": 40.0, "status": "기술협상완료"},
+    {"id": "ai_control", "name": "AI통합관제", "budget": 1600000000, "progress": 30.0, "status": "개발중"},
+    {"id": "data_hub", "name": "정보관리서비스", "budget": 2300000000, "progress": 15.0, "status": "업체선정중"},
+    {"id": "drt", "name": "DRT 모빌리티", "budget": 1000000000, "progress": 5.0, "status": "개발중"},
+    {"id": "supervision", "name": "감리용역", "budget": 160000000, "progress": 0, "status": "신설(1.6억)"}
+  ],
+  "risks": {
+    "summary": {"critical": 2, "high": 3, "medium": 3, "low": 0},
+    "total_exposure": 14100000000,
+    "top_items": [
+      {"title": "OASIS SPOT 시유지 변경", "level": "critical", "status": "진행중"},
+      {"title": "사업기간 연장 승인", "level": "critical", "status": "국토부 제출완료"},
+      {"title": "예산 집행률 14.8%", "level": "high", "status": "모니터링"}
+    ]
+  },
+  "timeline": [
+    {"date": "12/04", "event": "실시계획 변경서 국토부 제출", "status": "completed"},
+    {"date": "12/05", "event": "SDDC Platform 계약 체결 목표", "status": "upcoming"},
+    {"date": "12/08", "event": "정보관리서비스 업체선정", "status": "upcoming"},
+    {"date": "12/10", "event": "국토부 승인 예상", "status": "upcoming"},
+    {"date": "12/15", "event": "4분기 중간점검", "status": "upcoming"},
+    {"date": "12/20", "event": "DRT 서비스 완료", "status": "upcoming"},
+    {"date": "12/27", "event": "연간 최종 성과보고서 제출", "status": "upcoming"},
+    {"date": "12/31", "event": "사업년도 종료 / 예산 마감", "status": "upcoming"}
+  ],
+  "changes": {
+    "latest": {
+      "date": "2025-12-04",
+      "title": "7차 실시계획 변경",
+      "items": [
+        "사업기간 연장: 단위사업별 5~8개월",
+        "감리용역비 신설: 1.6억원",
+        "시유지 변경: OASIS SPOT 부지",
+        "예산 재편성: 총액 240억원 유지"
+      ],
+      "status": "국토부 제출완료",
+      "approval_expected": "2025-12-10"
+    }
+  },
+  "metadata": {
+    "generated_at": "2025-12-08T09:00:00+09:00",
+    "updated_at": "2025-12-08 09:00 KST",
+    "next_update": "매일 09:00 KST",
+    "source": "Notion API",
+    "version": "2.1"
+  },
+  "links": {
+    "notion": "https://www.notion.so/21650aa9577d80dc8278e0187c54677f",
+    "github": "https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal",
+    "dashboard": "https://leesungho-ai.github.io/Asan-Smartcity-integration-Portal/"
+  }
+}
