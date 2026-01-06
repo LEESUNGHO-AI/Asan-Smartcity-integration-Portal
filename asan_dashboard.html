@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아산시 스마트시티 통합 대시보드</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --dark: #1e293b;
+        }
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        body { background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%); min-height: 100vh; }
+        
+        .header {
+            background: linear-gradient(135deg, var(--dark) 0%, #334155 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .header h1 { font-weight: 700; font-size: 1.75rem; margin-bottom: 0.25rem; }
+        .header .subtitle { opacity: 0.8; font-size: 0.9rem; }
+        
+        .d-day-box {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+        .d-day-value { font-size: 2.5rem; font-weight: 700; line-height: 1; }
+        
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.25rem;
+        }
+        .stat-value { font-size: 2rem; font-weight: 700; line-height: 1.2; }
+        .stat-label { font-size: 0.8rem; color: #64748b; margin-top: 0.25rem; }
+        .stat-primary { color: var(--primary); }
+        .stat-success { color: var(--success); }
+        .stat-warning { color: var(--warning); }
+        .stat-danger { color: var(--danger); }
+        
+        .progress-container {
+            background: #e2e8f0;
+            border-radius: 0.5rem;
+            height: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar-custom {
+            background: linear-gradient(90deg, var(--primary), var(--info));
+            height: 100%;
+            border-radius: 0.5rem;
+            transition: width 0.5s ease;
+        }
+        .progress-text {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .badge-status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge-completed { background: #dcfce7; color: #166534; }
+        .badge-progress { background: #dbeafe; color: #1e40af; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-new { background: #e2e8f0; color: #475569; }
+        .badge-critical { background: #fee2e2; color: #991b1b; }
+        .badge-high { background: #ffedd5; color: #9a3412; }
+        .badge-medium { background: #fef9c3; color: #854d0e; }
+        
+        .table { font-size: 0.85rem; margin-bottom: 0; }
+        .table th { background: #f8fafc; font-weight: 600; border-bottom: 2px solid #e2e8f0; }
+        
+        .sync-info {
+            background: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        .notion-link { color: var(--primary); text-decoration: none; }
+        .notion-link:hover { text-decoration: underline; }
+        
+        .loading { text-align: center; padding: 3rem; color: #64748b; }
+        
+        @media (max-width: 768px) {
+            .stat-value { font-size: 1.5rem; }
+            .d-day-value { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1>🌆 <span id="project-name">아산시 스마트시티</span></h1>
+                    <p class="subtitle mb-0" id="project-subtitle">디지털 OASIS 구현을 통한 지역경제 활성화</p>
+                    <small class="opacity-75">
+                        📊 동기화: <span id="last-sync">-</span> | 
+                        🔗 <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" class="text-white" target="_blank">Notion 원본</a>
+                    </small>
+                </div>
+                <div class="col-md-4 text-end mt-3 mt-md-0">
+                    <div class="d-day-box">
+                        <small>사업 종료까지</small>
+                        <div class="d-day-value">D-<span id="d-day">-</span></div>
+                        <small id="extension-info">2026.12.31</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid px-3 px-md-4">
+        <!-- 핵심 지표 -->
+        <div class="row" id="stats-row">
+            <div class="col-6 col-md-3">
+                <div class="card stat-card">
+                    <div class="stat-value stat-primary" id="total-budget">-</div>
+                    <div class="stat-label">총 사업비</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card stat-card">
+                    <div class="stat-value stat-warning" id="execution-rate">-</div>
+                    <div class="stat-label">예산 집행률</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card stat-card">
+                    <div class="stat-value stat-success" id="overall-progress">-</div>
+                    <div class="stat-label">전체 진행률</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card stat-card">
+                    <div class="stat-value stat-danger" id="risk-count">-</div>
+                    <div class="stat-label">관리 리스크</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 예산 & 진행률 차트 -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">💰 예산 집행 현황</div>
+                    <div class="card-body">
+                        <canvas id="budget-chart" height="200"></canvas>
+                        <div class="mt-2 small text-muted" id="budget-detail"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">📈 단위사업별 진행률</div>
+                    <div class="card-body">
+                        <canvas id="progress-chart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 단위사업 현황 -->
+        <div class="card">
+            <div class="card-header">🏗️ 단위사업별 진행 현황 (<span id="project-count">9</span>개 사업)</div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="40">#</th>
+                                <th>사업명</th>
+                                <th width="90" class="text-end">예산</th>
+                                <th width="150">진행률</th>
+                                <th width="100">상태</th>
+                                <th width="120" class="d-none d-md-table-cell">담당자</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projects-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 리스크 현황 -->
+        <div class="card">
+            <div class="card-header">⚠️ 리스크 관리 현황</div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">등급</th>
+                                <th>리스크</th>
+                                <th class="d-none d-md-table-cell">대응방안</th>
+                                <th width="100">마감일</th>
+                            </tr>
+                        </thead>
+                        <tbody id="risks-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 데이터 소스 정보 -->
+        <div class="sync-info mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>📊 데이터 소스</strong><br>
+                    <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" class="notion-link" target="_blank">
+                        Notion: 아산시 강소형 스마트시티 구축사업 프로젝트 관리
+                    </a>
+                </div>
+                <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                    <strong>🔄 동기화 정보</strong><br>
+                    버전: <span id="version">2.1.0</span> | 방식: Notion MCP API
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 대시보드 데이터 (Notion에서 동기화)
+        const dashboardData = {
+            "project_info": {
+                "name": "아산시 강소형 스마트시티 구축사업",
+                "subtitle": "디지털 OASIS 구현을 통한 지역경제 활성화 및 데이터 기반 스마트시티 조성"
+            },
+            "budget": {
+                "total": 24000000000,
+                "allocated": 17130000000,
+                "executed": 2530000000,
+                "execution_rate": 14.8,
+                "remaining": 14600000000
+            },
+            "progress": {
+                "overall": 42.5,
+                "total_count": 9
+            },
+            "unit_projects": [
+                {"id": 1, "name": "유무선 네트워크 구축", "budget": 800000000, "progress": 96.2, "status": "계약완료", "status_code": "completed", "manager": "이성호"},
+                {"id": 2, "name": "서비스 인프라 플랫폼", "budget": 2700000000, "progress": 85.0, "status": "협상완료", "status_code": "completed", "manager": "김주용"},
+                {"id": 3, "name": "이노베이션 센터 구축", "budget": 1330000000, "progress": 93.4, "status": "구축완료", "status_code": "completed", "manager": "김주용"},
+                {"id": 4, "name": "디지털 OASIS SPOT", "budget": 3550000000, "progress": 1.2, "status": "시유지변경", "status_code": "pending", "manager": "김주용"},
+                {"id": 5, "name": "SDDC Platform", "budget": 2700000000, "progress": 40.0, "status": "기술협상완료", "status_code": "progress", "manager": "이성호"},
+                {"id": 6, "name": "AI 통합관제 플랫폼", "budget": 1600000000, "progress": 30.0, "status": "개발중", "status_code": "progress", "manager": "김주용"},
+                {"id": 7, "name": "디지털 OASIS 정보관리", "budget": 2300000000, "progress": 15.0, "status": "업체선정중", "status_code": "progress", "manager": "함정영"},
+                {"id": 8, "name": "DRT 플랫폼", "budget": 1000000000, "progress": 5.0, "status": "개발중", "status_code": "progress", "manager": "PMO팀"},
+                {"id": 9, "name": "감리용역", "budget": 160000000, "progress": 0, "status": "신설", "status_code": "new", "manager": "김주용"}
+            ],
+            "risks": [
+                {"level": "critical", "title": "예산 집행률 저조 (14.8%)", "mitigation": "2026년 상반기 대형 계약 체결", "deadline": "2026-06-30"},
+                {"level": "critical", "title": "OASIS SPOT 공사 지연", "mitigation": "2026년 1분기 공사 착수", "deadline": "2026-03-31"},
+                {"level": "high", "title": "SDDC Platform 계약 지연", "mitigation": "계약 체결 완료", "deadline": "2025-12-05"},
+                {"level": "high", "title": "서비스 인프라 계약 지연", "mitigation": "계약 체결 완료", "deadline": "2025-12-05"},
+                {"level": "high", "title": "네트워크 장비 납기 지연", "mitigation": "조기 발주", "deadline": "2026-02-28"},
+                {"level": "medium", "title": "AI통합관제 계약 지연", "mitigation": "12/10 계약 목표", "deadline": "2025-12-10"},
+                {"level": "medium", "title": "정보관리 업체선정 지연", "mitigation": "12/8 선정", "deadline": "2025-12-08"},
+                {"level": "medium", "title": "DRT 차량 발주 지연", "mitigation": "12월 내 발주", "deadline": "2025-12-31"}
+            ],
+            "risk_summary": {"critical": 2, "high": 3, "medium": 3, "total": 8},
+            "d_day": {"project_end": 359, "extension_approved": true},
+            "last_updated": "2026-01-06T12:00:00+09:00",
+            "version": "2.1.0"
+        };
+        
+        // 금액 포맷
+        function formatCurrency(amount) {
+            if (amount >= 100000000) return (amount / 100000000).toFixed(1) + '억원';
+            if (amount >= 10000) return (amount / 10000).toFixed(0) + '만원';
+            return amount.toLocaleString() + '원';
+        }
+        
+        // 상태 배지
+        function getStatusBadge(statusCode, status) {
+            const badges = {
+                'completed': 'badge-completed',
+                'progress': 'badge-progress',
+                'pending': 'badge-pending',
+                'new': 'badge-new'
+            };
+            return `<span class="badge-status ${badges[statusCode] || 'badge-progress'}">${status}</span>`;
+        }
+        
+        // 리스크 배지
+        function getRiskBadge(level) {
+            const badges = {
+                'critical': ['🔴 긴급', 'badge-critical'],
+                'high': ['🟠 높음', 'badge-high'],
+                'medium': ['🟡 주의', 'badge-medium']
+            };
+            const [text, cls] = badges[level] || ['⚪', ''];
+            return `<span class="badge-status ${cls}">${text}</span>`;
+        }
+        
+        // 대시보드 렌더링
+        function renderDashboard() {
+            const data = dashboardData;
+            
+            // 헤더
+            document.getElementById('project-name').textContent = data.project_info.name;
+            document.getElementById('project-subtitle').textContent = data.project_info.subtitle;
+            document.getElementById('last-sync').textContent = new Date(data.last_updated).toLocaleString('ko-KR');
+            document.getElementById('d-day').textContent = data.d_day.project_end;
+            document.getElementById('extension-info').textContent = data.d_day.extension_approved ? '2026.12.31 (연장승인)' : '2026.12.31';
+            
+            // 핵심 지표
+            document.getElementById('total-budget').textContent = formatCurrency(data.budget.total);
+            document.getElementById('execution-rate').textContent = data.budget.execution_rate + '%';
+            document.getElementById('overall-progress').textContent = data.progress.overall + '%';
+            document.getElementById('risk-count').textContent = data.risk_summary.total + '건';
+            document.getElementById('project-count').textContent = data.progress.total_count;
+            document.getElementById('version').textContent = data.version;
+            
+            // 예산 상세
+            document.getElementById('budget-detail').innerHTML = 
+                `배정: ${formatCurrency(data.budget.allocated)} | 집행: ${formatCurrency(data.budget.executed)} | 잔액: ${formatCurrency(data.budget.remaining)}`;
+            
+            // 단위사업 테이블
+            const projectsHtml = data.unit_projects.map(p => `
+                <tr>
+                    <td>${p.id}</td>
+                    <td><strong>${p.name}</strong></td>
+                    <td class="text-end">${formatCurrency(p.budget)}</td>
+                    <td>
+                        <div class="progress-container">
+                            <div class="progress-bar-custom" style="width: ${p.progress}%"></div>
+                            <span class="progress-text">${p.progress}%</span>
+                        </div>
+                    </td>
+                    <td>${getStatusBadge(p.status_code, p.status)}</td>
+                    <td class="d-none d-md-table-cell">${p.manager}</td>
+                </tr>
+            `).join('');
+            document.getElementById('projects-table').innerHTML = projectsHtml;
+            
+            // 리스크 테이블
+            const risksHtml = data.risks.map(r => `
+                <tr>
+                    <td>${getRiskBadge(r.level)}</td>
+                    <td><strong>${r.title}</strong></td>
+                    <td class="d-none d-md-table-cell">${r.mitigation}</td>
+                    <td>${r.deadline}</td>
+                </tr>
+            `).join('');
+            document.getElementById('risks-table').innerHTML = risksHtml;
+            
+            // 차트 렌더링
+            renderCharts(data);
+        }
+        
+        // 차트 렌더링
+        function renderCharts(data) {
+            // 예산 차트
+            new Chart(document.getElementById('budget-chart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['집행', '계약중', '미배정'],
+                    datasets: [{
+                        data: [
+                            data.budget.executed,
+                            data.budget.allocated - data.budget.executed,
+                            data.budget.total - data.budget.allocated
+                        ],
+                        backgroundColor: ['#22c55e', '#f59e0b', '#e2e8f0'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+            
+            // 진행률 차트
+            new Chart(document.getElementById('progress-chart'), {
+                type: 'bar',
+                data: {
+                    labels: data.unit_projects.map(p => p.name.substring(0, 8)),
+                    datasets: [{
+                        label: '진행률 (%)',
+                        data: data.unit_projects.map(p => p.progress),
+                        backgroundColor: data.unit_projects.map(p => 
+                            p.progress >= 80 ? '#22c55e' : 
+                            p.progress >= 30 ? '#f59e0b' : '#ef4444'
+                        ),
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { max: 100 }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        // 초기화
+        document.addEventListener('DOMContentLoaded', renderDashboard);
+    </script>
+</body>
+</html>

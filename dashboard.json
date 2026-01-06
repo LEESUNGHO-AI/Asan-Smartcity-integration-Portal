@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "name": "아산시 강소형 스마트시티 구축사업",
+    "subtitle": "디지털 OASIS 구현을 통한 지역경제 활성화 및 데이터 기반 스마트시티 조성",
+    "type": "기존도시 - 지역소멸대응/인구변화대응",
+    "location": "충청남도 아산시 도고면·배방읍 일원 (약 44,350,000㎡)",
+    "period": {
+      "start": "2023-08-01",
+      "end": "2026-12-31",
+      "extended": true,
+      "extension_months": 12,
+      "extension_date": "2025-12-24"
+    },
+    "manager": "박상국 (아산시 스마트도시팀장)",
+    "agency": "아산시",
+    "consortium": ["제일엔지니어링", "충남연구원", "KAIST", "호서대학교"]
+  },
+  "budget": {
+    "total": 24000000000,
+    "national": 12000000000,
+    "local": 12000000000,
+    "allocated": 17130000000,
+    "contracted": 3360000000,
+    "executed": 2530000000,
+    "execution_rate": 14.8,
+    "remaining": 14600000000,
+    "by_source": {
+      "national": {"total": 12000000000, "allocated": 8570000000, "executed": 1270000000, "rate": 10.6},
+      "provincial": {"total": 2880000000, "allocated": 2060000000, "executed": 300000000, "rate": 10.4},
+      "municipal": {"total": 9120000000, "allocated": 6500000000, "executed": 960000000, "rate": 10.5}
+    }
+  },
+  "progress": {
+    "overall": 42.5,
+    "completed_count": 3,
+    "in_progress_count": 4,
+    "pending_count": 2,
+    "total_count": 9
+  },
+  "unit_projects": [
+    {"id": 1, "name": "유무선 네트워크 구축", "budget": 800000000, "progress": 96.2, "status": "계약완료", "status_code": "completed", "contractor": "사인텔레콤", "manager": "이성호"},
+    {"id": 2, "name": "서비스 인프라 플랫폼", "budget": 2700000000, "progress": 85.0, "status": "협상완료", "status_code": "negotiation_complete", "contractor": "우선협상대상자 선정", "manager": "김주용"},
+    {"id": 3, "name": "이노베이션 센터 구축 및 운영", "budget": 1330000000, "progress": 93.4, "status": "구축완료", "status_code": "completed", "contractor": "-", "manager": "김주용"},
+    {"id": 4, "name": "디지털 OASIS SPOT 구축", "budget": 3550000000, "progress": 1.2, "status": "시유지변경", "status_code": "pending", "contractor": "-", "manager": "김주용"},
+    {"id": 5, "name": "SDDC Platform 구축", "budget": 2700000000, "progress": 40.0, "status": "기술협상완료", "status_code": "in_progress", "contractor": "한국정보기술컨소시엄", "manager": "이성호"},
+    {"id": 6, "name": "AI 통합관제 플랫폼", "budget": 1600000000, "progress": 30.0, "status": "개발중", "status_code": "in_progress", "contractor": "-", "manager": "김주용"},
+    {"id": 7, "name": "디지털 OASIS 정보관리 서비스", "budget": 2300000000, "progress": 15.0, "status": "업체선정중", "status_code": "in_progress", "contractor": "-", "manager": "함정영"},
+    {"id": 8, "name": "DRT 플랫폼", "budget": 1000000000, "progress": 5.0, "status": "개발중", "status_code": "in_progress", "contractor": "-", "manager": "PMO팀"},
+    {"id": 9, "name": "감리용역", "budget": 160000000, "progress": 0, "status": "신설", "status_code": "new", "contractor": "-", "manager": "김주용"}
+  ],
+  "risks": [
+    {"id": 1, "level": "critical", "title": "예산 집행률 저조", "description": "2025년 집행률 14.8%", "impact_amount": 14600000000, "mitigation": "2026년 상반기 대형 계약 체결 및 집행 가속화", "deadline": "2026-06-30"},
+    {"id": 2, "level": "critical", "title": "OASIS SPOT 공사 지연", "description": "시유지 변경으로 인한 공사 지연", "impact_amount": 3550000000, "mitigation": "2026년 1분기 공사 착수 확정", "deadline": "2026-03-31"},
+    {"id": 3, "level": "high", "title": "SDDC Platform 계약 지연", "description": "기술협상 완료, 계약 진행 중", "impact_amount": 2700000000, "mitigation": "12/5까지 계약 체결 완료", "deadline": "2025-12-05"},
+    {"id": 4, "level": "high", "title": "서비스 인프라 계약 지연", "description": "협상 완료, 계약 대기", "impact_amount": 2700000000, "mitigation": "12/5까지 계약 체결 완료", "deadline": "2025-12-05"},
+    {"id": 5, "level": "high", "title": "네트워크 장비 납기 지연", "description": "납기 12주 소요", "impact_amount": 800000000, "mitigation": "조기 발주 및 대체 장비 검토", "deadline": "2026-02-28"},
+    {"id": 6, "level": "medium", "title": "AI통합관제 계약 지연", "description": "업체 선정 진행 중", "impact_amount": 1600000000, "mitigation": "12/10 계약 목표 준수", "deadline": "2025-12-10"},
+    {"id": 7, "level": "medium", "title": "정보관리 서비스 업체선정 지연", "description": "입찰공고 완료, 선정 대기", "impact_amount": 2300000000, "mitigation": "12/8 업체선정 완료", "deadline": "2025-12-08"},
+    {"id": 8, "level": "medium", "title": "DRT 차량 발주 지연", "description": "설계 진행 중", "impact_amount": 1000000000, "mitigation": "12월 내 발주 완료", "deadline": "2025-12-31"}
+  ],
+  "risk_summary": {"critical": 2, "high": 3, "medium": 3, "total": 8},
+  "milestones": [
+    {"date": "2025-12-04", "event": "실시계획 변경서(7차) 국토부 제출", "status": "completed"},
+    {"date": "2025-12-24", "event": "사업기간 연장 국토부 승인 (12개월)", "status": "completed"},
+    {"date": "2025-12-05", "event": "SDDC Platform / 서비스 인프라 계약 체결", "status": "in_progress"},
+    {"date": "2025-12-08", "event": "디지털OASIS 정보관리 업체선정", "status": "pending"},
+    {"date": "2025-12-10", "event": "AI 통합관제 플랫폼 계약 체결", "status": "pending"},
+    {"date": "2025-12-27", "event": "2025년 최종 추진실적 보고서 제출", "status": "scheduled"},
+    {"date": "2025-12-31", "event": "2025년 회계연도 종료", "status": "scheduled"},
+    {"date": "2026-12-31", "event": "사업 종료 (연장 후)", "status": "target"}
+  ],
+  "d_day": {
+    "project_end": 359,
+    "fiscal_year_end": 0,
+    "extension_approved": true,
+    "extension_months": 12
+  },
+  "last_updated": "2026-01-06T12:00:00+09:00",
+  "sync_source": "Notion MCP API",
+  "notion_page_id": "21650aa9577d80dc8278e0187c54677f",
+  "version": "2.1.0"
+}
