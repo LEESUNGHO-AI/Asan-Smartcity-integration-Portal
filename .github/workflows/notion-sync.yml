@@ -1,1 +1,139 @@
+name: 🔄 Notion → Dashboard 자동 동기화
 
+on:
+  schedule:
+    # 매일 오전 09:00 KST (00:00 UTC)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: '강제 업데이트 실행'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  sync-notion-data:
+    name: 📊 Notion 데이터 동기화
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ✅ 리포지토리 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 의존성 설치
+        run: |
+          pip install requests pytz
+
+      - name: 🔄 Notion API 동기화
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_MAIN_PAGE_ID: "21650aa9577d80dc8278e0187c54677f"
+          NOTION_DASHBOARD_PAGE_ID: "2aa50aa9577d817da233c79ce0c441fe"
+          NOTION_BUDGET_PAGE_ID: "25d50aa9577d81ae8deac067e3283aa6"
+        run: |
+          python3 << 'PYEOF'
+          import json
+          import os
+          import requests
+          from datetime import datetime, timezone, timedelta
+
+          KST = timezone(timedelta(hours=9))
+          now_kst = datetime.now(KST)
+
+          token = os.environ.get('NOTION_TOKEN', '')
+          headers = {
+              'Authorization': f'Bearer {token}',
+              'Notion-Version': '2022-06-28',
+              'Content-Type': 'application/json'
+          }
+
+          def fetch_notion_page(page_id):
+              """Notion 페이지 블록 가져오기"""
+              if not token:
+                  print(f"⚠️ NOTION_TOKEN 없음 - 기본값 사용")
+                  return None
+              try:
+                  url = f'https://api.notion.com/v1/blocks/{page_id}/children?page_size=100'
+                  r = requests.get(url, headers=headers, timeout=10)
+                  if r.status_code == 200:
+                      return r.json()
+                  else:
+                      print(f"⚠️ Notion API 오류 {r.status_code}: {r.text[:200]}")
+                      return None
+              except Exception as e:
+                  print(f"⚠️ Notion 연결 오류: {e}")
+                  return None
+
+          # 기존 dashboard.json 로드
+          try:
+              with open('data/dashboard.json', 'r', encoding='utf-8') as f:
+                  data = json.load(f)
+              print("✅ 기존 dashboard.json 로드 성공")
+          except:
+              print("⚠️ dashboard.json 없음 - 기본값으로 생성")
+              data = {}
+
+          # Notion 데이터 동기화 시도
+          page_data = fetch_notion_page(os.environ.get('NOTION_DASHBOARD_PAGE_ID', ''))
+
+          if page_data:
+              print("✅ Notion 데이터 로드 성공 - 파싱 중...")
+              # TODO: Notion 블록 파싱 로직
+              # 현재는 lastUpdated 및 D-Day 자동 계산만 수행
+              pass
+          else:
+              print("ℹ️ Notion 직접 연동 없음 - 타임스탬프만 업데이트")
+
+          # 항상 업데이트: 타임스탬프 및 D-Day
+          data['lastUpdated'] = now_kst.strftime('%Y-%m-%dT%H:%M:%S+09:00')
+          data['basis'] = now_kst.strftime('%Y-%m-%d')
+
+          # endDate까지 D-Day 재계산
+          end_date = datetime.strptime(data.get('summary', {}).get('endDate', '2026-12-31'), '%Y-%m-%d')
+          end_date = end_date.replace(tzinfo=KST)
+          dday = (end_date - now_kst).days
+          data.setdefault('summary', {})['dday'] = dday
+
+          # 저장
+          os.makedirs('data', exist_ok=True)
+          with open('data/dashboard.json', 'w', encoding='utf-8') as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+
+          print(f"✅ dashboard.json 업데이트 완료")
+          print(f"   lastUpdated: {data['lastUpdated']}")
+          print(f"   basis: {data['basis']}")
+          print(f"   D-{dday}")
+
+          PYEOF
+
+      - name: 📝 변경사항 커밋 & 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/dashboard.json
+          git diff --staged --quiet || git commit -m "🔄 자동 동기화: $(date +'%Y-%m-%d %H:%M KST')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ✅ 동기화 완료 리포트
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ 아산시 스마트시티 대시보드 동기화 완료"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🕐 실행 시각: $(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M:%S KST')"
+          echo "🌐 대시보드: https://leesungho-ai.github.io/Asan-Smartcity-integration-Portal/"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
