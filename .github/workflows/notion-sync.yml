@@ -35,72 +35,299 @@ jobs:
       - name: 라이브러리 설치
         run: pip install requests pytz --quiet
 
-      - name: Notion 동기화 실행
+      - name: Notion 블록 파싱 및 동기화
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DASHBOARD_PAGE_ID: ${{ secrets.NOTION_DASHBOARD_PAGE_ID }}
         run: |
           python3 - << 'PYEOF'
-          import json, os, requests
+          import json, os, re, requests
           from datetime import datetime, timezone, timedelta
 
+          # ── 기본 설정 ──────────────────────────────────────
           KST = timezone(timedelta(hours=9))
           NOW = datetime.now(KST)
-          NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")
+          TOKEN = os.environ.get("NOTION_TOKEN", "")
+          PAGE_ID = os.environ.get("NOTION_DASHBOARD_PAGE_ID", "2aa50aa9577d817da233c79ce0c441fe")
           OUTPUT_PATH = "data/dashboard.json"
+          HEADERS = {
+              "Authorization": f"Bearer {TOKEN}",
+              "Notion-Version": "2022-06-28",
+          }
 
-          print("=" * 50)
-          print("아산시 스마트시티 Notion 동기화 시작")
-          print(f"실행: {NOW.strftime('%Y-%m-%d %H:%M:%S KST')}")
-          print(f"토큰: {'있음' if NOTION_TOKEN else '없음 (기본값 사용)'}")
-          print("=" * 50)
+          print("=" * 55)
+          print("  아산시 스마트시티 Notion 블록 파싱 동기화")
+          print(f"  실행: {NOW.strftime('%Y-%m-%d %H:%M:%S KST')}")
+          print(f"  토큰: {'있음' if TOKEN else '없음'}")
+          print("=" * 55)
 
+          # ── 유틸 함수 ──────────────────────────────────────
+          def notion_get(url):
+              try:
+                  r = requests.get(url, headers=HEADERS, timeout=15)
+                  if r.status_code == 200:
+                      return r.json()
+                  print(f"  API 오류 {r.status_code}: {url.split('/')[-1][:30]}")
+              except Exception as e:
+                  print(f"  요청 실패: {e}")
+              return None
+
+          def get_all_blocks(block_id):
+              """페이지 블록 전체 가져오기 (페이지네이션 처리)"""
+              blocks = []
+              cursor = ""
+              while True:
+                  url = f"https://api.notion.com/v1/blocks/{block_id}/children?page_size=100"
+                  if cursor:
+                      url += f"&start_cursor={cursor}"
+                  data = notion_get(url)
+                  if not data:
+                      break
+                  blocks.extend(data.get("results", []))
+                  if data.get("has_more"):
+                      cursor = data["next_cursor"]
+                  else:
+                      break
+              return blocks
+
+          def get_table_rows(table_id):
+              """테이블 블록의 모든 행 가져오기"""
+              rows = []
+              data = notion_get(
+                  f"https://api.notion.com/v1/blocks/{table_id}/children?page_size=100"
+              )
+              if data:
+                  for row in data.get("results", []):
+                      if row["type"] == "table_row":
+                          cells = [
+                              "".join(t.get("plain_text", "") for t in cell)
+                              for cell in row["table_row"]["cells"]
+                          ]
+                          rows.append(cells)
+              return rows
+
+          def clean(text):
+              """마크다운 볼드, 이모지 앞뒤 공백 제거"""
+              return re.sub(r"\*+", "", text).strip()
+
+          def parse_amount(text):
+              """'98.0억원' → 98.0 (float)"""
+              text = clean(text)
+              m = re.search(r"([\d.]+)억", text)
+              return float(m.group(1)) if m else 0.0
+
+          def parse_rate(text):
+              """'40.8%' → 40.8 (float)"""
+              text = clean(text)
+              m = re.search(r"([\d.]+)%", text)
+              return float(m.group(1)) if m else 0.0
+
+          def parse_status(status_text):
+              """상태 텍스트 → 코드"""
+              s = status_text
+              if "완료" in s or "운영" in s:
+                  return "completed"
+              elif "진행" in s or "체결" in s or "구축" in s or "개발" in s:
+                  return "in_progress"
+              elif "준비" in s or "선정" in s or "설계" in s:
+                  return "pending"
+              return "pending"
+
+          def parse_risk_level(text):
+              """리스크 단계 추출"""
+              if "긴급" in text:
+                  return "urgent"
+              elif "높음" in text:
+                  return "high"
+              elif "주의" in text:
+                  return "mid"
+              return "mid"
+
+          # ── 기존 dashboard.json 로드 ──────────────────────
           existing = {}
           try:
               with open(OUTPUT_PATH, "r", encoding="utf-8") as f:
                   existing = json.load(f)
-              print("기존 dashboard.json 로드 성공")
+              print("  기존 dashboard.json 로드 성공")
           except FileNotFoundError:
-              print("dashboard.json 없음 - 신규 생성")
+              print("  dashboard.json 없음 - 신규 생성")
           except Exception as e:
-              print(f"로드 오류: {e}")
+              print(f"  로드 오류: {e}")
 
+          # ── 타임스탬프 & D-Day 갱신 ───────────────────────
           existing["lastUpdated"] = NOW.strftime("%Y-%m-%dT%H:%M:%S+09:00")
           existing["basis"] = NOW.strftime("%Y-%m-%d")
           existing.setdefault("summary", {})
           existing["summary"].setdefault("endDate", "2026-12-31")
-          end_dt = datetime.strptime(existing["summary"]["endDate"], "%Y-%m-%d").replace(tzinfo=KST)
+          existing["summary"].setdefault("totalBudget", 240)
+          end_dt = datetime.strptime(
+              existing["summary"]["endDate"], "%Y-%m-%d"
+          ).replace(tzinfo=KST)
           existing["summary"]["dday"] = (end_dt - NOW).days
 
-          if NOTION_TOKEN:
-              page_id = os.environ.get("NOTION_DASHBOARD_PAGE_ID", "")
-              if page_id:
-                  try:
-                      r = requests.get(
-                          f"https://api.notion.com/v1/blocks/{page_id}/children?page_size=10",
-                          headers={
-                              "Authorization": f"Bearer {NOTION_TOKEN}",
-                              "Notion-Version": "2022-06-28",
-                          },
-                          timeout=15
-                      )
-                      if r.status_code == 200:
-                          print(f"Notion API 연결 성공 - 블록 {len(r.json().get('results', []))}개")
-                      else:
-                          print(f"Notion API 응답: {r.status_code}")
-                  except Exception as e:
-                      print(f"Notion API 오류: {e}")
-              else:
-                  print("NOTION_DASHBOARD_PAGE_ID 없음")
+          # ── Notion 블록 파싱 ──────────────────────────────
+          if not TOKEN:
+              print("  NOTION_TOKEN 없음 - 타임스탬프/D-Day만 갱신")
           else:
-              print("NOTION_TOKEN 없음 - 타임스탬프/D-Day만 갱신")
+              print(f"  Notion 페이지 블록 로딩: {PAGE_ID}")
+              blocks = get_all_blocks(PAGE_ID)
+              print(f"  블록 {len(blocks)}개 로드 완료")
 
+              # 섹션 키워드 매핑
+              SECTION_MAP = {
+                  "핵심 현황": "summary",
+                  "단위사업 현황": "units",
+                  "재원별 예산": "budget",
+                  "리스크": "risk",
+                  "주요 일정": "schedule",
+              }
+
+              current_section = None
+              units = []
+              budget_sources = []
+              risks = []
+              schedule = []
+              risk_level = "mid"
+              summary_lines = []
+
+              for block in blocks:
+                  btype = block["type"]
+
+                  # 헤딩: 섹션 감지
+                  if btype in ("heading_1", "heading_2", "heading_3"):
+                      heading_text = "".join(
+                          t.get("plain_text", "")
+                          for t in block[btype]["rich_text"]
+                      )
+                      matched = False
+                      for keyword, section in SECTION_MAP.items():
+                          if keyword in heading_text:
+                              current_section = section
+                              matched = True
+                              break
+                      if not matched:
+                          current_section = None
+
+                  # 불릿 리스트
+                  elif btype == "bulleted_list_item":
+                      text = "".join(
+                          t.get("plain_text", "")
+                          for t in block["bulleted_list_item"]["rich_text"]
+                      )
+                      if current_section == "summary":
+                          summary_lines.append(text)
+                      elif current_section == "risk":
+                          risks.append({"level": risk_level, "content": text.strip()})
+
+                  # 단락: 리스크 단계 헤더 감지 (🔴 긴급, 🟠 높음, 🟡 주의)
+                  elif btype == "paragraph":
+                      text = "".join(
+                          t.get("plain_text", "")
+                          for t in block["paragraph"]["rich_text"]
+                      )
+                      if current_section == "risk" and text.strip():
+                          risk_level = parse_risk_level(text)
+
+                  # 테이블
+                  elif btype == "table":
+                      rows = get_table_rows(block["id"])
+                      if len(rows) < 2:
+                          continue
+                      data_rows = rows[1:]  # 헤더 제외
+
+                      # 단위사업 테이블 (#, 사업명, 예산, 집행, 집행률, 상태)
+                      if current_section == "units":
+                          for row in data_rows:
+                              if len(row) >= 6 and row[0].strip():
+                                  units.append({
+                                      "no": row[0].strip(),
+                                      "name": row[1].strip(),
+                                      "budget": parse_amount(row[2]),
+                                      "budgetText": clean(row[2]),
+                                      "executed": parse_amount(row[3]) if row[3] not in ("—", "-", "") else 0,
+                                      "executedText": clean(row[3]),
+                                      "rate": parse_rate(row[4]),
+                                      "status": row[5].strip(),
+                                      "statusCode": parse_status(row[5]),
+                                  })
+                          print(f"  단위사업 {len(units)}개 파싱")
+
+                      # 재원별 예산 테이블 (재원, 총사업비, 집행금액, 집행률, 잔액)
+                      elif current_section == "budget":
+                          for row in data_rows:
+                              if len(row) >= 5:
+                                  name = clean(row[0])
+                                  if name in ("합계", ""):
+                                      continue
+                                  budget_sources.append({
+                                      "source": name,
+                                      "total": parse_amount(row[1]),
+                                      "totalText": clean(row[1]),
+                                      "executed": parse_amount(row[2]),
+                                      "executedText": clean(row[2]),
+                                      "rate": parse_rate(row[3]),
+                                      "balance": parse_amount(row[4]),
+                                      "balanceText": clean(row[4]),
+                                  })
+                          print(f"  재원별 예산 {len(budget_sources)}개 파싱")
+
+                      # 일정 테이블 (일자, 구분, 내용, 상태)
+                      elif current_section == "schedule":
+                          for row in data_rows:
+                              if len(row) >= 4 and row[0].strip():
+                                  schedule.append({
+                                      "date": row[0].strip(),
+                                      "type": row[1].strip(),
+                                      "content": row[2].strip(),
+                                      "status": row[3].strip(),
+                                  })
+                          print(f"  일정 {len(schedule)}개 파싱")
+
+              # ── 핵심 현황 (summary) 파싱 ─────────────────
+              for line in summary_lines:
+                  # 예산 집행: 98.0억원 / 240억원 | 집행률 40.8% | 잔액 142.0억원
+                  if "예산 집행" in line or "집행률" in line:
+                      if "/" in line:
+                          parts = line.split("/")
+                          executed = parse_amount(parts[0])
+                          if executed:
+                              existing["summary"]["executed"] = executed
+                      rate = parse_rate(line)
+                      if rate:
+                          existing["summary"]["executionRate"] = rate
+                      balance_m = re.search(r"잔액\s*([\d.]+)억", line)
+                      if balance_m:
+                          existing["summary"]["balance"] = float(balance_m.group(1))
+                  # 진도율: 45.2%
+                  if "진도율" in line:
+                      rate = parse_rate(line)
+                      if rate:
+                          existing["summary"]["progress"] = rate
+              print(f"  핵심현황 파싱 완료: 집행률={existing['summary'].get('executionRate')}%, 진도율={existing['summary'].get('progress')}%")
+
+              # ── 결과 반영 ─────────────────────────────────
+              if units:
+                  existing["units"] = units
+              if budget_sources:
+                  existing["budgetSources"] = budget_sources
+              if risks:
+                  existing["risks"] = risks
+              if schedule:
+                  existing["schedule"] = schedule
+
+              print(f"  리스크 {len(risks)}건 파싱")
+
+          # ── 저장 ──────────────────────────────────────────
           os.makedirs("data", exist_ok=True)
           with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
               json.dump(existing, f, ensure_ascii=False, indent=2)
 
-          print(f"저장 완료: {OUTPUT_PATH}")
-          print(f"D-{existing['summary']['dday']} (2026.12.31 기준)")
+          print("=" * 55)
+          print(f"  저장 완료: {OUTPUT_PATH}")
+          print(f"  집행률: {existing['summary'].get('executionRate', 'N/A')}%")
+          print(f"  진도율: {existing['summary'].get('progress', 'N/A')}%")
+          print(f"  D-{existing['summary']['dday']} (2026.12.31 기준)")
+          print("=" * 55)
           PYEOF
 
       - name: 변경사항 커밋 및 푸시
@@ -109,14 +336,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # 원격 최신 상태 먼저 반영
           git fetch origin main
           git reset --hard origin/main
-
-          # Python이 생성한 dashboard.json 다시 반영
           git add data/dashboard.json
-
           if git diff --staged --quiet; then
             echo "변경 없음 - 커밋 스킵"
           else
