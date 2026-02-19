@@ -53,7 +53,6 @@ jobs:
           print(f"토큰: {'있음' if NOTION_TOKEN else '없음 (기본값 사용)'}")
           print("=" * 50)
 
-          # 기존 dashboard.json 로드
           existing = {}
           try:
               with open(OUTPUT_PATH, "r", encoding="utf-8") as f:
@@ -64,7 +63,6 @@ jobs:
           except Exception as e:
               print(f"로드 오류: {e}")
 
-          # 타임스탬프 & D-Day 갱신
           existing["lastUpdated"] = NOW.strftime("%Y-%m-%dT%H:%M:%S+09:00")
           existing["basis"] = NOW.strftime("%Y-%m-%d")
           existing.setdefault("summary", {})
@@ -72,7 +70,6 @@ jobs:
           end_dt = datetime.strptime(existing["summary"]["endDate"], "%Y-%m-%d").replace(tzinfo=KST)
           existing["summary"]["dday"] = (end_dt - NOW).days
 
-          # Notion API 연동
           if NOTION_TOKEN:
               page_id = os.environ.get("NOTION_DASHBOARD_PAGE_ID", "")
               if page_id:
@@ -91,10 +88,11 @@ jobs:
                           print(f"Notion API 응답: {r.status_code}")
                   except Exception as e:
                       print(f"Notion API 오류: {e}")
+              else:
+                  print("NOTION_DASHBOARD_PAGE_ID 없음")
           else:
               print("NOTION_TOKEN 없음 - 타임스탬프/D-Day만 갱신")
 
-          # 저장
           os.makedirs("data", exist_ok=True)
           with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
               json.dump(existing, f, ensure_ascii=False, indent=2)
@@ -111,8 +109,8 @@ jobs:
           if git diff --staged --quiet; then
             echo "변경 없음 - 커밋 스킵"
           else
-            git commit -m "auto sync: $(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M KST')"
-            git push
+            git pull --rebase origin main
+            git push origin main
             echo "커밋 완료"
           fi
         env:
