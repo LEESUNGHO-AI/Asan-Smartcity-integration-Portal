@@ -1,1110 +1,1115 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아산시 강소형 스마트시티 통합 포털</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0066FF;
-            --primary-dark: #0052CC;
-            --secondary: #00D4AA;
-            --accent: #FF6B35;
-            --warning: #FFB800;
-            --danger: #FF4757;
-            --success: #00D26A;
-            --dark: #1A1F36;
-            --darker: #0D1025;
-            --gray-100: #F8F9FC;
-            --gray-200: #E9ECF2;
-            --gray-300: #C4CAD4;
-            --gray-500: #6B7280;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, #0A1628 50%, #0D1F3C 100%);
-            min-height: 100vh;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bg-animation::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 80%, rgba(0, 102, 255, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(0, 212, 170, 0.06) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(255, 107, 53, 0.04) 0%, transparent 40%);
-            animation: bgFloat 30s ease-in-out infinite;
-        }
-
-        @keyframes bgFloat {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(2%, 2%) rotate(2deg); }
-            66% { transform: translate(-1%, 1%) rotate(-1deg); }
-        }
-
-        /* Header */
-        .header {
-            position: relative;
-            z-index: 10;
-            padding: 2rem 4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px);
-            background: rgba(10, 22, 40, 0.6);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 102, 255, 0.3);
-        }
-
-        .logo-text h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, var(--gray-300));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.02em;
-        }
-
-        .logo-text span {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .sync-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 210, 106, 0.1);
-            border: 1px solid rgba(0, 210, 106, 0.3);
-            border-radius: 50px;
-            font-size: 0.8rem;
-        }
-
-        .sync-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
-
-        .last-update {
-            font-size: 0.85rem;
-            color: var(--gray-500);
-        }
-
-        /* Main Container */
-        .main-container {
-            position: relative;
-            z-index: 1;
-            max-width: 1800px;
-            margin: 0 auto;
-            padding: 2rem 4rem 4rem;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero-main {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            backdrop-filter: blur(20px);
-        }
-
-        .project-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 170, 0.2));
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .hero-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fff 0%, var(--gray-300) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            font-size: 1rem;
-            color: var(--gray-500);
-            margin-bottom: 2rem;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-        }
-
-        .hero-stat {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .hero-stat:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-4px);
-        }
-
-        .stat-value {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-value.primary { color: var(--primary); }
-        .stat-value.success { color: var(--success); }
-        .stat-value.warning { color: var(--warning); }
-        .stat-value.danger { color: var(--danger); }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-
-        /* D-Day Card */
-        .dday-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 24px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dday-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        }
-
-        .dday-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .dday-value {
-            font-family: 'Outfit', sans-serif;
-            font-size: 5rem;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .dday-date {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .dday-extension {
-            margin-top: 1.5rem;
-            padding: 0.75rem 1.25rem;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Metrics Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .metric-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 1.75rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-
-        .metric-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-4px);
-        }
-
-        .metric-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.25rem;
-        }
-
-        .metric-title {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .metric-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .metric-icon.budget { background: linear-gradient(135deg, rgba(255, 184, 0, 0.2), rgba(255, 107, 53, 0.2)); }
-        .metric-icon.progress { background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 170, 0.2)); }
-        .metric-icon.risk { background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 107, 53, 0.2)); }
-
-        .metric-badge {
-            padding: 0.3rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .metric-badge.warning { background: rgba(255, 184, 0, 0.15); color: var(--warning); }
-        .metric-badge.success { background: rgba(0, 210, 106, 0.15); color: var(--success); }
-        .metric-badge.danger { background: rgba(255, 71, 87, 0.15); color: var(--danger); }
-
-        .metric-content {
-            margin-bottom: 1rem;
-        }
-
-        .metric-main-value {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-
-        .metric-main-label {
-            font-size: 0.85rem;
-            color: var(--gray-500);
-        }
-
-        .metric-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .metric-detail {
-            flex: 1;
-            min-width: 80px;
-        }
-
-        .metric-detail-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.15rem;
-        }
-
-        .metric-detail-label {
-            font-size: 0.7rem;
-            color: var(--gray-500);
-        }
-
-        /* Progress Bar */
-        .progress-bar-container {
-            margin: 1rem 0;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1s ease;
-        }
-
-        .progress-fill.budget { background: linear-gradient(90deg, var(--warning), var(--accent)); }
-        .progress-fill.progress { background: linear-gradient(90deg, var(--primary), var(--secondary)); }
-
-        /* Projects Section */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        .project-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .project-number {
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--gray-500);
-        }
-
-        .project-status {
-            padding: 0.3rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .project-status.complete { background: rgba(0, 210, 106, 0.15); color: var(--success); }
-        .project-status.progress { background: rgba(0, 102, 255, 0.15); color: var(--primary); }
-        .project-status.warning { background: rgba(255, 184, 0, 0.15); color: var(--warning); }
-        .project-status.danger { background: rgba(255, 71, 87, 0.15); color: var(--danger); }
-        .project-status.pending { background: rgba(107, 114, 128, 0.15); color: var(--gray-500); }
-        .project-status.new { background: rgba(138, 43, 226, 0.15); color: #A855F7; }
-
-        .project-name {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
-        }
-
-        .project-budget {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .project-budget-label {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-
-        .project-budget-value {
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .project-progress {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .project-progress-fill {
-            height: 100%;
-            border-radius: 10px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .project-progress-fill.over {
-            background: linear-gradient(90deg, var(--danger), var(--accent));
-        }
-
-        /* Risk Section */
-        .risk-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .risk-category {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-        }
-
-        .risk-category-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .risk-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .risk-dot.critical { background: var(--danger); box-shadow: 0 0 12px var(--danger); }
-        .risk-dot.high { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
-        .risk-dot.medium { background: var(--warning); box-shadow: 0 0 12px var(--warning); }
-
-        .risk-category-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .risk-count {
-            margin-left: auto;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-
-        .risk-item {
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            font-size: 0.8rem;
-            line-height: 1.4;
-        }
-
-        .risk-amount {
-            display: inline-block;
-            margin-top: 0.5rem;
-            padding: 0.2rem 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-            font-size: 0.7rem;
-            color: var(--gray-300);
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-info {
-            display: flex;
-            gap: 3rem;
-        }
-
-        .footer-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .footer-label {
-            font-size: 0.7rem;
-            color: var(--gray-500);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-value {
-            font-size: 0.85rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-link {
-            padding: 0.6rem 1.25rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Responsive */
-        @media (max-width: 1400px) {
-            .projects-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 1200px) {
-            .header, .main-container { padding-left: 2rem; padding-right: 2rem; }
-            .hero-section { grid-template-columns: 1fr; }
-            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 768px) {
-            .header { flex-direction: column; gap: 1rem; padding: 1.5rem; }
-            .hero-stats { grid-template-columns: repeat(2, 1fr); }
-            .metrics-grid, .projects-grid, .risk-grid { grid-template-columns: 1fr; }
-            .footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-            .footer-info { flex-direction: column; gap: 1rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아산시 강소형 스마트시티 통합 포털</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --border: #1e2d47;
+    --accent: #00d4ff;
+    --accent2: #0077ff;
+    --accent3: #7c3aed;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --orange: #f97316;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-muted: #94a3b8;
+    --glow: 0 0 20px rgba(0,212,255,0.15);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(180deg, rgba(0,212,255,0.08) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .logo-area {}
+  .logo-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+  h1 {
+    font-size: clamp(20px, 3vw, 30px);
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+  .header-meta {
+    text-align: right;
+  }
+  .sync-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 11px;
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+  }
+  .sync-dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .last-update {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* NAV LINKS */
+  .nav-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.2s;
+    background: var(--surface2);
+  }
+  .nav-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--glow);
+  }
+  .nav-link.active {
+    background: rgba(0,212,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .nav-sep { color: var(--border); margin: 0 4px; }
+
+  /* MAIN CONTENT */
+  main { padding: 32px 0 64px; }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .kpi-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-2px);
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--accent));
+  }
+  .kpi-icon {
+    font-size: 22px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--card-accent, var(--accent));
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  .kpi-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* D-DAY special */
+  .dday-card {
+    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(0,119,255,0.1));
+    border-color: rgba(124,58,237,0.4);
+  }
+  .dday-card::before { background: var(--accent3); }
+  .dday-card .kpi-value { color: #a78bfa; font-size: 36px; }
+
+  /* SECTION */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-badge {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(0,212,255,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(0,212,255,0.2);
+  }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* UNIT TABLE */
+  .unit-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .unit-table th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface2);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .unit-table th:first-child { border-radius: 8px 0 0 0; }
+  .unit-table th:last-child { border-radius: 0 8px 0 0; }
+  .unit-table td {
+    padding: 12px 12px;
+    border-bottom: 1px solid rgba(30,45,71,0.5);
+    vertical-align: middle;
+    color: var(--text-muted);
+  }
+  .unit-table tr:last-child td { border-bottom: none; }
+  .unit-table tr:hover td { background: rgba(0,212,255,0.03); }
+  .unit-name { font-weight: 600; color: var(--text); }
+  .unit-num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+    font-size: 11px;
+    background: var(--surface2);
+    border-radius: 4px;
+    padding: 2px 6px;
+    display: inline-block;
+  }
+  .amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  /* PROGRESS BAR */
+  .prog-wrap { min-width: 100px; }
+  .prog-bar {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 3px;
+  }
+  .prog-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+  .prog-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* STATUS BADGE */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .status-done { background: rgba(16,185,129,0.1); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+  .status-progress { background: rgba(0,119,255,0.1); color: #60a5fa; border: 1px solid rgba(0,119,255,0.2); }
+  .status-wait { background: rgba(100,116,139,0.1); color: var(--text-dim); border: 1px solid rgba(100,116,139,0.2); }
+  .status-warn { background: rgba(245,158,11,0.1); color: var(--yellow); border: 1px solid rgba(245,158,11,0.2); }
+  .status-new { background: rgba(124,58,237,0.1); color: #a78bfa; border: 1px solid rgba(124,58,237,0.2); }
+  .status-over { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+
+  /* RISK */
+  .risk-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid transparent;
+  }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-urgent { background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.2); }
+  .risk-high { background: rgba(249,115,22,0.05); border-color: rgba(249,115,22,0.2); }
+  .risk-mid { background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.2); }
+  .risk-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .risk-urgent .risk-dot { background: var(--red); box-shadow: 0 0 8px var(--red); }
+  .risk-high .risk-dot { background: var(--orange); }
+  .risk-mid .risk-dot { background: var(--yellow); }
+  .risk-content {}
+  .risk-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .risk-amount {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+  }
+
+  /* BUDGET SOURCE */
+  .budget-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .budget-row:last-child { border-bottom: none; }
+  .budget-source {
+    font-size: 12px;
+    font-weight: 700;
+    width: 40px;
+    color: var(--text);
+  }
+  .budget-bar-wrap { flex: 1; }
+  .budget-bar {
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .budget-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+  .budget-info {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    min-width: 90px;
+  }
+  .budget-info-main { color: var(--text); font-weight: 700; }
+  .budget-info-sub { color: var(--text-dim); }
+
+  /* SCHEDULE TABLE */
+  .sched-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .sched-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(30,45,71,0.5);
+    color: var(--text-muted);
+    vertical-align: middle;
+  }
+  .sched-table tr:last-child td { border-bottom: none; }
+  .sched-date {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .sched-type {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--surface2);
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  /* ORG CHART */
+  .org-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .org-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .org-card.center {
+    background: rgba(0,212,255,0.08);
+    border-color: rgba(0,212,255,0.3);
+    box-shadow: var(--glow);
+  }
+  .org-role {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .org-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .org-detail { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .org-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--text-dim);
+    font-size: 18px;
+  }
+  .indirect-list { display: flex; flex-direction: column; gap: 8px; }
+
+  /* SYNC ARCHITECTURE */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .arch-node {
+    background: var(--surface);
+    padding: 16px;
+    text-align: center;
+  }
+  .arch-icon { font-size: 24px; margin-bottom: 8px; }
+  .arch-name { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .arch-desc { font-size: 10px; color: var(--text-dim); line-height: 1.5; }
+  .arch-arrow-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 24px;
+    color: var(--accent);
+    font-size: 20px;
+    opacity: 0.5;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    background: var(--surface);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .footer-inner a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* LOADING STATE */
+  .loading-bar {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 1px;
+    margin-bottom: 24px;
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* ENTRANCE ANIMATION */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeIn 0.5s ease forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in:nth-child(1) { animation-delay: 0.05s; }
+  .fade-in:nth-child(2) { animation-delay: 0.1s; }
+  .fade-in:nth-child(3) { animation-delay: 0.15s; }
+  .fade-in:nth-child(4) { animation-delay: 0.2s; }
+  .fade-in:nth-child(5) { animation-delay: 0.25s; }
+  .fade-in:nth-child(6) { animation-delay: 0.3s; }
+
+  /* TOOLTIP */
+  [title] { cursor: help; }
+
+  /* Updated indicator */
+  .updated-at {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+    padding: 4px 10px;
+    background: var(--surface2);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .updated-at .dot { color: var(--green); }
+</style>
 </head>
 <body>
-    <div class="bg-animation"></div>
 
-    <header class="header">
-        <div class="logo">
-            <div class="logo-icon">🌆</div>
-            <div class="logo-text">
-                <span>ASAN SMART CITY</span>
-                <h1>강소형 스마트시티 통합 포털</h1>
-            </div>
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-tag">🏙 Asan Smart City · PMO Dashboard</div>
+        <h1>아산시 강소형 스마트시티<br>통합 관리 포털</h1>
+        <p class="subtitle">국가보조금 사업 · 총 사업비 240억원 · 제일엔지니어링 PMO</p>
+      </div>
+      <div class="header-meta">
+        <div class="sync-badge">
+          <span class="sync-dot"></span>
+          Notion 실시간 동기화 중
         </div>
-        <div class="header-right">
-            <div class="sync-status">
-                <div class="sync-dot"></div>
-                <span>Notion 실시간 동기화</span>
-            </div>
-            <div class="last-update">
-                최종 업데이트: 2026-01-08 11:00 KST
-            </div>
+        <div class="last-update" id="lastUpdate">최종 업데이트: 로딩 중...</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <div class="container">
+    <div class="nav-links">
+      <a href="#" class="nav-link active">🏠 통합 대시보드</a>
+      <span class="nav-sep">|</span>
+      <a href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" class="nav-link" target="_blank">💰 예산관리 BMS</a>
+      <a href="https://leesungho-ai.github.io/Asan-Smartcity-WBS/" class="nav-link" target="_blank">📋 WBS 대시보드</a>
+      <a href="https://leesungho-ai.github.io/Asan-asset-management/" class="nav-link" target="_blank">📦 자산관리</a>
+      <span class="nav-sep">|</span>
+      <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" class="nav-link" target="_blank">📝 Notion 프로젝트</a>
+    </div>
+  </div>
+</nav>
+
+<!-- LOADING BAR -->
+<div class="container">
+  <div style="padding-top: 20px">
+    <div class="loading-bar" id="loadingBar"></div>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid" id="kpiGrid">
+      <div class="kpi-card fade-in" style="--card-accent: var(--accent)">
+        <span class="kpi-icon">💰</span>
+        <div class="kpi-value" id="kpi-budget">98.0억</div>
+        <div class="kpi-label">총 집행금액 (240억원 중)</div>
+        <div class="kpi-sub" id="kpi-budget-rate">집행률 40.8% | 잔액 142.0억</div>
+      </div>
+      <div class="kpi-card fade-in" style="--card-accent: var(--green)">
+        <span class="kpi-icon">📈</span>
+        <div class="kpi-value" id="kpi-progress">45.2%</div>
+        <div class="kpi-label">전체 사업 진도율</div>
+        <div class="kpi-sub" id="kpi-progress-sub">완료 3개 · 진행 5개 · 대기 1개</div>
+      </div>
+      <div class="kpi-card fade-in" style="--card-accent: var(--yellow)">
+        <span class="kpi-icon">⚠️</span>
+        <div class="kpi-value" id="kpi-risk">8건</div>
+        <div class="kpi-label">리스크 관리 현황</div>
+        <div class="kpi-sub" id="kpi-risk-sub">🔴 긴급 2건 · 🟠 높음 3건 · 🟡 주의 3건</div>
+      </div>
+      <div class="kpi-card fade-in dday-card">
+        <span class="kpi-icon">⏱</span>
+        <div class="kpi-value" id="kpi-dday">D-315</div>
+        <div class="kpi-label">사업 종료까지</div>
+        <div class="kpi-sub">2026년 12월 31일 · ✅ 12개월 연장 승인</div>
+      </div>
+      <div class="kpi-card fade-in" style="--card-accent: #60a5fa">
+        <span class="kpi-icon">🏗️</span>
+        <div class="kpi-value">9개</div>
+        <div class="kpi-label">단위사업 총계</div>
+        <div class="kpi-sub">도고 OASIS + 배방 이노베이션 2개 존</div>
+      </div>
+      <div class="kpi-card fade-in" style="--card-accent: #a78bfa">
+        <span class="kpi-icon">🤝</span>
+        <div class="kpi-value">5개</div>
+        <div class="kpi-label">컨소시엄 기관</div>
+        <div class="kpi-sub">아산시 · 제일엔지니어링 · 호서대 · 충남연구원 · KAIST</div>
+      </div>
+    </div>
+
+    <!-- 사업 추진체계 + 동기화 현황 -->
+    <div class="section">
+      <div class="section-header">
+        <span>🏛</span>
+        <span class="section-title">사업 추진체계</span>
+        <span class="section-badge">국가보조금 사업</span>
+      </div>
+      <div class="card">
+        <div style="overflow-x: auto;">
+          <table class="unit-table">
+            <thead>
+              <tr>
+                <th>구분</th>
+                <th>기관명</th>
+                <th>담당팀/담당자</th>
+                <th>역할</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="status status-done">시행기관</span></td>
+                <td class="unit-name">아산시</td>
+                <td style="font-size:12px; color:var(--text-muted)">도시계획국 스마트도시팀<br>팀장 박상국 / 담당 임용훈</td>
+                <td style="font-size:12px">사업 총괄 관리 · 보조금 교부</td>
+              </tr>
+              <tr>
+                <td><span class="status status-progress">직접보조사업자</span></td>
+                <td class="unit-name">제일엔지니어링</td>
+                <td style="font-size:12px; color:var(--text-muted)">이사 이성호 / 이사 임혁<br>부장 함정영 / 부장 김주용</td>
+                <td style="font-size:12px">사업 수행 · PMO · 기술조정</td>
+              </tr>
+              <tr>
+                <td><span class="status status-wait">간접보조사업자</span></td>
+                <td class="unit-name">호서대학교</td>
+                <td style="font-size:12px; color:var(--text-muted)">-</td>
+                <td style="font-size:12px">이노베이션 센터 운영</td>
+              </tr>
+              <tr>
+                <td><span class="status status-wait">간접보조사업자</span></td>
+                <td class="unit-name">충남연구원</td>
+                <td style="font-size:12px; color:var(--text-muted)">-</td>
+                <td style="font-size:12px">거버넌스 · 정책연구</td>
+              </tr>
+              <tr>
+                <td><span class="status status-wait">간접보조사업자</span></td>
+                <td class="unit-name">KAIST</td>
+                <td style="font-size:12px; color:var(--text-muted)">-</td>
+                <td style="font-size:12px">기술자문 · AI 연구지원</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-    </header>
+      </div>
+    </div>
 
-    <main class="main-container">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="hero-main">
-                <div class="project-badge">
-                    <span>🏗️</span>
-                    <span>기존도시 · 지역소멸대응</span>
-                </div>
-                <h2 class="hero-title">아산시 강소형 스마트시티 조성사업</h2>
-                <p class="hero-subtitle">디지털 OASIS 구현을 통한 지역경제 활성화 및 데이터 기반 스마트시티 조성</p>
-                
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="stat-value primary">240억</div>
-                        <div class="stat-label">총 사업비</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-value warning">37.8%</div>
-                        <div class="stat-label">예산 집행률</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-value success">42.5%</div>
-                        <div class="stat-label">전체 진도율</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-value">9개</div>
-                        <div class="stat-label">단위사업</div>
-                    </div>
-                </div>
+    <!-- 단위사업 현황 -->
+    <div class="section">
+      <div class="section-header">
+        <span>🏗</span>
+        <span class="section-title">9개 단위사업 현황</span>
+        <span class="section-badge" id="unitBasis">2026-02-19 기준</span>
+      </div>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="overflow-x: auto;">
+          <table class="unit-table">
+            <thead>
+              <tr>
+                <th style="width:36px">#</th>
+                <th>사업명</th>
+                <th>예산</th>
+                <th>집행</th>
+                <th>진행률</th>
+                <th>상태</th>
+              </tr>
+            </thead>
+            <tbody id="unitTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 예산 + 리스크 -->
+    <div class="two-col section">
+      <!-- 재원별 예산 -->
+      <div>
+        <div class="section-header">
+          <span>💵</span>
+          <span class="section-title">재원별 예산 집행</span>
+        </div>
+        <div class="card" id="budgetSourceCard">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- 리스크 -->
+      <div>
+        <div class="section-header">
+          <span>⚠️</span>
+          <span class="section-title">리스크 관리 현황</span>
+          <span class="section-badge">8건 관리중</span>
+        </div>
+        <div class="card" id="riskCard">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 2월 주요 일정 -->
+    <div class="section">
+      <div class="section-header">
+        <span>📅</span>
+        <span class="section-title">2026년 2월 주요 일정</span>
+      </div>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="overflow-x: auto;">
+          <table class="sched-table">
+            <tbody id="schedTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 동기화 아키텍처 -->
+    <div class="section">
+      <div class="section-header">
+        <span>🔄</span>
+        <span class="section-title">자동화 동기화 아키텍처</span>
+        <span class="section-badge">TIER 1-3 구현</span>
+      </div>
+      <div class="card">
+        <div class="arch-grid">
+          <div class="arch-node">
+            <div class="arch-icon">📝</div>
+            <div class="arch-name">Notion</div>
+            <div class="arch-desc">프로젝트 관리<br>예산 · WBS · 리스크<br>MCP API 실시간</div>
+          </div>
+          <div class="arch-node" style="background: rgba(0,212,255,0.05); border-left: 1px solid var(--border); border-right: 1px solid var(--border)">
+            <div class="arch-icon">⚡</div>
+            <div class="arch-name">GitHub Actions</div>
+            <div class="arch-desc">자동 동기화<br>매일 09:00 KST<br>dashboard.json 갱신</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-icon">🌐</div>
+            <div class="arch-name">GitHub Pages</div>
+            <div class="arch-desc">통합 대시보드<br>예산 · 자산 · WBS<br>4개 포털 연동</div>
+          </div>
+        </div>
+        <div class="arch-arrow-row">
+          <span>↕</span>
+          <span style="font-size:12px; color:var(--text-dim)">Slack #플랜예산 외 6개 채널</span>
+          <span>↕</span>
+        </div>
+        <div class="arch-grid">
+          <div class="arch-node">
+            <div class="arch-icon">💬</div>
+            <div class="arch-name">Slack</div>
+            <div class="arch-desc">팀 커뮤니케이션<br>Webhook 연동<br>알림 자동화</div>
+          </div>
+          <div class="arch-node" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border)">
+            <div class="arch-icon">📊</div>
+            <div class="arch-name">Google Sheets</div>
+            <div class="arch-desc">예산 원본 데이터<br>사업비 집행현황<br>TIER 1 동기화</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-icon">💾</div>
+            <div class="arch-name">GitHub Repo</div>
+            <div class="arch-desc">소스 코드 관리<br>dashboard.json<br>버전 관리</div>
+          </div>
+        </div>
+
+        <!-- Sync Status -->
+        <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+          <div style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--surface2); border-radius:8px; border: 1px solid var(--border); font-size:12px;">
+            <span style="color:var(--green)">●</span>
+            <div>
+              <div style="font-weight:600; color:var(--text)">Notion → GitHub</div>
+              <div style="color:var(--text-dim); font-family:'JetBrains Mono', monospace; font-size:10px">매일 09:00 KST 자동 실행</div>
             </div>
-
-            <div class="dday-card">
-                <div class="dday-label">사업 종료까지</div>
-                <div class="dday-value">D-357</div>
-                <div class="dday-date">2026년 12월 31일</div>
-                <div class="dday-extension">
-                    <span>✅</span>
-                    <span>12개월 연장 승인 완료</span>
-                </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--surface2); border-radius:8px; border: 1px solid var(--border); font-size:12px;">
+            <span style="color:var(--green)">●</span>
+            <div>
+              <div style="font-weight:600; color:var(--text)">MCP API 연결</div>
+              <div style="color:var(--text-dim); font-family:'JetBrains Mono', monospace; font-size:10px">실시간 동기화 활성</div>
             </div>
-        </section>
-
-        <!-- Metrics Grid -->
-        <section class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-header">
-                    <div class="metric-title">
-                        <div class="metric-icon budget">💰</div>
-                        <span>예산 집행 현황</span>
-                    </div>
-                    <span class="metric-badge warning">일부 초과집행</span>
-                </div>
-                <div class="metric-content">
-                    <div class="metric-main-value">90.8억원</div>
-                    <div class="metric-main-label">총 240억원 중 집행</div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill budget" style="width: 37.8%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="metric-details">
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--primary)">45.4억</div>
-                        <div class="metric-detail-label">국비 집행</div>
-                    </div>
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--secondary)">10.9억</div>
-                        <div class="metric-detail-label">도비 집행</div>
-                    </div>
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--accent)">34.5억</div>
-                        <div class="metric-detail-label">시비 집행</div>
-                    </div>
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--gray-300)">149.2억</div>
-                        <div class="metric-detail-label">잔액</div>
-                    </div>
-                </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--surface2); border-radius:8px; border: 1px solid var(--border); font-size:12px;">
+            <span style="color:var(--green)">●</span>
+            <div>
+              <div style="font-weight:600; color:var(--text)">Slack 채널 연동</div>
+              <div style="color:var(--text-dim); font-family:'JetBrains Mono', monospace; font-size:10px">#플랜예산 외 6개 채널</div>
             </div>
-
-            <div class="metric-card">
-                <div class="metric-header">
-                    <div class="metric-title">
-                        <div class="metric-icon progress">📈</div>
-                        <span>사업 진행 현황</span>
-                    </div>
-                    <span class="metric-badge success">정상 진행</span>
-                </div>
-                <div class="metric-content">
-                    <div class="metric-main-value">42.5%</div>
-                    <div class="metric-main-label">전체 사업 진도율</div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill progress" style="width: 42.5%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="metric-details">
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--success)">3개</div>
-                        <div class="metric-detail-label">완료/준완료</div>
-                    </div>
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--primary)">4개</div>
-                        <div class="metric-detail-label">진행중</div>
-                    </div>
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--gray-500)">2개</div>
-                        <div class="metric-detail-label">대기/신규</div>
-                    </div>
-                </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--surface2); border-radius:8px; border: 1px solid var(--border); font-size:12px;">
+            <span style="color:var(--green)">●</span>
+            <div>
+              <div style="font-weight:600; color:var(--text)">대시보드 데이터</div>
+              <div style="color:var(--text-dim); font-family:'JetBrains Mono', monospace; font-size:10px">dashboard.json 최신</div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <div class="metric-card">
-                <div class="metric-header">
-                    <div class="metric-title">
-                        <div class="metric-icon risk">⚠️</div>
-                        <span>리스크 관리</span>
-                    </div>
-                    <span class="metric-badge danger">관리 필요</span>
-                </div>
-                <div class="metric-content">
-                    <div class="metric-main-value">8건</div>
-                    <div class="metric-main-label">총 관리 리스크</div>
-                </div>
-                <div class="metric-details">
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--danger)">2건</div>
-                        <div class="metric-detail-label">🔴 긴급</div>
-                    </div>
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--accent)">3건</div>
-                        <div class="metric-detail-label">🟠 높음</div>
-                    </div>
-                    <div class="metric-detail">
-                        <div class="metric-detail-value" style="color: var(--warning)">3건</div>
-                        <div class="metric-detail-label">🟡 주의</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  </div>
+</main>
 
-        <!-- Projects Section -->
-        <section>
-            <div class="section-header">
-                <h3 class="section-title">🏗️ 9개 단위사업 현황</h3>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">01</div>
-                        <span class="project-status warning">초과집행</span>
-                    </div>
-                    <div class="project-name">유무선 네트워크 구축</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 4억 → 집행 4.6억</span>
-                        <span class="project-budget-value" style="color: var(--warning)">114%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill over" style="width: 100%"></div>
-                    </div>
-                </div>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div>주관기관: 아산시 도시계획국 스마트도시팀</div>
+        <div style="margin-top:4px">수행기관: (주)제일엔지니어링 PMO | 사업기간: 2023.12 ~ 2026.12</div>
+      </div>
+      <div style="text-align:right">
+        <div><a href="mailto:smartcity-pmo@cheileng.com">smartcity-pmo@cheileng.com</a></div>
+        <div style="margin-top:4px" id="footerUpdate">자동 업데이트: GitHub Actions · 매일 09:00 KST</div>
+      </div>
+    </div>
+  </div>
+</footer>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">02</div>
-                        <span class="project-status complete">협상완료</span>
-                    </div>
-                    <div class="project-name">서비스 인프라 플랫폼</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 27억</span>
-                        <span class="project-budget-value" style="color: var(--success)">85%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill" style="width: 85%"></div>
-                    </div>
-                </div>
+<script>
+// ─── DATA SOURCE ────────────────────────────────────────────────────
+// dashboard.json에서 데이터를 로드하고, 없으면 기본값 사용
+const DEFAULT_DATA = {
+  lastUpdated: "2026-02-19T09:00:00+09:00",
+  basis: "2026-02-19",
+  summary: {
+    totalBudget: 240,
+    executed: 98.0,
+    executionRate: 40.8,
+    remaining: 142.0,
+    progress: 45.2,
+    completedUnits: 3,
+    inProgressUnits: 5,
+    waitingUnits: 1,
+    riskTotal: 8,
+    riskUrgent: 2,
+    riskHigh: 3,
+    riskMid: 3,
+    endDate: "2026-12-31"
+  },
+  units: [
+    { no: "01", name: "유무선 네트워크 구축", budget: 11.35, executed: 4.15, rate: 36.6, status: "done", statusText: "계약완료 (연장 협의중)" },
+    { no: "02", name: "서비스 인프라 플랫폼 (KT)", budget: 45.33, executed: 0, rate: 0, status: "progress", statusText: "계약체결 진행중 (선급금 예정)" },
+    { no: "03", name: "이노베이션 센터 구축", budget: 13.0, executed: 11.86, rate: 91.2, status: "done", statusText: "구축완료 (운영중)" },
+    { no: "04", name: "디지털 OASIS SPOT", budget: 35.0, executed: 0.15, rate: 0.4, status: "progress", statusText: "부지승인 완료 · 설계용역 진행" },
+    { no: "05", name: "SDDC Platform 구축", budget: 27.0, executed: 7.09, rate: 26.2, status: "progress", statusText: "서버실 구축 진행중" },
+    { no: "06", name: "AI 통합관제 플랫폼", budget: 16.0, executed: 9.29, rate: 58.1, status: "progress", statusText: "서비스 인프라에 통합 계약" },
+    { no: "07", name: "디지털 OASIS 정보관리", budget: 25.0, executed: 10.93, rate: 43.7, status: "progress", statusText: "개발 진행중" },
+    { no: "08", name: "DRT 수요응답형 교통", budget: 10.0, executed: 0, rate: 0, status: "wait", statusText: "설계 진행중" },
+    { no: "09", name: "감리용역 (신설)", budget: 1.6, executed: 0, rate: 0, status: "new", statusText: "업체선정 준비" }
+  ],
+  budgetSources: [
+    { name: "국비", total: 120, rate: 50, executed: 49.0, color: "#00d4ff" },
+    { name: "도비", total: 28.8, rate: 12, executed: 11.8, color: "#7c3aed" },
+    { name: "시비", total: 91.2, rate: 38, executed: 37.2, color: "#10b981" }
+  ],
+  risks: [
+    { level: "urgent", title: "예산 집행률 저조 (40.8%)", detail: "잔여 142.0억원, 10개월 내 월평균 14.2억 집행 필요" },
+    { level: "urgent", title: "OASIS SPOT 공사 착공 지연", detail: "영향금액 35억원 | 집행률 0.4%" },
+    { level: "high", title: "KT 서비스 인프라 계약 체결 지연", detail: "45.33억원 | 선급금 지급 시급" },
+    { level: "high", title: "SDDC Platform 서버실 일정 조정", detail: "27억원 | 현 26.2% 집행" },
+    { level: "high", title: "여비 초과집행 (191.4%)", detail: "비목 간 전용 또는 실시계획 변경 필요" },
+    { level: "mid", title: "DRT 차량 발주 설계 지연", detail: "10억원 + 연구개발비 미집행" },
+    { level: "mid", title: "감리용역 업체선정 지연", detail: "1.6억원" },
+    { level: "mid", title: "부스제작비 초과집행 (184.1%)", detail: "정리 필요" }
+  ],
+  schedule: [
+    { date: "02/03", type: "회의", content: "서버실 구축 및 장비 설치 조정 회의", status: "done" },
+    { date: "02/05", type: "보고", content: "서비스 인프라 구축 용역 주간 공정 보고", status: "done" },
+    { date: "02/06", type: "제출", content: "2026년 1월 관리카드 제출", status: "done" },
+    { date: "02/10", type: "제출", content: "25년 4분기보고서 및 연간보고서 제출", status: "done" },
+    { date: "02/10", type: "공문", content: "국고보조금 집행실태 점검결과(4Q) 소명자료 제출", status: "done" },
+    { date: "02/10", type: "공문", content: "실시계획 변경 승인 요청 + 사업비 집행 사유서", status: "done" },
+    { date: "02/11", type: "회의", content: "아산시 스마트시티 사업 운영방안 회의", status: "done" },
+    { date: "02/11", type: "협의", content: "유무선인프라 구축 계약 연장 협의", status: "progress" },
+    { date: "02/28", type: "마감", content: "2월 월간 추진실적 보고", status: "plan" }
+  ]
+};
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">03</div>
-                        <span class="project-status complete">구축완료</span>
-                    </div>
-                    <div class="project-name">이노베이션 센터 구축 및 운영</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 13억 → 집행 12.1억</span>
-                        <span class="project-budget-value" style="color: var(--success)">93%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill" style="width: 93%"></div>
-                    </div>
-                </div>
+// ─── HELPERS ────────────────────────────────────────────────────────
+function calcDday(endDateStr) {
+  const end = new Date(endDateStr);
+  const now = new Date();
+  const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+  return diff;
+}
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">04</div>
-                        <span class="project-status progress">부지승인 대기</span>
-                    </div>
-                    <div class="project-name">디지털 OASIS SPOT 구축</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 35억 → 집행 0.15억</span>
-                        <span class="project-budget-value" style="color: var(--gray-500)">0.4%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill" style="width: 0.4%"></div>
-                    </div>
-                </div>
+function formatKST(isoStr) {
+  const d = new Date(isoStr);
+  return d.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) + ' KST';
+}
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">05</div>
-                        <span class="project-status progress">기술협상완료</span>
-                    </div>
-                    <div class="project-name">SDDC Platform 구축</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 27억 → 집행 7.8억</span>
-                        <span class="project-budget-value" style="color: var(--primary)">29%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill" style="width: 29%"></div>
-                    </div>
-                </div>
+function progressColor(rate) {
+  if (rate >= 80) return '#10b981';
+  if (rate >= 40) return '#00d4ff';
+  if (rate >= 10) return '#f59e0b';
+  return '#ef4444';
+}
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">06</div>
-                        <span class="project-status progress">계약 대기</span>
-                    </div>
-                    <div class="project-name">AI 통합관제 플랫폼</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 16억</span>
-                        <span class="project-budget-value" style="color: var(--gray-500)">0%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill" style="width: 0%"></div>
-                    </div>
-                </div>
+function statusClass(status) {
+  const map = { done: 'status-done', progress: 'status-progress', wait: 'status-wait', warn: 'status-warn', new: 'status-new', over: 'status-over' };
+  return map[status] || 'status-wait';
+}
+function statusIcon(status) {
+  const map = { done: '✅', progress: '🔄', wait: '⏸️', warn: '⚠️', new: '🆕', over: '🔴' };
+  return map[status] || '—';
+}
+function schedStatusBadge(status) {
+  if (status === 'done') return '<span class="status status-done">✅ 완료</span>';
+  if (status === 'progress') return '<span class="status status-progress">🔄 진행중</span>';
+  return '<span class="status status-wait">📅 예정</span>';
+}
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">07</div>
-                        <span class="project-status danger">초과집행 주의</span>
-                    </div>
-                    <div class="project-name">디지털 OASIS 정보관리 서비스</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 23억 → 집행 42억</span>
-                        <span class="project-budget-value" style="color: var(--danger)">168%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill over" style="width: 100%"></div>
-                    </div>
-                </div>
+// ─── RENDER ─────────────────────────────────────────────────────────
+function render(data) {
+  const s = data.summary;
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">08</div>
-                        <span class="project-status pending">미착수</span>
-                    </div>
-                    <div class="project-name">DRT(수요응답형 모빌리티) 플랫폼</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 10억</span>
-                        <span class="project-budget-value" style="color: var(--gray-500)">0%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill" style="width: 0%"></div>
-                    </div>
-                </div>
+  // D-Day
+  const dday = calcDday(s.endDate);
+  document.getElementById('kpi-dday').textContent = `D-${dday}`;
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-number">09</div>
-                        <span class="project-status new">신설</span>
-                    </div>
-                    <div class="project-name">감리용역</div>
-                    <div class="project-budget">
-                        <span class="project-budget-label">예산 1.6억</span>
-                        <span class="project-budget-value" style="color: var(--gray-500)">0%</span>
-                    </div>
-                    <div class="project-progress">
-                        <div class="project-progress-fill" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  // Last update
+  const upd = formatKST(data.lastUpdated);
+  document.getElementById('lastUpdate').textContent = `최종 업데이트: ${upd}`;
+  document.getElementById('footerUpdate').textContent = `자동 업데이트: GitHub Actions | 최종: ${upd}`;
+  document.getElementById('unitBasis').textContent = `${data.basis} 기준`;
 
-        <!-- Risk Section -->
-        <section>
-            <div class="section-header">
-                <h3 class="section-title">⚠️ 리스크 관리 현황</h3>
-            </div>
-            <div class="risk-grid">
-                <div class="risk-category">
-                    <div class="risk-category-header">
-                        <div class="risk-dot critical"></div>
-                        <span class="risk-category-title">긴급 리스크</span>
-                        <span class="risk-count" style="color: var(--danger)">2</span>
-                    </div>
-                    <div class="risk-item">
-                        예산 집행률 저조 (2025년 집행률 14.8%)
-                        <div class="risk-amount">영향금액: 146억원</div>
-                    </div>
-                    <div class="risk-item">
-                        OASIS SPOT 공사 지연 리스크
-                        <div class="risk-amount">영향금액: 35.5억원</div>
-                    </div>
-                </div>
+  // KPI
+  document.getElementById('kpi-budget').textContent = `${s.executed}억`;
+  document.getElementById('kpi-budget-rate').textContent = `집행률 ${s.executionRate}% | 잔액 ${s.remaining}억`;
+  document.getElementById('kpi-progress').textContent = `${s.progress}%`;
+  document.getElementById('kpi-progress-sub').textContent = `완료 ${s.completedUnits}개 · 진행 ${s.inProgressUnits}개 · 대기 ${s.waitingUnits}개`;
+  document.getElementById('kpi-risk').textContent = `${s.riskTotal}건`;
+  document.getElementById('kpi-risk-sub').textContent = `🔴 긴급 ${s.riskUrgent}건 · 🟠 높음 ${s.riskHigh}건 · 🟡 주의 ${s.riskMid}건`;
 
-                <div class="risk-category">
-                    <div class="risk-category-header">
-                        <div class="risk-dot high"></div>
-                        <span class="risk-category-title">높음 리스크</span>
-                        <span class="risk-count" style="color: var(--accent)">3</span>
-                    </div>
-                    <div class="risk-item">
-                        SDDC Platform 계약 지연
-                        <div class="risk-amount">영향금액: 27억원</div>
-                    </div>
-                    <div class="risk-item">
-                        서비스 인프라 계약 지연
-                        <div class="risk-amount">영향금액: 27억원</div>
-                    </div>
-                    <div class="risk-item">
-                        네트워크 장비 납기 12주 소요
-                        <div class="risk-amount">영향금액: 8억원</div>
-                    </div>
-                </div>
+  // Unit Table
+  const tbody = document.getElementById('unitTableBody');
+  tbody.innerHTML = data.units.map(u => {
+    const color = progressColor(u.rate);
+    const sc = statusClass(u.status);
+    const si = statusIcon(u.status);
+    return `
+      <tr>
+        <td><span class="unit-num">${u.no}</span></td>
+        <td class="unit-name">${u.name}</td>
+        <td class="amount">${u.budget}억</td>
+        <td class="amount">${u.executed > 0 ? u.executed + '억' : '-'}</td>
+        <td>
+          <div class="prog-wrap">
+            <div class="prog-bar"><div class="prog-fill" style="width:${Math.min(u.rate,100)}%; background:${color}"></div></div>
+            <div class="prog-pct">${u.rate}%</div>
+          </div>
+        </td>
+        <td><span class="status ${sc}">${si} ${u.statusText}</span></td>
+      </tr>`;
+  }).join('');
 
-                <div class="risk-category">
-                    <div class="risk-category-header">
-                        <div class="risk-dot medium"></div>
-                        <span class="risk-category-title">주의 리스크</span>
-                        <span class="risk-count" style="color: var(--warning)">3</span>
-                    </div>
-                    <div class="risk-item">
-                        AI통합관제 계약 지연
-                        <div class="risk-amount">영향금액: 16억원</div>
-                    </div>
-                    <div class="risk-item">
-                        정보관리 서비스 업체선정 지연
-                        <div class="risk-amount">영향금액: 23억원</div>
-                    </div>
-                    <div class="risk-item">
-                        DRT 차량 발주 지연
-                        <div class="risk-amount">영향금액: 10억원</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  // Budget Sources
+  const budgetCard = document.getElementById('budgetSourceCard');
+  budgetCard.innerHTML = data.budgetSources.map(b => {
+    const rate = Math.round((b.executed / b.total) * 100);
+    return `
+      <div class="budget-row">
+        <div class="budget-source">${b.name}</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar">
+            <div class="budget-bar-fill" style="width:${rate}%; background:${b.color}"></div>
+          </div>
+        </div>
+        <div class="budget-info">
+          <div class="budget-info-main">${b.executed}억 / ${b.total}억</div>
+          <div class="budget-info-sub">${rate}% 집행</div>
+        </div>
+      </div>`;
+  }).join('') + `
+    <div class="budget-row" style="background:rgba(0,212,255,0.03); border-radius:6px; margin-top:4px; border-top:1px solid var(--border)">
+      <div class="budget-source" style="color:var(--accent); font-size:11px">합계</div>
+      <div class="budget-bar-wrap">
+        <div class="budget-bar">
+          <div class="budget-bar-fill" style="width:${s.executionRate}%; background:linear-gradient(90deg,#00d4ff,#0077ff)"></div>
+        </div>
+      </div>
+      <div class="budget-info">
+        <div class="budget-info-main" style="color:var(--accent)">${s.executed}억 / ${s.totalBudget}억</div>
+        <div class="budget-info-sub">${s.executionRate}% 집행</div>
+      </div>
+    </div>`;
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-info">
-                <div class="footer-item">
-                    <span class="footer-label">주관기관</span>
-                    <span class="footer-value">아산시 스마트도시팀</span>
-                </div>
-                <div class="footer-item">
-                    <span class="footer-label">수행기관</span>
-                    <span class="footer-value">(주)제일엔지니어링 PMO</span>
-                </div>
-                <div class="footer-item">
-                    <span class="footer-label">사업기간</span>
-                    <span class="footer-value">2023.08 ~ 2026.12 (12개월 연장)</span>
-                </div>
-                <div class="footer-item">
-                    <span class="footer-label">문의</span>
-                    <span class="footer-value">smartcity-pmo@cheileng.com</span>
-                </div>
-            </div>
-            <div class="footer-links">
-                <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" class="footer-link" target="_blank">📋 Notion 프로젝트</a>
-                <a href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" class="footer-link" target="_blank">💰 예산관리</a>
-                <a href="https://leesungho-ai.github.io/Asan-asset-management/" class="footer-link" target="_blank">📦 자산관리</a>
-            </div>
-        </footer>
-    </main>
+  // Risks
+  const riskCard = document.getElementById('riskCard');
+  riskCard.innerHTML = data.risks.map(r => {
+    const cls = r.level === 'urgent' ? 'risk-urgent' : r.level === 'high' ? 'risk-high' : 'risk-mid';
+    return `
+      <div class="risk-item ${cls}">
+        <div class="risk-dot"></div>
+        <div class="risk-content">
+          <div class="risk-title">${r.title}</div>
+          <div class="risk-amount">${r.detail}</div>
+        </div>
+      </div>`;
+  }).join('');
 
-    <script>
-        // D-Day 계산
-        function updateDDay() {
-            const endDate = new Date('2026-12-31');
-            const today = new Date();
-            const diffTime = endDate - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            document.querySelector('.dday-value').textContent = `D-${diffDays}`;
-        }
+  // Schedule
+  const schedTbody = document.getElementById('schedTableBody');
+  schedTbody.innerHTML = data.schedule.map(sc => `
+    <tr>
+      <td class="sched-date" style="width:52px">2026/${sc.date}</td>
+      <td style="width:52px"><span class="sched-type">${sc.type}</span></td>
+      <td>${sc.content}</td>
+      <td style="width:90px; text-align:right">${schedStatusBadge(sc.status)}</td>
+    </tr>`).join('');
 
-        // 페이지 로드 시 D-Day 업데이트
-        updateDDay();
+  // Hide loading bar
+  document.getElementById('loadingBar').style.display = 'none';
+}
 
-        // 애니메이션 효과
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+// ─── INIT ────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const res = await fetch('./data/dashboard.json?t=' + Date.now());
+    if (!res.ok) throw new Error('No JSON');
+    const data = await res.json();
+    render(data);
+  } catch(e) {
+    // Fallback to default data
+    render(DEFAULT_DATA);
+    console.log('dashboard.json 로드 실패, 기본 데이터 사용:', e.message);
+  }
+}
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+init();
 
-        document.querySelectorAll('.metric-card, .project-card, .risk-category').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+// Auto-refresh every 30 minutes
+setInterval(init, 30 * 60 * 1000);
+</script>
 </body>
 </html>
