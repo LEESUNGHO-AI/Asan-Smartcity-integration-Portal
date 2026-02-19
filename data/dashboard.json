@@ -1,329 +1,56 @@
 {
-  "lastUpdated": "2026-01-08T11:00:00+09:00",
-  "syncStatus": "active",
-  "dataSource": "Notion MCP API",
-  
-  "project": {
-    "name": "아산시 강소형 스마트시티 조성사업",
-    "subtitle": "디지털 OASIS 구현을 통한 지역경제 활성화 및 데이터 기반 스마트시티 조성",
-    "type": "기존도시 - 지역소멸대응/인구변화대응",
-    "location": "충청남도 아산시 도고면·배방읍 일원 (약 44,350,000㎡)",
-    "period": {
-      "start": "2023-08",
-      "end": "2026-12",
-      "extensionMonths": 12,
-      "extensionApprovalDate": "2025-12-24"
-    },
-    "endDate": "2026-12-31",
-    "dDay": 357,
-    "organization": {
-      "lead": "아산시 스마트도시팀",
-      "manager": "박상국 팀장",
-      "executor": "(주)제일엔지니어링 PMO",
-      "consortium": ["충남연구원", "KAIST", "호서대학교 산학협력단"]
-    }
+  "lastUpdated": "2026-02-19T09:00:00+09:00",
+  "basis": "2026-02-19",
+  "summary": {
+    "totalBudget": 240,
+    "executed": 98.0,
+    "executionRate": 40.8,
+    "remaining": 142.0,
+    "progress": 45.2,
+    "completedUnits": 3,
+    "inProgressUnits": 5,
+    "waitingUnits": 1,
+    "riskTotal": 8,
+    "riskUrgent": 2,
+    "riskHigh": 3,
+    "riskMid": 3,
+    "endDate": "2026-12-31"
   },
-  
-  "budget": {
-    "total": 24000000000,
-    "totalFormatted": "240억원",
-    "allocated": 24000000000,
-    "executed": 9080000000,
-    "executedFormatted": "90.8억원",
-    "executionRate": 37.8,
-    "remaining": 14920000000,
-    "remainingFormatted": "149.2억원",
-    "status": "일부 초과집행",
-    "breakdown": {
-      "national": {
-        "total": 12000000000,
-        "totalFormatted": "120억원",
-        "percentage": 50,
-        "executed": 4540000000,
-        "executedFormatted": "45.4억원",
-        "executionRate": 37.8
-      },
-      "provincial": {
-        "total": 2880000000,
-        "totalFormatted": "28.8억원",
-        "percentage": 12,
-        "executed": 1090000000,
-        "executedFormatted": "10.9억원",
-        "executionRate": 37.8
-      },
-      "municipal": {
-        "total": 9120000000,
-        "totalFormatted": "91.2억원",
-        "percentage": 38,
-        "executed": 3450000000,
-        "executedFormatted": "34.5억원",
-        "executionRate": 37.8
-      }
-    }
-  },
-  
-  "progress": {
-    "overallRate": 42.5,
-    "status": "정상 진행",
-    "summary": {
-      "completed": 3,
-      "inProgress": 4,
-      "pending": 2,
-      "total": 9
-    }
-  },
-  
-  "unitProjects": [
-    {
-      "id": 1,
-      "name": "유무선 네트워크 구축",
-      "budget": 400000000,
-      "budgetFormatted": "4억원",
-      "executed": 456000000,
-      "executedFormatted": "4.6억원",
-      "executionRate": 114,
-      "status": "계약완료",
-      "statusCode": "warning",
-      "contractor": "사인텔레콤",
-      "contractDate": "2025-11-20",
-      "note": "예산 초과집행"
-    },
-    {
-      "id": 2,
-      "name": "서비스 인프라 플랫폼",
-      "budget": 2700000000,
-      "budgetFormatted": "27억원",
-      "executed": 0,
-      "executedFormatted": "-",
-      "executionRate": 0,
-      "progressRate": 85,
-      "status": "협상완료",
-      "statusCode": "complete",
-      "note": "계약 목표: 2025.12.05"
-    },
-    {
-      "id": 3,
-      "name": "이노베이션 센터 구축 및 운영",
-      "budget": 1300000000,
-      "budgetFormatted": "13억원",
-      "executed": 1210000000,
-      "executedFormatted": "12.1억원",
-      "executionRate": 93,
-      "status": "구축완료",
-      "statusCode": "complete",
-      "location": "호서대학교 KTX 캠퍼스"
-    },
-    {
-      "id": 4,
-      "name": "디지털 OASIS SPOT 구축",
-      "budget": 3500000000,
-      "budgetFormatted": "35억원",
-      "executed": 15000000,
-      "executedFormatted": "0.15억원",
-      "executionRate": 0.4,
-      "status": "부지승인 대기",
-      "statusCode": "progress",
-      "location": "도고면 기곡리 174-1"
-    },
-    {
-      "id": 5,
-      "name": "SDDC Platform 구축",
-      "budget": 2700000000,
-      "budgetFormatted": "27억원",
-      "executed": 780000000,
-      "executedFormatted": "7.8억원",
-      "executionRate": 29,
-      "status": "기술협상완료",
-      "statusCode": "progress",
-      "contractor": "한국정보기술컨소시엄"
-    },
-    {
-      "id": 6,
-      "name": "AI 통합관제 플랫폼",
-      "budget": 1600000000,
-      "budgetFormatted": "16억원",
-      "executed": 0,
-      "executedFormatted": "0억원",
-      "executionRate": 0,
-      "status": "계약 대기",
-      "statusCode": "progress",
-      "note": "계약 목표: 2025.12.10"
-    },
-    {
-      "id": 7,
-      "name": "디지털 OASIS 정보관리 서비스",
-      "budget": 2300000000,
-      "budgetFormatted": "23억원",
-      "executed": 4200000000,
-      "executedFormatted": "42억원",
-      "executionRate": 168,
-      "status": "초과집행 주의",
-      "statusCode": "danger",
-      "note": "당초 25억 → 23억 감액"
-    },
-    {
-      "id": 8,
-      "name": "DRT(수요응답형 모빌리티) 플랫폼",
-      "budget": 1000000000,
-      "budgetFormatted": "10억원",
-      "executed": 0,
-      "executedFormatted": "0억원",
-      "executionRate": 0,
-      "status": "미착수",
-      "statusCode": "pending"
-    },
-    {
-      "id": 9,
-      "name": "감리용역",
-      "budget": 160000000,
-      "budgetFormatted": "1.6억원",
-      "executed": 0,
-      "executedFormatted": "0억원",
-      "executionRate": 0,
-      "status": "신설",
-      "statusCode": "new",
-      "note": "실시계획 7차 변경으로 신설"
-    }
+  "units": [
+    { "no": "01", "name": "유무선 네트워크 구축", "budget": 11.35, "executed": 4.15, "rate": 36.6, "status": "done", "statusText": "계약완료 (연장 협의중)" },
+    { "no": "02", "name": "서비스 인프라 플랫폼 (KT)", "budget": 45.33, "executed": 0, "rate": 0, "status": "progress", "statusText": "계약체결 진행중 (선급금 예정)" },
+    { "no": "03", "name": "이노베이션 센터 구축", "budget": 13.0, "executed": 11.86, "rate": 91.2, "status": "done", "statusText": "구축완료 (운영중)" },
+    { "no": "04", "name": "디지털 OASIS SPOT", "budget": 35.0, "executed": 0.15, "rate": 0.4, "status": "progress", "statusText": "부지승인 완료 · 설계용역 진행" },
+    { "no": "05", "name": "SDDC Platform 구축", "budget": 27.0, "executed": 7.09, "rate": 26.2, "status": "progress", "statusText": "서버실 구축 진행중" },
+    { "no": "06", "name": "AI 통합관제 플랫폼", "budget": 16.0, "executed": 9.29, "rate": 58.1, "status": "progress", "statusText": "서비스 인프라에 통합 계약" },
+    { "no": "07", "name": "디지털 OASIS 정보관리", "budget": 25.0, "executed": 10.93, "rate": 43.7, "status": "progress", "statusText": "개발 진행중" },
+    { "no": "08", "name": "DRT 수요응답형 교통", "budget": 10.0, "executed": 0, "rate": 0, "status": "wait", "statusText": "설계 진행중" },
+    { "no": "09", "name": "감리용역 (신설)", "budget": 1.6, "executed": 0, "rate": 0, "status": "new", "statusText": "업체선정 준비" }
   ],
-  
-  "risks": {
-    "total": 8,
-    "critical": {
-      "count": 2,
-      "items": [
-        {
-          "id": 1,
-          "description": "예산 집행률 저조 (2025년 집행률 14.8%)",
-          "impact": 14600000000,
-          "impactFormatted": "146억원",
-          "mitigation": "2026년 상반기 대형 계약 체결 및 집행 가속화",
-          "deadline": "2026-06-30"
-        },
-        {
-          "id": 2,
-          "description": "OASIS SPOT 공사 지연 리스크",
-          "impact": 3550000000,
-          "impactFormatted": "35.5억원",
-          "mitigation": "2026년 1분기 공사 착수 확정",
-          "deadline": "2026-03-31"
-        }
-      ]
-    },
-    "high": {
-      "count": 3,
-      "items": [
-        {
-          "id": 3,
-          "description": "SDDC Platform 계약 지연",
-          "impact": 2700000000,
-          "impactFormatted": "27억원",
-          "mitigation": "12/5까지 계약 체결 완료",
-          "deadline": "2025-12-05"
-        },
-        {
-          "id": 4,
-          "description": "서비스 인프라 계약 지연",
-          "impact": 2700000000,
-          "impactFormatted": "27억원",
-          "mitigation": "12/5까지 계약 체결 완료",
-          "deadline": "2025-12-05"
-        },
-        {
-          "id": 5,
-          "description": "네트워크 장비 납기 12주 소요",
-          "impact": 800000000,
-          "impactFormatted": "8억원",
-          "mitigation": "조기 발주 및 대체 장비 검토",
-          "deadline": "2026-02-28"
-        }
-      ]
-    },
-    "medium": {
-      "count": 3,
-      "items": [
-        {
-          "id": 6,
-          "description": "AI통합관제 계약 지연",
-          "impact": 1600000000,
-          "impactFormatted": "16억원",
-          "mitigation": "12/10 계약 목표 준수",
-          "deadline": "2025-12-10"
-        },
-        {
-          "id": 7,
-          "description": "정보관리 서비스 업체선정 지연",
-          "impact": 2300000000,
-          "impactFormatted": "23억원",
-          "mitigation": "12/8 업체선정 완료",
-          "deadline": "2025-12-08"
-        },
-        {
-          "id": 8,
-          "description": "DRT 차량 발주 지연",
-          "impact": 1000000000,
-          "impactFormatted": "10억원",
-          "mitigation": "12월 내 발주 완료",
-          "deadline": "2025-12-31"
-        }
-      ]
-    }
-  },
-  
-  "personnel": {
-    "totalRegistered": 54,
-    "activeCount": 25,
-    "activeRate": 46.3,
-    "organizations": [
-      {
-        "name": "제일엔지니어링종합건축사사무소",
-        "total": 26,
-        "active": 9,
-        "inactive": 17,
-        "activeRate": 34.6
-      },
-      {
-        "name": "충남연구원",
-        "total": 6,
-        "active": 5,
-        "inactive": 1,
-        "activeRate": 83.3
-      },
-      {
-        "name": "한국과학기술원 (KAIST)",
-        "total": 6,
-        "active": 3,
-        "inactive": 3,
-        "activeRate": 50.0
-      },
-      {
-        "name": "호서대학교 산학협력단",
-        "total": 16,
-        "active": 8,
-        "inactive": 8,
-        "activeRate": 50.0
-      }
-    ],
-    "roles": 28
-  },
-  
-  "links": {
-    "notion": {
-      "main": "https://www.notion.so/21650aa9577d80dc8278e0187c54677f",
-      "budget": "https://www.notion.so/2aa50aa9577d8128b6d4c5c21d845796",
-      "personnel": "https://www.notion.so/2b850aa9577d8128ad35d86b79f67d12"
-    },
-    "github": {
-      "portal": "https://leesungho-ai.github.io/Asan-Smartcity-integration-Portal/",
-      "budget": "https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/",
-      "asset": "https://leesungho-ai.github.io/Asan-asset-management/",
-      "hr": "https://leesungho-ai.github.io/Asan-HR-Management-Portal/"
-    }
-  },
-  
-  "metadata": {
-    "version": "3.0",
-    "generatedBy": "Claude AI + Notion MCP",
-    "dataBasedOn": "노션 프로젝트 관리 페이지 2026-01-08 기준",
-    "approvalDocument": "국토교통부 도시경제과-4599호 (2025.12.24)"
-  }
+  "budgetSources": [
+    { "name": "국비", "total": 120, "rate": 50, "executed": 49.0, "color": "#00d4ff" },
+    { "name": "도비", "total": 28.8, "rate": 12, "executed": 11.8, "color": "#7c3aed" },
+    { "name": "시비", "total": 91.2, "rate": 38, "executed": 37.2, "color": "#10b981" }
+  ],
+  "risks": [
+    { "level": "urgent", "title": "예산 집행률 저조 (40.8%)", "detail": "잔여 142.0억원, 10개월 내 월평균 14.2억 집행 필요" },
+    { "level": "urgent", "title": "OASIS SPOT 공사 착공 지연", "detail": "영향금액 35억원 | 집행률 0.4%" },
+    { "level": "high", "title": "KT 서비스 인프라 계약 체결 지연", "detail": "45.33억원 | 선급금 지급 시급" },
+    { "level": "high", "title": "SDDC Platform 서버실 일정 조정", "detail": "27억원 | 현 26.2% 집행" },
+    { "level": "high", "title": "여비 초과집행 (191.4%)", "detail": "비목 간 전용 또는 실시계획 변경 필요" },
+    { "level": "mid", "title": "DRT 차량 발주 설계 지연", "detail": "10억원 + 연구개발비 미집행" },
+    { "level": "mid", "title": "감리용역 업체선정 지연", "detail": "1.6억원" },
+    { "level": "mid", "title": "부스제작비 초과집행 (184.1%)", "detail": "정리 필요" }
+  ],
+  "schedule": [
+    { "date": "02/03", "type": "회의", "content": "서버실 구축 및 장비 설치 조정 회의", "status": "done" },
+    { "date": "02/05", "type": "보고", "content": "서비스 인프라 구축 용역 주간 공정 보고", "status": "done" },
+    { "date": "02/06", "type": "제출", "content": "2026년 1월 관리카드 제출", "status": "done" },
+    { "date": "02/10", "type": "제출", "content": "25년 4분기보고서 및 연간보고서 제출", "status": "done" },
+    { "date": "02/10", "type": "공문", "content": "국고보조금 집행실태 점검결과(4Q) 소명자료 제출", "status": "done" },
+    { "date": "02/10", "type": "공문", "content": "실시계획 변경 승인 요청 + 사업비 집행 사유서", "status": "done" },
+    { "date": "02/11", "type": "회의", "content": "아산시 스마트시티 사업 운영방안 회의", "status": "done" },
+    { "date": "02/11", "type": "협의", "content": "유무선인프라 구축 계약 연장 협의", "status": "progress" },
+    { "date": "02/28", "type": "마감", "content": "2월 월간 추진실적 보고", "status": "plan" }
+  ]
 }
