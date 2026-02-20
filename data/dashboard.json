@@ -1,9 +1,9 @@
 {
   "meta": {
     "project_name": "아산시 강소형 스마트시티 조성사업",
-    "last_updated": "2026-02-20 09:53 KST",
-    "data_source": "Notion API (자동 동기화)",
-    "version": "3.0"
+    "last_updated": "2026-02-20 10:07 KST",
+    "data_source": "Notion API 자동 동기화 (매 30분)",
+    "version": "3.1"
   },
   "dday": {
     "end_date": "2025-12-31",
@@ -13,27 +13,185 @@
     "elapsed_rate": 106.7
   },
   "budget": {
-    "total_budget": 24000000000,
-    "total_executed": 9800000000,
-    "execution_rate": 40.8,
-    "remaining": 14200000000,
-    "categories": []
+    "total_budget": 15760000000.0,
+    "total_executed": 2461000000.0,
+    "execution_rate": 15.6,
+    "remaining": 13299000000.0,
+    "categories": [
+      {
+        "name": "⑨ 감리용역 (신설)",
+        "budget": 160000000.0,
+        "executed": 0.0,
+        "rate": 0.0,
+        "progress": 0.0,
+        "status": "🆕 신설",
+        "category": "감리"
+      },
+      {
+        "name": "⑥ AI 통합관제 플랫폼",
+        "budget": 1600000000.0,
+        "executed": 0.0,
+        "rate": 0.0,
+        "progress": 0.0,
+        "status": "⏸️ 대기",
+        "category": "플랫폼개발"
+      },
+      {
+        "name": "② 서비스 인프라 플랫폼",
+        "budget": 2700000000.0,
+        "executed": 0.0,
+        "rate": 0.0,
+        "progress": 85.0,
+        "status": "🔄 진행중",
+        "category": "플랫폼개발"
+      },
+      {
+        "name": "① 유무선 네트워크 구축",
+        "budget": 400000000.0,
+        "executed": 456000000.0,
+        "rate": 114.0,
+        "progress": 95.0,
+        "status": "✅ 완료",
+        "category": "인프라구축"
+      },
+      {
+        "name": "④ 디지털 OASIS SPOT 구축",
+        "budget": 3554000000.0,
+        "executed": 15000000.0,
+        "rate": 0.4,
+        "progress": 2.0,
+        "status": "⏸️ 대기",
+        "category": "시설공사"
+      },
+      {
+        "name": "③ 이노베이션 센터 구축 및 운영",
+        "budget": 1346000000.0,
+        "executed": 1210000000.0,
+        "rate": 89.9,
+        "progress": 95.0,
+        "status": "✅ 완료",
+        "category": "시설공사"
+      },
+      {
+        "name": "⑦ 디지털 OASIS 정보관리 서비스",
+        "budget": 2300000000.0,
+        "executed": 0.0,
+        "rate": 0.0,
+        "progress": 5.0,
+        "status": "🔄 진행중",
+        "category": "플랫폼개발"
+      },
+      {
+        "name": "⑤ SDDC Platform 구축",
+        "budget": 2700000000.0,
+        "executed": 780000000.0,
+        "rate": 28.9,
+        "progress": 35.0,
+        "status": "🔄 진행중",
+        "category": "인프라구축"
+      },
+      {
+        "name": "⑧ DRT(수요응답형 모빌리티) 플랫폼",
+        "budget": 1000000000.0,
+        "executed": 0.0,
+        "rate": 0.0,
+        "progress": 0.0,
+        "status": "⏸️ 대기",
+        "category": "연구개발"
+      }
+    ]
   },
   "projects": {
-    "overall_progress": 42.5,
+    "overall_progress": 35.2,
     "total_count": 9,
     "status_count": {
-      "완료": 2,
-      "진행중": 4,
-      "대기": 3
+      "🆕 신설": 1,
+      "⏸️ 대기": 3,
+      "🔄 진행중": 3,
+      "✅ 완료": 2
     },
-    "items": []
+    "items": [
+      {
+        "name": "⑨ 감리용역 (신설)",
+        "status": "🆕 신설",
+        "progress": 0.0,
+        "category": "감리"
+      },
+      {
+        "name": "⑥ AI 통합관제 플랫폼",
+        "status": "⏸️ 대기",
+        "progress": 0.0,
+        "category": "플랫폼개발"
+      },
+      {
+        "name": "② 서비스 인프라 플랫폼",
+        "status": "🔄 진행중",
+        "progress": 85.0,
+        "category": "플랫폼개발"
+      },
+      {
+        "name": "① 유무선 네트워크 구축",
+        "status": "✅ 완료",
+        "progress": 95.0,
+        "category": "인프라구축"
+      },
+      {
+        "name": "④ 디지털 OASIS SPOT 구축",
+        "status": "⏸️ 대기",
+        "progress": 2.0,
+        "category": "시설공사"
+      },
+      {
+        "name": "③ 이노베이션 센터 구축 및 운영",
+        "status": "✅ 완료",
+        "progress": 95.0,
+        "category": "시설공사"
+      },
+      {
+        "name": "⑦ 디지털 OASIS 정보관리 서비스",
+        "status": "🔄 진행중",
+        "progress": 5.0,
+        "category": "플랫폼개발"
+      },
+      {
+        "name": "⑤ SDDC Platform 구축",
+        "status": "🔄 진행중",
+        "progress": 35.0,
+        "category": "인프라구축"
+      },
+      {
+        "name": "⑧ DRT(수요응답형 모빌리티) 플랫폼",
+        "status": "⏸️ 대기",
+        "progress": 0.0,
+        "category": "연구개발"
+      }
+    ]
   },
   "tasks": {
-    "total": 0,
-    "done": 0,
-    "in_progress": 0,
-    "pending": 0,
-    "recent": []
+    "total": 2,
+    "urgent": 0,
+    "high": 0,
+    "normal": 2,
+    "type_count": {
+      "": 2
+    },
+    "recent": [
+      {
+        "name": "아산시 강소형 스마트시티 구축사업 회의 및 이슈 관리",
+        "type": "",
+        "priority": "",
+        "host": "",
+        "date": "",
+        "projects": []
+      },
+      {
+        "name": "아산시 강소형 스마트시티 구축사업 회의 및 이슈 관리",
+        "type": "",
+        "priority": "",
+        "host": "",
+        "date": "",
+        "projects": []
+      }
+    ]
   }
 }
