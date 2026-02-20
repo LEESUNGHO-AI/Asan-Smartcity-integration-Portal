@@ -256,7 +256,7 @@ def _fetch_notion_data(data):
 def _default_projects():
     return [
         {"name": "유무선 네트워크 구축",           "budget": 11.35e8, "executed": 4.15e8, "rate": 36.6, "status": "✅ 완료",   "note": "계약완료 (연장 협의 중)"},
-        {"name": "서비스 인프라 플랫폼",       "budget": 45.33e8, "executed": 0,       "rate":  0.0, "status": "🔄 진행중", "note": "계약체결 진행중"},
+        {"name": "서비스 인프라 플랫폼",       "budget": 45.33e8, "executed": 0,       "rate":  0.0, "status": "🔄 진행중", "note": "진행중"},
         {"name": "이노베이션 센터 구축",             "budget": 13.0e8,  "executed": 11.86e8,"rate": 91.2, "status": "✅ 완료",   "note": "구축완료 (운영중)"},
         {"name": "디지털 OASIS SPOT",              "budget": 35.0e8,  "executed": 0.15e8,  "rate":  0.4, "status": "🔄 진행중", "note": "부지승인 완료, 설계용역 진행"},
         {"name": "SDDC Platform 구축",             "budget": 27.0e8,  "executed": 7.09e8,  "rate": 26.2, "status": "🔄 진행중", "note": "서버실 구축 진행중"},
