@@ -1,566 +1,413 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>아산시 강소형 스마트시티 통합 포털</title>
-  <style>
-    :root {
-      --primary: #1a3a6b;
-      --accent:  #2e80e8;
-      --success: #22c55e;
-      --warning: #f59e0b;
-      --danger:  #ef4444;
-      --bg:      #0f1623;
-      --card:    #1a2540;
-      --border:  #2a3a5a;
-      --text:    #e2e8f0;
-      --muted:   #8fa3c0;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>아산시 강소형 스마트시티 통합 포털</title>
+<style>
+:root{
+  --bg:#0f1623;--card:#1a2540;--border:#2a3a5a;
+  --text:#e2e8f0;--muted:#8fa3c0;
+  --accent:#2e80e8;--success:#22c55e;--warn:#f59e0b;--danger:#ef4444;
+  --primary:#1a3a6b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
 
-    /* ── 헤더 ── */
-    header {
-      background: linear-gradient(135deg, var(--primary) 0%, #0d2444 100%);
-      padding: 18px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 2px solid var(--accent);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .header-left h1 { font-size: 1.35rem; font-weight: 700; }
-    .header-left p  { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
-    .header-right   { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .badge {
-      background: rgba(46,128,232,0.18);
-      border: 1px solid var(--accent);
-      border-radius: 20px;
-      padding: 3px 12px;
-      font-size: 0.73rem;
-      color: var(--accent);
-    }
-    #last-updated { font-size: 0.72rem; color: var(--muted); }
-    .refresh-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 5px 13px;
-      font-size: 0.78rem;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .refresh-btn:hover { background: #1a60c0; }
+/* 헤더 */
+header{background:linear-gradient(135deg,var(--primary),#0d2444);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--accent);flex-wrap:wrap;gap:10px}
+.htitle{font-size:1.28rem;font-weight:700}
+.hsub{font-size:.76rem;color:var(--muted);margin-top:3px}
+.hright{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.badge{background:rgba(46,128,232,.18);border:1px solid var(--accent);border-radius:20px;padding:3px 12px;font-size:.72rem;color:var(--accent)}
+.updated{font-size:.71rem;color:var(--muted)}
+.rbtn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:5px 14px;font-size:.76rem;cursor:pointer;font-family:inherit}
+.rbtn:hover{background:#1a60c0}
 
-    /* ── 로딩 / 에러 ── */
-    #loading {
-      display: flex; align-items: center; justify-content: center;
-      height: 60vh; flex-direction: column; gap: 14px;
-    }
-    .spinner {
-      width: 46px; height: 46px;
-      border: 4px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #error-box {
-      display: none;
-      margin: 32px;
-      background: rgba(239,68,68,0.1);
-      border: 1px solid var(--danger);
-      border-radius: 10px;
-      padding: 24px;
-      text-align: center;
-    }
+/* 레이아웃 */
+.container{max-width:1400px;margin:0 auto;padding:20px 16px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+@media(max-width:1000px){.grid4{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:600px){.grid4{grid-template-columns:1fr}}
 
-    /* ── 레이아웃 ── */
-    #main-content { display: none; }
-    .container { max-width: 1400px; margin: 0 auto; padding: 22px 18px; }
+/* 카드 */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.ctitle{font-size:.86rem;font-weight:600;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.csub{font-size:.70rem;color:var(--muted);margin-left:auto;font-weight:400}
 
-    /* ── KPI 4개 ── */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-    .kpi-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
-      display: flex; flex-direction: column; gap: 7px;
-    }
-    .kpi-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
-    .kpi-value { font-size: 1.85rem; font-weight: 700; }
-    .kpi-sub   { font-size: 0.75rem; color: var(--muted); }
-    .kpi-bar   { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 3px; }
-    .kpi-bar-fill { height: 100%; border-radius: 3px; transition: width 1.1s ease; }
+/* KPI 카드 */
+.kpi-val{font-size:2rem;font-weight:700;margin:8px 0 4px}
+.kpi-sub{font-size:.73rem;color:var(--muted);line-height:1.4}
+.kbar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:10px}
+.kbar div{height:100%;border-radius:3px;transition:width 1s ease}
 
-    /* ── 그리드 ── */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+/* 예산 */
+.budget-item{margin-bottom:13px}
+.bh{display:flex;justify-content:space-between;align-items:baseline;font-size:.79rem;margin-bottom:5px;gap:8px}
+.bn{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bv{white-space:nowrap;font-size:.75rem}
+.bbar{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.bbar div{height:100%;border-radius:3px}
+.bnote{font-size:.68rem;color:var(--muted);margin-top:2px}
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
-    }
-    .card-title {
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-      color: var(--accent);
-      display: flex; align-items: center; gap: 7px;
-    }
-    .card-title span.sub {
-      font-size: 0.70rem; color: var(--muted); font-weight: 400; margin-left: auto;
-    }
+/* 프로젝트 */
+.proj-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.79rem}
+.proj-item:last-child{border-bottom:none}
+.sbadge{padding:2px 9px;border-radius:10px;font-size:.69rem;font-weight:600;white-space:nowrap}
+.s-done{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid #22c55e44}
+.s-progress{background:rgba(46,128,232,.15);color:#2e80e8;border:1px solid #2e80e844}
+.s-wait{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid #f59e0b44}
+.s-new{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid #c084fc44}
+.s-default{background:rgba(143,163,192,.1);color:var(--muted);border:1px solid #8fa3c044}
+.pname{flex:2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.pmini{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;min-width:40px}
+.pmini div{height:100%;background:var(--accent);border-radius:3px}
+.prate{font-size:.72rem;color:var(--muted);width:38px;text-align:right}
 
-    /* ── 예산 항목 ── */
-    .budget-item { margin-bottom: 13px; }
-    .budget-item-header {
-      display: flex; justify-content: space-between;
-      font-size: 0.80rem; margin-bottom: 5px;
-    }
-    .budget-bar { height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
-    .budget-bar-fill { height: 100%; border-radius: 4px; transition: width 1.1s ease; }
-    .budget-bar-over { background: var(--danger); }
-    .budget-bar-normal { background: var(--accent); }
-    .budget-bar-low { background: var(--warning); }
+/* 이슈 */
+.issue-tbl{width:100%;border-collapse:collapse;font-size:.79rem}
+.issue-tbl th{text-align:left;color:var(--muted);font-size:.70rem;font-weight:500;padding:5px 7px;border-bottom:1px solid var(--border)}
+.issue-tbl td{padding:7px 7px;border-bottom:1px solid var(--border);vertical-align:top}
+.issue-tbl tr:last-child td{border-bottom:none}
+.ic{white-space:nowrap;font-weight:600;width:70px}
+.pri-urgent{color:#ef4444}
+.pri-high{color:#f59e0b}
+.pri-normal{color:var(--muted)}
+.itxt{line-height:1.45}
+.iamt{white-space:nowrap;color:var(--muted);font-size:.72rem}
 
-    /* ── 사업 목록 ── */
-    .project-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.81rem;
-    }
-    .project-item:last-child { border-bottom: none; }
-    .status-badge {
-      padding: 2px 9px;
-      border-radius: 10px;
-      font-size: 0.70rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    /* 상태별 스타일 - Notion 실제 값 기준 */
-    .s-완료    { background: rgba(34,197,94,0.15);  color: var(--success); border: 1px solid #22c55e44; }
-    .s-진행중  { background: rgba(46,128,232,0.15); color: var(--accent);  border: 1px solid #2e80e844; }
-    .s-대기    { background: rgba(245,158,11,0.15); color: var(--warning); border: 1px solid #f59e0b44; }
-    .s-신설    { background: rgba(168,85,247,0.15); color: #c084fc;        border: 1px solid #c084fc44; }
-    .s-지연    { background: rgba(239,68,68,0.15);  color: var(--danger);  border: 1px solid #ef444444; }
-    .s-기본    { background: rgba(143,163,192,0.1); color: var(--muted);   border: 1px solid #8fa3c044; }
+/* 타임라인 */
+.tl-bar-wrap{background:var(--border);height:18px;border-radius:9px;overflow:hidden;margin:11px 0 5px}
+.tl-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.69rem;font-weight:600;color:#fff;transition:width 1.2s ease;min-width:50px}
+.tl-label{display:flex;justify-content:space-between;font-size:.71rem;color:var(--muted);margin-bottom:16px}
 
-    .prog-mini {
-      flex: 1; height: 5px;
-      background: var(--border); border-radius: 3px; overflow: hidden;
-      min-width: 50px;
-    }
-    .prog-mini-fill { height: 100%; background: var(--accent); border-radius: 3px; }
-    .prog-text { font-size: 0.73rem; color: var(--muted); width: 34px; text-align: right; }
+/* 일정 */
+.tl-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:.78rem}
+.tl-item:last-child{border-bottom:none}
+.tldate{color:var(--accent);width:32px;flex-shrink:0;font-weight:600}
+.tltype{background:rgba(46,128,232,.1);color:#90cdf4;border-radius:8px;padding:1px 7px;font-size:.68rem;flex-shrink:0}
+.tlcontent{flex:1;color:var(--text);line-height:1.4}
+.tlstatus{flex-shrink:0}
 
-    /* ── 이슈/회의 테이블 ── */
-    .issue-table { width: 100%; border-collapse: collapse; font-size: 0.80rem; }
-    .issue-table th {
-      text-align: left; color: var(--muted); font-size: 0.70rem; font-weight: 500;
-      padding: 5px 7px; border-bottom: 1px solid var(--border);
-    }
-    .issue-table td { padding: 7px 7px; border-bottom: 1px solid var(--border); }
-    .issue-table tr:last-child td { border-bottom: none; }
-    .pri-긴급  { color: #ef4444; font-weight: 700; }
-    .pri-높음  { color: var(--warning); font-weight: 600; }
-    .pri-보통  { color: var(--muted); }
-    .pri-낮음  { color: var(--muted); }
-    .type-badge {
-      display: inline-block; padding: 1px 7px;
-      border-radius: 8px; font-size: 0.68rem;
-      background: rgba(46,128,232,0.12); color: #90cdf4;
-      border: 1px solid rgba(46,128,232,0.2);
-    }
+/* 링크 */
+.link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.link-btn{background:rgba(46,128,232,.07);border:1px solid var(--border);border-radius:8px;padding:9px 11px;text-decoration:none;color:var(--text);font-size:.78rem;display:flex;align-items:center;gap:7px;transition:all .2s}
+.link-btn:hover{background:rgba(46,128,232,.2);border-color:var(--accent)}
 
-    /* ── 타임라인 ── */
-    .timeline-bar {
-      background: var(--border); height: 18px; border-radius: 9px;
-      overflow: hidden; margin: 11px 0 5px; position: relative;
-    }
-    .timeline-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), #7c3aed);
-      border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.70rem; font-weight: 600; color: #fff;
-      transition: width 1.2s ease;
-      min-width: 36px;
-    }
-
-    /* ── 링크 ── */
-    .link-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 8px;
-    }
-    .link-btn {
-      background: rgba(46,128,232,0.07);
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 10px 12px; text-decoration: none; color: var(--text);
-      font-size: 0.80rem; display: flex; align-items: center; gap: 7px;
-      transition: all 0.2s;
-    }
-    .link-btn:hover { background: rgba(46,128,232,0.18); border-color: var(--accent); }
-
-    footer {
-      text-align: center; padding: 20px;
-      color: var(--muted); font-size: 0.73rem;
-      border-top: 1px solid var(--border); margin-top: 14px;
-    }
-  </style>
+footer{text-align:center;padding:18px;color:var(--muted);font-size:.71rem;border-top:1px solid var(--border);margin-top:6px}
+</style>
 </head>
 <body>
-
 <header>
-  <div class="header-left">
-    <h1>🏙️ 아산시 강소형 스마트시티 통합 포털</h1>
-    <p>아산시 | (주)제일엔지니어링 PMO | 호서대 · 충남연구원 · KAIST</p>
+  <div>
+    <div class="htitle">🏙️ 아산시 강소형 스마트시티 통합 포털</div>
+    <div class="hsub">아산시 | (주)제일엔지니어링 PMO | 호서대 · 충남연구원 · KAIST</div>
   </div>
-  <div class="header-right">
-    <span class="badge">2023.12 ~ 2025.12</span>
+  <div class="hright">
+    <span class="badge">2023.12 ~ 2026.12.31</span>
     <span class="badge">총 240억원</span>
-    <div id="last-updated">로딩 중...</div>
-    <button class="refresh-btn" onclick="loadData()">🔄 새로고침</button>
+    <span class="updated">🕐 2026-02-20 04:03 KST+9h</span>
+    <button class="rbtn" onclick="location.reload()">🔄 새로고침</button>
   </div>
 </header>
 
-<div id="loading">
-  <div class="spinner"></div>
-  <p style="color:var(--muted);font-size:0.83rem;">Notion 데이터 불러오는 중...</p>
+<div class="container">
+
+<!-- KPI 4개 -->
+<div class="grid4">
+  <div class="card">
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">⏳ D-Day</div>
+    <div class="kpi-val" style="color:#f59e0b">D-314</div>
+    <div class="kpi-sub">경과 812일 / 전체 1126일<br>종료: 2026.12.31</div>
+    <div class="kbar"><div style="width:72.1%;background:#7c3aed"></div></div>
+  </div>
+  <div class="card">
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">💰 예산 집행률</div>
+    <div class="kpi-val" style="color:#2e80e8">40.8%</div>
+    <div class="kpi-sub">98.0억원 / 240.0억원<br>잔액: 142.0억원</div>
+    <div class="kbar"><div style="width:40.8%;background:#2e80e8"></div></div>
+  </div>
+  <div class="card">
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">📊 사업 진도율</div>
+    <div class="kpi-val" style="color:#22c55e">28.5%</div>
+    <div class="kpi-sub">완료 2 · 진행 5 · 대기 1 · 신설 1<br>전체 9개 사업</div>
+    <div class="kbar"><div style="width:28.5%;background:#22c55e"></div></div>
+  </div>
+  <div class="card">
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">⚠️ 이슈 현황</div>
+    <div class="kpi-val" style="color:#e879f9">8건</div>
+    <div class="kpi-sub">긴급 2건 · 높음 3건<br>주의 3건</div>
+    <div class="kbar"><div style="width:25%;background:#e879f9"></div></div>
+  </div>
 </div>
 
-<div id="error-box">
-  <p style="font-size:1.4rem;margin-bottom:10px;">⚠️</p>
-  <p id="error-msg">데이터를 불러올 수 없습니다.</p>
-  <button class="refresh-btn" style="margin-top:14px;" onclick="loadData()">다시 시도</button>
-</div>
-
-<div id="main-content">
-  <div class="container">
-
-    <!-- KPI 4개 -->
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">⏳ D-Day</div>
-        <div class="kpi-value" id="kpi-dday" style="color:#f59e0b;">-</div>
-        <div class="kpi-sub" id="kpi-dday-sub">-</div>
-        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-elapsed" style="background:#7c3aed;width:0%"></div></div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">💰 예산 집행률</div>
-        <div class="kpi-value" id="kpi-budget" style="color:#2e80e8;">-</div>
-        <div class="kpi-sub" id="kpi-budget-sub">-</div>
-        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-budget" style="background:#2e80e8;width:0%"></div></div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">📊 사업 진도율</div>
-        <div class="kpi-value" id="kpi-progress" style="color:#22c55e;">-</div>
-        <div class="kpi-sub" id="kpi-progress-sub">-</div>
-        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-progress" style="background:#22c55e;width:0%"></div></div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">⚠️ 이슈 현황</div>
-        <div class="kpi-value" id="kpi-issue" style="color:#e879f9;">-</div>
-        <div class="kpi-sub" id="kpi-issue-sub">-</div>
-        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-issue" style="background:#e879f9;width:0%"></div></div>
-      </div>
-    </div>
-
-    <!-- 예산 + 사업현황 -->
-    <div class="grid-2">
-
-      <div class="card">
-        <div class="card-title">
-          💰 단위사업별 예산 집행 현황
-          <span class="sub" id="budget-rate-label">-</span>
-        </div>
-        <div id="budget-list">
-          <p style="color:var(--muted);font-size:0.81rem;">데이터 로딩 중...</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">
-          📋 단위사업별 진행 현황
-          <span class="sub" id="project-count-label">-</span>
-        </div>
-        <div id="project-list">
-          <p style="color:var(--muted);font-size:0.81rem;">데이터 로딩 중...</p>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 이슈/회의 + 타임라인 -->
-    <div class="grid-2">
-
-      <div class="card">
-        <div class="card-title">
-          📝 회의 및 이슈 현황
-          <span class="sub" id="issue-count-label">-</span>
-        </div>
-        <table class="issue-table">
-          <thead>
-            <tr>
-              <th>제목</th>
-              <th>유형</th>
-              <th>우선순위</th>
-              <th>관련사업</th>
-            </tr>
-          </thead>
-          <tbody id="issue-tbody">
-            <tr><td colspan="4" style="color:var(--muted);text-align:center;padding:14px;">로딩 중...</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <div class="card-title">📅 사업 기간 현황</div>
-
-        <div style="display:flex;justify-content:space-between;font-size:0.76rem;color:var(--muted);">
-          <span>▶ 2023.12.01 시작</span>
-          <span>2025.12.31 종료 ◀</span>
-        </div>
-        <div class="timeline-bar">
-          <div class="timeline-fill" id="timeline-fill" style="width:0%">0%</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:0.73rem;color:var(--muted);">
-          <span id="elapsed-label">-</span>
-          <span id="remaining-label">-</span>
-        </div>
-
-        <div style="margin-top:18px;">
-          <div class="card-title">🔗 관련 시스템 바로가기</div>
-          <div class="link-grid">
-            <a class="link-btn" href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank">
-              <span>📝</span> Notion DB
-            </a>
-            <a class="link-btn" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank">
-              <span>💰</span> 예산관리
-            </a>
-            <a class="link-btn" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank">
-              <span>🏗️</span> 자산관리
-            </a>
-            <a class="link-btn" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank">
-              <span>👤</span> 인력관리
-            </a>
-            <a class="link-btn" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal/actions" target="_blank">
-              <span>⚙️</span> 동기화 로그
-            </a>
+<!-- 예산 + 사업현황 -->
+<div class="grid2">
+  <div class="card">
+    <div class="ctitle">💰 비목별 예산 집행 현황 <span class="csub">집행률 40.8% | 98.0억원 / 240.0억원</span></div>
+    
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">인건비</span>
+            <span class="bv" style="color:#2e80e8">18.3억원 / 19.0억원
+              &nbsp;<b>96.1%</b>
+            </span>
           </div>
+          <div class="bbar"><div style="width:96.1%;background:#2e80e8"></div></div>
+          <div class="bnote">정규직+계약직</div>
         </div>
-      </div>
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">운영비</span>
+            <span class="bv" style="color:#2e80e8">4.3억원 / 7.5억원
+              &nbsp;<b>57.0%</b>
+            </span>
+          </div>
+          <div class="bbar"><div style="width:57.0%;background:#2e80e8"></div></div>
+          <div class="bnote">부스제작비 초과</div>
+        </div>
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">여비</span>
+            <span class="bv" style="color:#ef4444">8000만원 / 4000만원
+              &nbsp;<b>191.4% ⚠️ 초과</b>
+            </span>
+          </div>
+          <div class="bbar"><div style="width:100%;background:#ef4444"></div></div>
+          <div class="bnote">⚠️ 초과집행</div>
+        </div>
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">연구개발비</span>
+            <span class="bv" style="color:#4a5568">0원 / 10.0억원
+              &nbsp;<b>0.0%</b>
+            </span>
+          </div>
+          <div class="bbar"><div style="width:0.0%;background:#4a5568"></div></div>
+          <div class="bnote">DRT 미착수</div>
+        </div>
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">유형자산</span>
+            <span class="bv" style="color:#2e80e8">2000만원 / 2000만원
+              &nbsp;<b>82.1%</b>
+            </span>
+          </div>
+          <div class="bbar"><div style="width:82.1%;background:#2e80e8"></div></div>
+          <div class="bnote">이노베이션센터</div>
+        </div>
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">무형자산(SW)</span>
+            <span class="bv" style="color:#2e80e8">38.3억원 / 90.5억원
+              &nbsp;<b>42.3%</b>
+            </span>
+          </div>
+          <div class="bbar"><div style="width:42.3%;background:#2e80e8"></div></div>
+          <div class="bnote">6개 플랫폼</div>
+        </div>
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">건설비</span>
+            <span class="bv" style="color:#f59e0b">23.2억원 / 99.4억원
+              &nbsp;<b>23.4%</b>
+            </span>
+          </div>
+          <div class="bbar"><div style="width:23.4%;background:#f59e0b"></div></div>
+          <div class="bnote">7개 시설</div>
+        </div>
+        <div class="budget-item">
+          <div class="bh">
+            <span class="bn">사업비배분</span>
+            <span class="bv" style="color:#2e80e8">13.0억원 / 13.0억원
+              &nbsp;<b>100.0%</b>
+            </span>
+          </div>
+          <div class="bbar"><div style="width:100.0%;background:#2e80e8"></div></div>
+          <div class="bnote">✅ 교부완료</div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="ctitle">📋 단위사업별 진행 현황 <span class="csub">총 9개 사업</span></div>
+    
+        <div class="proj-item">
+          <span class="sbadge s-done">✅ 완료</span>
+          <span class="pname">유무선 네트워크 구축</span>
+          <div class="pmini"><div style="width:36.6%"></div></div>
+          <span class="prate">36.6%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">서비스 인프라 플랫폼 </span>
+          <div class="pmini"><div style="width:0.0%"></div></div>
+          <span class="prate">0.0%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-done">✅ 완료</span>
+          <span class="pname">이노베이션 센터 구축</span>
+          <div class="pmini"><div style="width:91.2%"></div></div>
+          <span class="prate">91.2%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">디지털 OASIS SPOT</span>
+          <div class="pmini"><div style="width:0.4%"></div></div>
+          <span class="prate">0.4%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">SDDC Platform 구축</span>
+          <div class="pmini"><div style="width:26.2%"></div></div>
+          <span class="prate">26.2%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">AI 통합관제 플랫폼</span>
+          <div class="pmini"><div style="width:58.1%"></div></div>
+          <span class="prate">58.1%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">디지털 OASIS 정보관리</span>
+          <div class="pmini"><div style="width:43.7%"></div></div>
+          <span class="prate">43.7%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-wait">⏸️ 대기</span>
+          <span class="pname">DRT 수요응답형 교통</span>
+          <div class="pmini"><div style="width:0.0%"></div></div>
+          <span class="prate">0.0%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-new">🆕 신설</span>
+          <span class="pname">감리용역 (신설)</span>
+          <div class="pmini"><div style="width:0.0%"></div></div>
+          <span class="prate">0.0%</span>
+        </div>
+  </div>
+</div>
 
+<!-- 이슈 + 타임라인/링크 -->
+<div class="grid2">
+  <div class="card">
+    <div class="ctitle">⚠️ 주요 리스크 및 이슈 <span class="csub">전체 8건</span></div>
+    <table class="issue-tbl">
+      <thead><tr><th>우선순위</th><th>내용</th><th>금액</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="ic pri-urgent">🔴 긴급</td>
+          <td class="itxt">예산 집행률 저조 (40.8%) - 잔여 142억원 10개월 내 집행 필요</td>
+          <td class="iamt">월평균 14.2억원</td>
+        </tr>
+        <tr>
+          <td class="ic pri-urgent">🔴 긴급</td>
+          <td class="itxt">OASIS SPOT 공사 착공 지연 (집행률 0.4%)</td>
+          <td class="iamt">35억원</td>
+        </tr>
+        <tr>
+          <td class="ic pri-high">🟠 높음</td>
+          <td class="itxt">KT 서비스 인프라 계약 체결 지연 - 선급금 지급 시급</td>
+          <td class="iamt">45.33억원</td>
+        </tr>
+        <tr>
+          <td class="ic pri-high">🟠 높음</td>
+          <td class="itxt">SDDC Platform 서버실 일정 조정 필요 (현 26.2% 집행)</td>
+          <td class="iamt">27억원</td>
+        </tr>
+        <tr>
+          <td class="ic pri-high">🟠 높음</td>
+          <td class="itxt">여비 초과집행 (191.4%) - 비목 간 전용 또는 실시계획 변경 필요</td>
+          <td class="iamt">-</td>
+        </tr>
+        <tr>
+          <td class="ic pri-normal">🟡 주의</td>
+          <td class="itxt">DRT 차량 발주 설계 지연 (연구개발비 미집행)</td>
+          <td class="iamt">10억원</td>
+        </tr>
+        <tr>
+          <td class="ic pri-normal">🟡 주의</td>
+          <td class="itxt">감리용역 업체선정 지연</td>
+          <td class="iamt">1.6억원</td>
+        </tr>
+        <tr>
+          <td class="ic pri-normal">🟡 주의</td>
+          <td class="itxt">부스제작비 초과집행 (184.1%) 정리 필요</td>
+          <td class="iamt">-</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="card">
+      <div class="ctitle">📅 최근 일정 현황</div>
+      
+        <div class="tl-item">
+          <span class="tldate">02/10</span>
+          <span class="tltype">제출</span>
+          <span class="tlcontent">25년 4분기보고서 및 연간보고서 제출</span>
+          <span class="tlstatus">✅</span>
+        </div>
+        <div class="tl-item">
+          <span class="tldate">02/10</span>
+          <span class="tltype">공문</span>
+          <span class="tlcontent">실시계획 변경 승인 요청 공문 제출</span>
+          <span class="tlstatus">✅</span>
+        </div>
+        <div class="tl-item">
+          <span class="tldate">02/11</span>
+          <span class="tltype">회의</span>
+          <span class="tlcontent">아산시 스마트시티 사업 운영방안 회의</span>
+          <span class="tlstatus">✅</span>
+        </div>
+        <div class="tl-item">
+          <span class="tldate">02/11</span>
+          <span class="tltype">협의</span>
+          <span class="tlcontent">유무선인프라 구축 계약 연장 협의</span>
+          <span class="tlstatus">🔄</span>
+        </div>
+        <div class="tl-item">
+          <span class="tldate">02/12</span>
+          <span class="tltype">동기화</span>
+          <span class="tlcontent">Slack → Notion 전체 동기화</span>
+          <span class="tlstatus">✅</span>
+        </div>
+        <div class="tl-item">
+          <span class="tldate">02/28</span>
+          <span class="tltype">마감</span>
+          <span class="tlcontent">2월 월간 추진실적 보고</span>
+          <span class="tlstatus">📅</span>
+        </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">📊 사업기간 진행률</div>
+      <div style="display:flex;justify-content:space-between;font-size:.73rem;color:var(--muted)">
+        <span>▶ 2023.12.01</span><span>2026.12.31 ◀</span>
+      </div>
+      <div class="tl-bar-wrap">
+        <div class="tl-bar-fill" style="width:72.1%">72.1%</div>
+      </div>
+      <div class="tl-label">
+        <span>경과 812일</span>
+        <span>잔여 314일</span>
+      </div>
+      <div class="ctitle">🔗 관련 시스템 바로가기</div>
+      <div class="link-grid">
+        <a class="link-btn" href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank">📝 Notion DB</a>
+        <a class="link-btn" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank">💰 예산관리</a>
+        <a class="link-btn" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank">🏗️ 자산관리</a>
+        <a class="link-btn" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank">👤 인력관리</a>
+        <a class="link-btn" href="https://www.notion.so/559654aed9404d9f88225ea0adc7d746" target="_blank">📊 WBS</a>
+        <a class="link-btn" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal/actions" target="_blank">⚙️ 동기화 로그</a>
+      </div>
     </div>
   </div>
 </div>
 
+</div><!-- /container -->
+
 <footer>
-  © 2025 아산시 강소형 스마트시티 구축사업 PMO | (주)제일엔지니어링 |
-  데이터: Notion API 자동 연동 (매 30분 갱신)
+  © 2026 아산시 강소형 스마트시티 구축사업 PMO | (주)제일엔지니어링 | Notion API 자동 연동 (매 30분 갱신)
 </footer>
-
-<script>
-const DATA_URL = 'data/dashboard.json';
-
-// 금액 포맷
-function fmt억(n) {
-  if (n >= 1e8) return (n/1e8).toFixed(1) + '억원';
-  if (n >= 1e4) return (n/1e4).toFixed(0) + '만원';
-  return n.toLocaleString() + '원';
-}
-
-// 상태 → CSS 클래스
-function statusClass(s) {
-  if (!s) return 's-기본';
-  if (s.includes('완료')) return 's-완료';
-  if (s.includes('진행')) return 's-진행중';
-  if (s.includes('대기')) return 's-대기';
-  if (s.includes('신설')) return 's-신설';
-  if (s.includes('지연')) return 's-지연';
-  return 's-기본';
-}
-
-// 우선순위 → CSS 클래스
-function priClass(p) {
-  if (!p) return '';
-  if (p.includes('긴급')) return 'pri-긴급';
-  if (p.includes('높')) return 'pri-높음';
-  if (p.includes('보통')) return 'pri-보통';
-  return 'pri-낮음';
-}
-
-// 진행률에 따른 바 색상
-function budgetBarClass(rate) {
-  if (rate > 100) return 'budget-bar-over';
-  if (rate < 30)  return 'budget-bar-low';
-  return 'budget-bar-normal';
-}
-
-async function loadData() {
-  document.getElementById('loading').style.display       = 'flex';
-  document.getElementById('main-content').style.display  = 'none';
-  document.getElementById('error-box').style.display     = 'none';
-
-  try {
-    const r = await fetch(DATA_URL + '?t=' + Date.now());
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    render(await r.json());
-  } catch (e) {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('error-box').style.display = 'block';
-    document.getElementById('error-msg').textContent =
-      `데이터 로드 실패: ${e.message}`;
-  }
-}
-
-function setBar(id, pct) {
-  setTimeout(() => {
-    const el = document.getElementById(id);
-    if (el) el.style.width = Math.min(Math.max(pct,0), 110) + '%';
-  }, 120);
-}
-
-function render(d) {
-  document.getElementById('loading').style.display      = 'none';
-  document.getElementById('main-content').style.display = 'block';
-
-  const meta     = d.meta     || {};
-  const dday     = d.dday     || {};
-  const budget   = d.budget   || {};
-  const projects = d.projects || {};
-  const tasks    = d.tasks    || {};
-
-  // 마지막 업데이트
-  document.getElementById('last-updated').textContent =
-    '🕐 ' + (meta.last_updated || '-');
-
-  // ── KPI ──
-  const dd = dday.dday ?? 0;
-  document.getElementById('kpi-dday').textContent =
-    dd >= 0 ? `D-${dd}` : `D+${Math.abs(dd)}`;
-  document.getElementById('kpi-dday-sub').textContent =
-    `경과 ${dday.elapsed_days||0}일 / 전체 ${dday.total_days||0}일`;
-  setBar('bar-elapsed', dday.elapsed_rate || 0);
-
-  const br = budget.execution_rate || 0;
-  document.getElementById('kpi-budget').textContent = br + '%';
-  document.getElementById('kpi-budget-sub').textContent =
-    fmt억(budget.total_executed||0) + ' / ' + fmt억(budget.total_budget||0);
-  setBar('bar-budget', br);
-  document.getElementById('budget-rate-label').textContent = '집행률 ' + br + '%';
-
-  const pr = projects.overall_progress || 0;
-  document.getElementById('kpi-progress').textContent = pr + '%';
-  const sc = projects.status_count || {};
-  document.getElementById('kpi-progress-sub').textContent =
-    `완료 ${sc['✅ 완료']||sc['완료']||0} · 진행 ${sc['🔄 진행중']||sc['진행중']||0} · 대기 ${sc['⏸️ 대기']||sc['대기']||0}`;
-  setBar('bar-progress', pr);
-  document.getElementById('project-count-label').textContent =
-    `총 ${projects.total_count||0}개 사업`;
-
-  const urgent = tasks.urgent || 0;
-  const total  = tasks.total  || 0;
-  document.getElementById('kpi-issue').textContent = `${total}건`;
-  document.getElementById('kpi-issue-sub').textContent =
-    `긴급 ${urgent}건 · 높음 ${tasks.high||0}건`;
-  setBar('bar-issue', total > 0 ? Math.round(urgent/total*100) : 0);
-  document.getElementById('issue-count-label').textContent = `전체 ${total}건`;
-
-  // ── 예산 항목 ──
-  const budgetEl = document.getElementById('budget-list');
-  const cats = (budget.categories || []).slice(0, 10);
-  if (cats.length === 0) {
-    budgetEl.innerHTML = '<p style="color:var(--muted);font-size:0.80rem;padding:8px 0;">GitHub Actions 실행 후 자동 표시됩니다.</p>';
-  } else {
-    budgetEl.innerHTML = cats.map(c => {
-      const barClass = budgetBarClass(c.rate);
-      return `
-        <div class="budget-item">
-          <div class="budget-item-header">
-            <span>${c.name}</span>
-            <span style="color:var(--muted)">${fmt억(c.executed)} / ${fmt억(c.budget)}
-              <span style="color:${c.rate>100?'#ef4444':c.rate<30?'#f59e0b':'#2e80e8'}">(${c.rate}%)</span>
-            </span>
-          </div>
-          <div class="budget-bar">
-            <div class="budget-bar-fill ${barClass}" style="width:${Math.min(c.rate,110)}%"></div>
-          </div>
-        </div>`;
-    }).join('');
-  }
-
-  // ── 사업 목록 ──
-  const projEl = document.getElementById('project-list');
-  const items  = (projects.items || []).slice(0, 12);
-  if (items.length === 0) {
-    projEl.innerHTML = '<p style="color:var(--muted);font-size:0.80rem;padding:8px 0;">GitHub Actions 실행 후 자동 표시됩니다.</p>';
-  } else {
-    projEl.innerHTML = items.map(p => `
-      <div class="project-item">
-        <span class="status-badge ${statusClass(p.status)}">${p.status||'-'}</span>
-        <span style="flex:2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">${p.name}</span>
-        <div class="prog-mini"><div class="prog-mini-fill" style="width:${p.progress}%"></div></div>
-        <span class="prog-text">${p.progress}%</span>
-      </div>`).join('');
-  }
-
-  // ── 이슈/회의 테이블 ──
-  const tbody  = document.getElementById('issue-tbody');
-  const recent = tasks.recent || [];
-  if (recent.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:14px;">GitHub Actions 실행 후 자동 표시됩니다.</td></tr>';
-  } else {
-    tbody.innerHTML = recent.map(t => {
-      const projs = (t.projects||[]).slice(0,2).join(', ') || '-';
-      return `
-        <tr>
-          <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.name}</td>
-          <td><span class="type-badge">${t.type||'-'}</span></td>
-          <td class="${priClass(t.priority)}">${t.priority||'-'}</td>
-          <td style="font-size:0.73rem;color:var(--muted)">${projs}</td>
-        </tr>`;
-    }).join('');
-  }
-
-  // ── 타임라인 ──
-  const er    = dday.elapsed_rate || 0;
-  const tfill = document.getElementById('timeline-fill');
-  tfill.style.width  = Math.min(er, 100) + '%';
-  tfill.textContent  = er + '%';
-  document.getElementById('elapsed-label').textContent =
-    `경과 ${dday.elapsed_days||0}일`;
-  document.getElementById('remaining-label').textContent =
-    `잔여 ${Math.max((dday.total_days||0)-(dday.elapsed_days||0),0)}일`;
-}
-
-// 최초 로드
-loadData();
-// 10분마다 자동 새로고침
-setInterval(loadData, 10 * 60 * 1000);
-</script>
 </body>
 </html>
