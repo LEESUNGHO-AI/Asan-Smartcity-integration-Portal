@@ -256,7 +256,7 @@ def _fetch_notion_data(data):
 def _default_projects():
     return [
         {"name": "유무선 네트워크 구축",           "budget": 11.35e8, "executed": 4.15e8, "rate": 36.6, "status": "✅ 완료",   "note": "계약완료 (연장 협의 중)"},
-        {"name": "서비스 인프라 플랫폼 ",       "budget": 45.33e8, "executed": 0,       "rate":  0.0, "status": "🔄 진행중", "note": "계약체결 진행중"},
+        {"name": "서비스 인프라 플랫폼",       "budget": 45.33e8, "executed": 0,       "rate":  0.0, "status": "🔄 진행중", "note": "계약체결 진행중"},
         {"name": "이노베이션 센터 구축",             "budget": 13.0e8,  "executed": 11.86e8,"rate": 91.2, "status": "✅ 완료",   "note": "구축완료 (운영중)"},
         {"name": "디지털 OASIS SPOT",              "budget": 35.0e8,  "executed": 0.15e8,  "rate":  0.4, "status": "🔄 진행중", "note": "부지승인 완료, 설계용역 진행"},
         {"name": "SDDC Platform 구축",             "budget": 27.0e8,  "executed": 7.09e8,  "rate": 26.2, "status": "🔄 진행중", "note": "서버실 구축 진행중"},
@@ -270,7 +270,7 @@ def _default_issues():
     return [
         {"priority": "🔴 긴급", "content": "예산 집행률 저조 (40.8%) - 잔여 142억원 10개월 내 집행 필요", "amount": "월평균 14.2억원"},
         {"priority": "🔴 긴급", "content": "OASIS SPOT 공사 착공 지연 (집행률 0.4%)",             "amount": "35억원"},
-        {"priority": "🟠 높음", "content": "서비스 인프라 계약 체결  - 선급금 지급 ",     "amount": "45.33억원"},
+        {"priority": "🟠 높음", "content": "서비스 인프라 계약 체결  - 선급금 지급",     "amount": "45.33억원"},
         {"priority": "🟠 높음", "content": "SDDC Platform 서버실 일정 조정 필요 (현 26.2% 집행)",  "amount": "27억원"},
         {"priority": "🟠 높음", "content": "여비 초과집행 (191.4%) - 비목 간 전용 또는 실시계획 변경 필요", "amount": "-"},
         {"priority": "🟡 주의", "content": "DRT 차량 발주 설계 지연 (연구개발비 미집행)",            "amount": "10억원"},
