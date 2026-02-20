@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "last_updated": "2026-02-20 04:24 KST+9h",
+    "source": "Notion API 자동 연동"
+  },
+  "dday": {
+    "today": "2026-02-20",
+    "start": "2023-12-01",
+    "end": "2026-12-31",
+    "total_days": 1126,
+    "elapsed_days": 812,
+    "remain_days": 314,
+    "elapsed_pct": 72.1,
+    "dday_label": "D-314"
+  },
+  "budget": {
+    "total": 24000000000.0,
+    "executed": 9800000000.0,
+    "remaining": 14200000000.0,
+    "exec_rate": 40.8,
+    "categories": []
+  },
+  "projects": [
+    {
+      "name": "19.0억",
+      "budget": 1830000000.0,
+      "executed": 70000000.0,
+      "rate": 96.1,
+      "status": "🔄 진행중",
+      "note": "정규직+계약직 (2024년)"
+    },
+    {
+      "name": "7.5억",
+      "budget": 430000000.0,
+      "executed": 320000000.0,
+      "rate": 57.0,
+      "status": "🔄 진행중",
+      "note": "부스제작비 초과(184%)"
+    },
+    {
+      "name": "0.4억",
+      "budget": 80000000.0,
+      "executed": 40000000.0,
+      "rate": 191.4,
+      "status": "🔄 진행중",
+      "note": "⚠️ 초과집행"
+    },
+    {
+      "name": "10.0억",
+      "budget": 0.0,
+      "executed": 1000000000.0,
+      "rate": 0.0,
+      "status": "🔄 진행중",
+      "note": "DRT 플랫폼 (미착수)"
+    },
+    {
+      "name": "0.2억",
+      "budget": 20000000.0,
+      "executed": 4000000.0,
+      "rate": 82.1,
+      "status": "🔄 진행중",
+      "note": "이노베이션 센터 PC"
+    },
+    {
+      "name": "90.5억",
+      "budget": 3829999999.9999995,
+      "executed": 5230000000.0,
+      "rate": 42.3,
+      "status": "🔄 진행중",
+      "note": "6개 플랫폼 개발"
+    },
+    {
+      "name": "99.4억",
+      "budget": 2320000000.0,
+      "executed": 7609999999.999999,
+      "rate": 23.4,
+      "status": "🔄 진행중",
+      "note": "7개 시설 공사"
+    },
+    {
+      "name": "13.0억",
+      "budget": 1300000000.0,
+      "executed": 0.0,
+      "rate": 100.0,
+      "status": "✅ 완료",
+      "note": "✅ 간접보조 교부 완료"
+    },
+    {
+      "name": "240.0억",
+      "budget": 9800000000.0,
+      "executed": 14200000000.0,
+      "rate": 40.8,
+      "status": "🔄 진행중",
+      "note": "-"
+    }
+  ],
+  "issues": [
+    {
+      "priority": "🔴 긴급",
+      "content": "예산 집행률 저조 (40.8%) - 잔여 142억원 10개월 내 집행 필요",
+      "amount": "월평균 14.2억원"
+    },
+    {
+      "priority": "🔴 긴급",
+      "content": "OASIS SPOT 공사 착공 지연 (집행률 0.4%)",
+      "amount": "35억원"
+    },
+    {
+      "priority": "🟠 높음",
+      "content": "서비스 인프라 계약 체결  - 선급금 지급 ",
+      "amount": "45.33억원"
+    },
+    {
+      "priority": "🟠 높음",
+      "content": "SDDC Platform 서버실 일정 조정 필요 (현 26.2% 집행)",
+      "amount": "27억원"
+    },
+    {
+      "priority": "🟠 높음",
+      "content": "여비 초과집행 (191.4%) - 비목 간 전용 또는 실시계획 변경 필요",
+      "amount": "-"
+    },
+    {
+      "priority": "🟡 주의",
+      "content": "DRT 차량 발주 설계 지연 (연구개발비 미집행)",
+      "amount": "10억원"
+    },
+    {
+      "priority": "🟡 주의",
+      "content": "감리용역 업체선정 지연",
+      "amount": "1.6억원"
+    },
+    {
+      "priority": "🟡 주의",
+      "content": "부스제작비 초과집행 (184.1%) 정리 필요",
+      "amount": "-"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "KAIST",
+      "type": "2.0억",
+      "content": "1.0억",
+      "status": "1.0억"
+    },
+    {
+      "date": "충남연구원",
+      "type": "2.0억",
+      "content": "0.72억",
+      "status": "1.28억"
+    },
+    {
+      "date": "호서대학교",
+      "type": "9.0억",
+      "content": "3.77억",
+      "status": "5.23억"
+    },
+    {
+      "date": "합계",
+      "type": "13.0억",
+      "content": "5.49억",
+      "status": "7.51억"
+    }
+  ]
+}
