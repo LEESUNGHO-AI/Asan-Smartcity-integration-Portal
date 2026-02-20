@@ -1,0 +1,66 @@
+name: 🔄 Notion 자동 동기화
+
+on:
+  # ── 스케줄: 매 30분 자동 실행 ──
+  schedule:
+    - cron: '*/30 * * * *'
+
+  # ── 수동 실행 (즉시 갱신 필요 시) ──
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: '수동 실행 사유'
+        required: false
+        default: '즉시 데이터 갱신'
+
+jobs:
+  sync:
+    name: Notion → dashboard.json 동기화
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # 1) 코드 체크아웃
+      - name: 📥 코드 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 2) Python 환경 설정
+      - name: 🐍 Python 3.11 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 3) 의존성 설치
+      - name: 📦 패키지 설치
+        run: |
+          pip install requests --quiet
+
+      # 4) Notion 동기화 실행
+      - name: 🔄 Notion 데이터 동기화
+        env:
+          NOTION_TOKEN:    ${{ secrets.NOTION_TOKEN }}
+          DB_BUDGET:       ${{ secrets.DB_BUDGET }}
+          DB_TASKS:        ${{ secrets.DB_TASKS }}
+          DB_MILESTONES:   ${{ secrets.DB_MILESTONES }}
+        run: |
+          python scripts/notion_sync.py
+
+      # 5) 변경사항 커밋 & 푸시
+      - name: 📤 dashboard.json 자동 커밋
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name  "GitHub Actions Bot"
+
+          git add data/dashboard.json
+
+          # 변경사항이 있을 때만 커밋
+          if git diff --staged --quiet; then
+            echo "변경사항 없음 - 커밋 스킵"
+          else
+            TIMESTAMP=$(date '+%Y-%m-%d %H:%M KST' --date='9 hours')
+            git commit -m "🔄 [자동] Notion 동기화 - ${TIMESTAMP}"
+            git push
+            echo "✅ dashboard.json 업데이트 완료"
+          fi
