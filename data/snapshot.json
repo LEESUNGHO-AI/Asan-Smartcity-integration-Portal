@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-02-20 04:36 KST+9h",
+    "last_updated": "2026-02-20 04:40 KST+9h",
     "source": "Notion API 자동 연동"
   },
   "dday": {
@@ -107,7 +107,7 @@
     },
     {
       "priority": "🟠 높음",
-      "content": "서비스 인프라 계약 체결  - 선급금 지급 ",
+      "content": "서비스 인프라 계약 체결  - 선급금 지급",
       "amount": "45.33억원"
     },
     {
