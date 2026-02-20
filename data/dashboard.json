@@ -1,168 +1,180 @@
 {
-  "lastUpdated": "2026-02-19T16:32:28+09:00",
-  "basis": "2026-02-19",
+  "lastUpdated": "2026-02-20T09:00:00+09:00",
+  "basis": "2026-02-20",
   "summary": {
+    "dday": 314,
     "totalBudget": 240,
     "executed": 98.0,
     "executionRate": 40.8,
-    "remaining": 142.0,
     "progress": 45.2,
-    "completedUnits": 3,
-    "inProgressUnits": 5,
-    "waitingUnits": 1,
-    "riskTotal": 8,
-    "riskUrgent": 2,
-    "riskHigh": 3,
-    "riskMid": 3,
-    "endDate": "2026-12-31",
-    "dday": 314
+    "balance": 142.0,
+    "endDate": "2026-12-31"
   },
   "units": [
     {
       "no": "01",
       "name": "유무선 네트워크 구축",
       "budget": 11.35,
+      "budgetText": "11.35억",
       "executed": 4.15,
+      "executedText": "4.15억",
       "rate": 36.6,
-      "status": "done",
-      "statusText": "계약완료 (연장 협의중)"
+      "status": "✅ 계약완료 (연장 협의중)",
+      "statusCode": "completed"
     },
     {
       "no": "02",
-      "name": "서비스 인프라 플랫폼 (KT)",
+      "name": "서비스 인프라 플랫폼 (한국정보기술 컨소시엄)",
       "budget": 45.33,
+      "budgetText": "45.33억",
       "executed": 0,
+      "executedText": "—",
       "rate": 0,
-      "status": "progress",
-      "statusText": "계약체결 진행중 (선급금 예정)"
+      "status": "🔄 계약체결 후 사업 진행 중",
+      "statusCode": "in_progress"
     },
     {
       "no": "03",
       "name": "이노베이션 센터 구축",
-      "budget": 13.0,
+      "budget": 13,
+      "budgetText": "13억",
       "executed": 11.86,
+      "executedText": "11.86억",
       "rate": 91.2,
-      "status": "done",
-      "statusText": "구축완료 (운영중)"
+      "status": "✅ 구축완료 (운영중)",
+      "statusCode": "completed"
     },
     {
       "no": "04",
       "name": "디지털 OASIS SPOT",
-      "budget": 35.0,
+      "budget": 35,
+      "budgetText": "35억",
       "executed": 0.15,
+      "executedText": "0.15억",
       "rate": 0.4,
-      "status": "progress",
-      "statusText": "부지승인 완료 · 설계용역 진행"
+      "status": "🔄 부지승인 완료 · 설계용역 진행",
+      "statusCode": "in_progress"
     },
     {
       "no": "05",
       "name": "SDDC Platform 구축",
-      "budget": 27.0,
+      "budget": 27,
+      "budgetText": "27억",
       "executed": 7.09,
+      "executedText": "7.09억",
       "rate": 26.2,
-      "status": "progress",
-      "statusText": "서버실 구축 진행중"
+      "status": "🔄 서버실 구축 진행중",
+      "statusCode": "in_progress"
     },
     {
       "no": "06",
       "name": "AI 통합관제 플랫폼",
-      "budget": 16.0,
+      "budget": 16,
+      "budgetText": "16억",
       "executed": 9.29,
+      "executedText": "9.29억",
       "rate": 58.1,
-      "status": "progress",
-      "statusText": "서비스 인프라에 통합 계약"
+      "status": "🔄 서비스 인프라에 통합 계약",
+      "statusCode": "in_progress"
     },
     {
       "no": "07",
       "name": "디지털 OASIS 정보관리",
-      "budget": 25.0,
+      "budget": 25,
+      "budgetText": "25억",
       "executed": 10.93,
+      "executedText": "10.93억",
       "rate": 43.7,
-      "status": "progress",
-      "statusText": "개발 진행중"
+      "status": "🔄 개발 진행중",
+      "statusCode": "in_progress"
     },
     {
       "no": "08",
       "name": "DRT 수요응답형 교통",
-      "budget": 10.0,
+      "budget": 10,
+      "budgetText": "10억",
       "executed": 0,
+      "executedText": "—",
       "rate": 0,
-      "status": "wait",
-      "statusText": "설계 진행중"
+      "status": "⏸️ 설계 진행중",
+      "statusCode": "pending"
     },
     {
       "no": "09",
       "name": "감리용역 (신설)",
       "budget": 1.6,
+      "budgetText": "1.6억",
       "executed": 0,
+      "executedText": "—",
       "rate": 0,
-      "status": "new",
-      "statusText": "업체선정 준비"
+      "status": "🆕 업체선정 준비",
+      "statusCode": "pending"
     }
   ],
   "budgetSources": [
     {
-      "name": "국비",
-      "total": 120,
-      "rate": 50,
+      "source": "국비",
+      "total": 120.0,
+      "totalText": "120억원 (50%)",
       "executed": 49.0,
-      "color": "#00d4ff"
+      "executedText": "49.0억원",
+      "rate": 40.8,
+      "balance": 71.0,
+      "balanceText": "71.0억원"
     },
     {
-      "name": "도비",
+      "source": "도비",
       "total": 28.8,
-      "rate": 12,
+      "totalText": "28.8억원 (12%)",
       "executed": 11.8,
-      "color": "#7c3aed"
+      "executedText": "11.8억원",
+      "rate": 40.8,
+      "balance": 17.0,
+      "balanceText": "17.0억원"
     },
     {
-      "name": "시비",
+      "source": "시비",
       "total": 91.2,
-      "rate": 38,
+      "totalText": "91.2억원 (38%)",
       "executed": 37.2,
-      "color": "#10b981"
+      "executedText": "37.2억원",
+      "rate": 40.8,
+      "balance": 54.0,
+      "balanceText": "54.0억원"
     }
   ],
   "risks": [
     {
       "level": "urgent",
-      "title": "예산 집행률 저조 (40.8%)",
-      "detail": "잔여 142.0억원, 10개월 내 월평균 14.2억 집행 필요"
+      "content": "예산 집행률 저조 (40.8%) — 잔여 142.0억원, 10개월 내 월평균 14.2억 집행 필요"
     },
     {
       "level": "urgent",
-      "title": "OASIS SPOT 공사 착공 지연",
-      "detail": "영향금액 35억원 | 집행률 0.4%"
+      "content": "OASIS SPOT 공사 착공 지연 — 영향금액 35억원 (현 집행률 0.4%)"
     },
     {
       "level": "high",
-      "title": "KT 서비스 인프라 계약 체결 지연",
-      "detail": "45.33억원 | 선급금 지급 시급"
+      "content": "서비스 인프라 계약 체결 (45.33억원) — 선급금 지급 완료, 사업 착수 관리 필요"
     },
     {
       "level": "high",
-      "title": "SDDC Platform 서버실 일정 조정",
-      "detail": "27억원 | 현 26.2% 집행"
+      "content": "SDDC Platform 서버실 일정 조정 필요 — 27억원, 현 26.2% 집행"
     },
     {
       "level": "high",
-      "title": "여비 초과집행 (191.4%)",
-      "detail": "비목 간 전용 또는 실시계획 변경 필요"
+      "content": "여비 초과집행 (191.4%) — 비목 간 전용 또는 실시계획 변경 필요"
     },
     {
       "level": "mid",
-      "title": "DRT 차량 발주 설계 지연",
-      "detail": "10억원 + 연구개발비 미집행"
+      "content": "DRT 차량 발주 설계 지연 — 10억원 + 연구개발비 미집행"
     },
     {
       "level": "mid",
-      "title": "감리용역 업체선정 지연",
-      "detail": "1.6억원"
+      "content": "감리용역 업체선정 지연 — 1.6억원"
     },
     {
       "level": "mid",
-      "title": "부스제작비 초과집행 (184.1%)",
-      "detail": "정리 필요"
+      "content": "부스제작비 초과집행 (184.1%) 정리 필요"
     }
   ],
   "schedule": [
@@ -170,55 +182,55 @@
       "date": "02/03",
       "type": "회의",
       "content": "서버실 구축 및 장비 설치 조정 회의",
-      "status": "done"
+      "status": "✅ 완료"
     },
     {
       "date": "02/05",
       "type": "보고",
       "content": "서비스 인프라 구축 용역 주간 공정 보고",
-      "status": "done"
+      "status": "✅ 완료"
     },
     {
       "date": "02/06",
       "type": "제출",
       "content": "2026년 1월 관리카드 제출",
-      "status": "done"
+      "status": "✅ 완료"
     },
     {
       "date": "02/10",
       "type": "제출",
       "content": "25년 4분기보고서 및 연간보고서 제출",
-      "status": "done"
+      "status": "✅ 완료"
     },
     {
       "date": "02/10",
       "type": "공문",
       "content": "국고보조금 집행실태 점검결과(4Q) 소명자료 제출",
-      "status": "done"
+      "status": "✅ 완료"
     },
     {
       "date": "02/10",
       "type": "공문",
       "content": "실시계획 변경 승인 요청 + 사업비 집행 사유서",
-      "status": "done"
+      "status": "✅ 완료"
     },
     {
       "date": "02/11",
       "type": "회의",
       "content": "아산시 스마트시티 사업 운영방안 회의",
-      "status": "done"
+      "status": "✅ 완료"
     },
     {
       "date": "02/11",
       "type": "협의",
       "content": "유무선인프라 구축 계약 연장 협의",
-      "status": "progress"
+      "status": "🔄 진행중"
     },
     {
       "date": "02/28",
       "type": "마감",
       "content": "2월 월간 추진실적 보고",
-      "status": "plan"
+      "status": "📅 예정"
     }
   ]
 }
