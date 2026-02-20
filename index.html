@@ -14,76 +14,86 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
 
+/* 헤더 */
 header{background:linear-gradient(135deg,var(--primary),#0d2444);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--accent);flex-wrap:wrap;gap:10px}
 .htitle{font-size:1.28rem;font-weight:700}
-.hsub{font-size:.75rem;color:var(--muted);margin-top:3px}
+.hsub{font-size:.76rem;color:var(--muted);margin-top:3px}
 .hright{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .badge{background:rgba(46,128,232,.18);border:1px solid var(--accent);border-radius:20px;padding:3px 12px;font-size:.72rem;color:var(--accent)}
 .updated{font-size:.71rem;color:var(--muted)}
+.rbtn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:5px 14px;font-size:.76rem;cursor:pointer;font-family:inherit}
+.rbtn:hover{background:#1a60c0}
 
+/* 레이아웃 */
 .container{max-width:1400px;margin:0 auto;padding:20px 16px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
-.col-right{display:flex;flex-direction:column;gap:16px}
 @media(max-width:1000px){.grid4{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
 @media(max-width:600px){.grid4{grid-template-columns:1fr}}
 
+/* 카드 */
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
-.ctitle{font-size:.86rem;font-weight:600;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ctitle{font-size:.86rem;font-weight:600;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:7px}
 .csub{font-size:.70rem;color:var(--muted);margin-left:auto;font-weight:400}
 
-/* KPI */
-.klabel{font-size:.71rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-.kval{font-size:2rem;font-weight:700;margin-bottom:4px}
-.ksub{font-size:.73rem;color:var(--muted);line-height:1.5}
+/* KPI 카드 */
+.kpi-val{font-size:2rem;font-weight:700;margin:8px 0 4px}
+.kpi-sub{font-size:.73rem;color:var(--muted);line-height:1.4}
 .kbar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:10px}
-.kbar div{height:100%;border-radius:3px}
+.kbar div{height:100%;border-radius:3px;transition:width 1s ease}
 
-/* 예산 비목 */
+/* 예산 */
 .budget-item{margin-bottom:13px}
 .bh{display:flex;justify-content:space-between;align-items:baseline;font-size:.79rem;margin-bottom:5px;gap:8px}
-.bn{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
-.bv{white-space:nowrap}
-.bbar{height:7px;background:var(--border);border-radius:4px;overflow:hidden}
-.bbar div{height:100%;border-radius:4px}
-.bnote{font-size:.68rem;color:var(--muted);margin-top:3px}
+.bn{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bv{white-space:nowrap;font-size:.75rem}
+.bbar{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.bbar div{height:100%;border-radius:3px}
+.bnote{font-size:.68rem;color:var(--muted);margin-top:2px}
 
-/* 단위사업 */
-.proj-item{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.80rem}
+/* 프로젝트 */
+.proj-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.79rem}
 .proj-item:last-child{border-bottom:none}
-.sbadge{padding:2px 9px;border-radius:10px;font-size:.69rem;font-weight:600;white-space:nowrap;flex-shrink:0}
+.sbadge{padding:2px 9px;border-radius:10px;font-size:.69rem;font-weight:600;white-space:nowrap}
 .s-done{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid #22c55e44}
 .s-progress{background:rgba(46,128,232,.15);color:#2e80e8;border:1px solid #2e80e844}
 .s-wait{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid #f59e0b44}
 .s-new{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid #c084fc44}
 .s-default{background:rgba(143,163,192,.1);color:var(--muted);border:1px solid #8fa3c044}
 .pname{flex:2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.pmini{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;min-width:50px}
-.pmini div{height:100%;border-radius:3px}
-.prate{font-size:.73rem;width:40px;text-align:right;flex-shrink:0;font-weight:600}
+.pmini{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;min-width:40px}
+.pmini div{height:100%;background:var(--accent);border-radius:3px}
+.prate{font-size:.72rem;color:var(--muted);width:38px;text-align:right}
 
 /* 이슈 */
 .issue-tbl{width:100%;border-collapse:collapse;font-size:.79rem}
-.issue-tbl th{text-align:left;color:var(--muted);font-size:.70rem;font-weight:500;padding:5px 8px;border-bottom:1px solid var(--border)}
-.issue-tbl tr:hover td{background:rgba(255,255,255,.02)}
+.issue-tbl th{text-align:left;color:var(--muted);font-size:.70rem;font-weight:500;padding:5px 7px;border-bottom:1px solid var(--border)}
+.issue-tbl td{padding:7px 7px;border-bottom:1px solid var(--border);vertical-align:top}
+.issue-tbl tr:last-child td{border-bottom:none}
+.ic{white-space:nowrap;font-weight:600;width:70px}
+.pri-urgent{color:#ef4444}
+.pri-high{color:#f59e0b}
+.pri-normal{color:var(--muted)}
+.itxt{line-height:1.45}
+.iamt{white-space:nowrap;color:var(--muted);font-size:.72rem}
 
 /* 타임라인 */
-.tl-bar-wrap{background:var(--border);height:20px;border-radius:10px;overflow:hidden;margin:10px 0 5px}
-.tl-bar-fill{height:100%;background:linear-gradient(90deg,#2e80e8,#7c3aed);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.70rem;font-weight:700;color:#fff;min-width:55px}
+.tl-bar-wrap{background:var(--border);height:18px;border-radius:9px;overflow:hidden;margin:11px 0 5px}
+.tl-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.69rem;font-weight:600;color:#fff;transition:width 1.2s ease;min-width:50px}
+.tl-label{display:flex;justify-content:space-between;font-size:.71rem;color:var(--muted);margin-bottom:16px}
+
+/* 일정 */
 .tl-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:.78rem}
 .tl-item:last-child{border-bottom:none}
-.tltype{background:rgba(46,128,232,.12);color:#90cdf4;border-radius:8px;padding:1px 7px;font-size:.68rem;flex-shrink:0;margin-top:1px}
+.tldate{color:var(--accent);width:32px;flex-shrink:0;font-weight:600}
+.tltype{background:rgba(46,128,232,.1);color:#90cdf4;border-radius:8px;padding:1px 7px;font-size:.68rem;flex-shrink:0}
+.tlcontent{flex:1;color:var(--text);line-height:1.4}
+.tlstatus{flex-shrink:0}
 
 /* 링크 */
-.link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:8px;margin-top:2px}
-.link-btn{background:rgba(46,128,232,.07);border:1px solid var(--border);border-radius:8px;padding:10px 11px;text-decoration:none;color:var(--text);font-size:.78rem;display:flex;align-items:center;gap:7px;transition:all .2s}
-.link-btn:hover{background:rgba(46,128,232,.22);border-color:var(--accent);color:#fff}
-
-/* 재원 배지 */
-.finance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.fi{background:rgba(46,128,232,.07);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center}
-.fi-label{font-size:.70rem;color:var(--muted);margin-bottom:4px}
-.fi-val{font-size:1.1rem;font-weight:700;color:var(--accent)}
+.link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.link-btn{background:rgba(46,128,232,.07);border:1px solid var(--border);border-radius:8px;padding:9px 11px;text-decoration:none;color:var(--text);font-size:.78rem;display:flex;align-items:center;gap:7px;transition:all .2s}
+.link-btn:hover{background:rgba(46,128,232,.2);border-color:var(--accent)}
 
 footer{text-align:center;padding:18px;color:var(--muted);font-size:.71rem;border-top:1px solid var(--border);margin-top:6px}
 </style>
@@ -92,213 +102,113 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:.71rem;border
 <header>
   <div>
     <div class="htitle">🏙️ 아산시 강소형 스마트시티 통합 포털</div>
-    <div class="hsub">아산시 시행 | (주)제일엔지니어링 PMO | 호서대 · 충남연구원 · KAIST</div>
+    <div class="hsub">아산시 | (주)제일엔지니어링 PMO | 호서대 · 충남연구원 · KAIST</div>
   </div>
   <div class="hright">
     <span class="badge">2023.12 ~ 2026.12.31</span>
     <span class="badge">총 240억원</span>
-    <span class="updated">🕐 2026-02-20 기준 | Notion 자동 연동</span>
+    <span class="updated">🕐 2026-02-20 04:50 KST+9h</span>
+    <button class="rbtn" onclick="location.reload()">🔄 새로고침</button>
   </div>
 </header>
 
 <div class="container">
 
-<!-- ── KPI 4개 ── -->
+<!-- KPI 4개 -->
 <div class="grid4">
   <div class="card">
-    <div class="klabel">⏳ D-Day</div>
-    <div class="kval" style="color:#f59e0b">D-314</div>
-    <div class="ksub">경과 812일 / 전체 1126일<br>종료: 2026.12.31</div>
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">⏳ D-Day</div>
+    <div class="kpi-val" style="color:#f59e0b">D-314</div>
+    <div class="kpi-sub">경과 812일 / 전체 1126일<br>종료: 2026.12.31</div>
     <div class="kbar"><div style="width:72.1%;background:#7c3aed"></div></div>
   </div>
   <div class="card">
-    <div class="klabel">💰 예산 집행률</div>
-    <div class="kval" style="color:#2e80e8">40.8%</div>
-    <div class="ksub">98.0억원 / 240억원<br>잔액: 142.0억원</div>
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">💰 예산 집행률</div>
+    <div class="kpi-val" style="color:#2e80e8">40.8%</div>
+    <div class="kpi-sub">98.0억원 / 240.0억원<br>잔액: 142.0억원</div>
     <div class="kbar"><div style="width:40.8%;background:#2e80e8"></div></div>
   </div>
   <div class="card">
-    <div class="klabel">📊 사업 진도율</div>
-    <div class="kval" style="color:#22c55e">28.5%</div>
-    <div class="ksub">완료 2 · 진행 5 · 대기 1 · 신설 1<br>전체 9개 사업</div>
-    <div class="kbar"><div style="width:28.5%;background:#22c55e"></div></div>
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">📊 사업 진도율</div>
+    <div class="kpi-val" style="color:#22c55e">70.3%</div>
+    <div class="kpi-sub">완료 1 · 진행 8 · 대기 0 · 신설 0<br>전체 9개 사업</div>
+    <div class="kbar"><div style="width:70.3%;background:#22c55e"></div></div>
   </div>
   <div class="card">
-    <div class="klabel">⚠️ 이슈 현황</div>
-    <div class="kval" style="color:#e879f9">8건</div>
-    <div class="ksub">긴급 2건 · 높음 3건 · 주의 3건</div>
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">⚠️ 이슈 현황</div>
+    <div class="kpi-val" style="color:#e879f9">8건</div>
+    <div class="kpi-sub">긴급 2건 · 높음 3건<br>주의 3건</div>
     <div class="kbar"><div style="width:25%;background:#e879f9"></div></div>
   </div>
 </div>
 
-<!-- ── 예산 + 사업 ── -->
+<!-- 예산 + 사업현황 -->
 <div class="grid2">
   <div class="card">
-    <div class="ctitle">💰 비목별 예산 집행 현황
-      <span class="csub">집행률 40.8% | 98.0억 / 240.0억원</span>
-    </div>
-
-    <!-- 재원 요약 -->
-    <div class="finance-grid">
-      <div class="fi"><div class="fi-label">🏛️ 국비 (50%)</div><div class="fi-val">49.0억</div><div style="font-size:.68rem;color:var(--muted)">120억 중</div></div>
-      <div class="fi"><div class="fi-label">🏘️ 도비 (12%)</div><div class="fi-val">11.8억</div><div style="font-size:.68rem;color:var(--muted)">28.8억 중</div></div>
-      <div class="fi"><div class="fi-label">🏙️ 시비 (38%)</div><div class="fi-val">37.2억</div><div style="font-size:.68rem;color:var(--muted)">91.2억 중</div></div>
-    </div>
-
+    <div class="ctitle">💰 비목별 예산 집행 현황 <span class="csub">집행률 40.8% | 98.0억원 / 240.0억원</span></div>
     
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">인건비</span>
-            <span class="bv">
-              <span style="color:var(--muted)">18.3억 / 19.0억원</span>
-              &nbsp;<b style="color:#2e80e8">96.1%</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:96.1%;background:#2e80e8"></div></div>
-          <div class="bnote">정규직+계약직 (2024년)</div>
-        </div>
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">운영비</span>
-            <span class="bv">
-              <span style="color:var(--muted)">4.3억 / 7.5억원</span>
-              &nbsp;<b style="color:#2e80e8">57.0%</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:57.0%;background:#2e80e8"></div></div>
-          <div class="bnote">부스제작비 초과(184%)</div>
-        </div>
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">여비</span>
-            <span class="bv">
-              <span style="color:var(--muted)">0.8억 / 0.4억원</span>
-              &nbsp;<b style="color:#ef4444">191.4% ⚠️ 초과</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:100%;background:#ef4444"></div></div>
-          <div class="bnote">⚠️ 초과집행</div>
-        </div>
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">연구개발비</span>
-            <span class="bv">
-              <span style="color:var(--muted)">0.0억 / 10.0억원</span>
-              &nbsp;<b style="color:#4b5563">0.0%</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:0.0%;background:#4b5563"></div></div>
-          <div class="bnote">DRT 플랫폼 (미착수)</div>
-        </div>
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">유형자산</span>
-            <span class="bv">
-              <span style="color:var(--muted)">0.2억 / 0.2억원</span>
-              &nbsp;<b style="color:#2e80e8">82.1%</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:82.1%;background:#2e80e8"></div></div>
-          <div class="bnote">이노베이션센터 PC</div>
-        </div>
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">무형자산(SW)</span>
-            <span class="bv">
-              <span style="color:var(--muted)">38.3억 / 90.5억원</span>
-              &nbsp;<b style="color:#2e80e8">42.3%</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:42.3%;background:#2e80e8"></div></div>
-          <div class="bnote">6개 플랫폼 개발</div>
-        </div>
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">건설비</span>
-            <span class="bv">
-              <span style="color:var(--muted)">23.2억 / 99.4억원</span>
-              &nbsp;<b style="color:#f59e0b">23.4%</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:23.4%;background:#f59e0b"></div></div>
-          <div class="bnote">7개 시설 공사</div>
-        </div>
-        <div class="budget-item">
-          <div class="bh">
-            <span class="bn">사업비배분</span>
-            <span class="bv">
-              <span style="color:var(--muted)">13.0억 / 13.0억원</span>
-              &nbsp;<b style="color:#2e80e8">100.0%</b>
-            </span>
-          </div>
-          <div class="bbar"><div style="width:100.0%;background:#2e80e8"></div></div>
-          <div class="bnote">✅ 간접보조 교부완료</div>
-        </div>
   </div>
-
   <div class="card">
-    <div class="ctitle">📋 단위사업별 진행 현황
-      <span class="csub">총 9개 사업</span>
-    </div>
+    <div class="ctitle">📋 단위사업별 진행 현황 <span class="csub">총 9개 사업</span></div>
     
         <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">19.0억</span>
+          <div class="pmini"><div style="width:96.1%"></div></div>
+          <span class="prate">96.1%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">7.5억</span>
+          <div class="pmini"><div style="width:57.0%"></div></div>
+          <span class="prate">57.0%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">0.4억</span>
+          <div class="pmini"><div style="width:100%"></div></div>
+          <span class="prate">191.4%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">10.0억</span>
+          <div class="pmini"><div style="width:0.0%"></div></div>
+          <span class="prate">0.0%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">0.2억</span>
+          <div class="pmini"><div style="width:82.1%"></div></div>
+          <span class="prate">82.1%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">90.5억</span>
+          <div class="pmini"><div style="width:42.3%"></div></div>
+          <span class="prate">42.3%</span>
+        </div>
+        <div class="proj-item">
+          <span class="sbadge s-progress">🔄 진행중</span>
+          <span class="pname">99.4억</span>
+          <div class="pmini"><div style="width:23.4%"></div></div>
+          <span class="prate">23.4%</span>
+        </div>
+        <div class="proj-item">
           <span class="sbadge s-done">✅ 완료</span>
-          <span class="pname" title="계약완료 (연장협의 중)">유무선 네트워크 구축</span>
-          <div class="pmini"><div style="width:36.6%;background:#2e80e8"></div></div>
-          <span class="prate" style="color:#2e80e8">36.6%</span>
+          <span class="pname">13.0억</span>
+          <div class="pmini"><div style="width:100.0%"></div></div>
+          <span class="prate">100.0%</span>
         </div>
         <div class="proj-item">
           <span class="sbadge s-progress">🔄 진행중</span>
-          <span class="pname" title="계약체결 진행중 (선급금 예정)">서비스 인프라 플랫폼</span>
-          <div class="pmini"><div style="width:0.0%;background:#4b5563"></div></div>
-          <span class="prate" style="color:#4b5563">0.0%</span>
-        </div>
-        <div class="proj-item">
-          <span class="sbadge s-done">✅ 완료</span>
-          <span class="pname" title="구축완료 (운영중)">이노베이션 센터 구축</span>
-          <div class="pmini"><div style="width:91.2%;background:#2e80e8"></div></div>
-          <span class="prate" style="color:#2e80e8">91.2%</span>
-        </div>
-        <div class="proj-item">
-          <span class="sbadge s-progress">🔄 진행중</span>
-          <span class="pname" title="부지승인 완료, 설계용역 진행">디지털 OASIS SPOT</span>
-          <div class="pmini"><div style="width:0.4%;background:#f59e0b"></div></div>
-          <span class="prate" style="color:#f59e0b">0.4%</span>
-        </div>
-        <div class="proj-item">
-          <span class="sbadge s-progress">🔄 진행중</span>
-          <span class="pname" title="서버실 구축 진행중">SDDC Platform 구축</span>
-          <div class="pmini"><div style="width:26.2%;background:#f59e0b"></div></div>
-          <span class="prate" style="color:#f59e0b">26.2%</span>
-        </div>
-        <div class="proj-item">
-          <span class="sbadge s-progress">🔄 진행중</span>
-          <span class="pname" title="서비스 인프라에 통합 계약">AI 통합관제 플랫폼</span>
-          <div class="pmini"><div style="width:58.1%;background:#2e80e8"></div></div>
-          <span class="prate" style="color:#2e80e8">58.1%</span>
-        </div>
-        <div class="proj-item">
-          <span class="sbadge s-progress">🔄 진행중</span>
-          <span class="pname" title="개발 진행중">디지털 OASIS 정보관리</span>
-          <div class="pmini"><div style="width:43.7%;background:#2e80e8"></div></div>
-          <span class="prate" style="color:#2e80e8">43.7%</span>
-        </div>
-        <div class="proj-item">
-          <span class="sbadge s-wait">⏸️ 대기</span>
-          <span class="pname" title="설계 진행중">DRT 수요응답형 교통</span>
-          <div class="pmini"><div style="width:0.0%;background:#4b5563"></div></div>
-          <span class="prate" style="color:#4b5563">0.0%</span>
-        </div>
-        <div class="proj-item">
-          <span class="sbadge s-new">🆕 신설</span>
-          <span class="pname" title="업체선정 준비">감리용역 (신설)</span>
-          <div class="pmini"><div style="width:0.0%;background:#4b5563"></div></div>
-          <span class="prate" style="color:#4b5563">0.0%</span>
+          <span class="pname">240.0억</span>
+          <div class="pmini"><div style="width:40.8%"></div></div>
+          <span class="prate">40.8%</span>
         </div>
   </div>
 </div>
 
-<!-- ── 이슈 + 일정/링크 ── -->
+<!-- 이슈 + 타임라인/링크 -->
 <div class="grid2">
   <div class="card">
     <div class="ctitle">⚠️ 주요 리스크 및 이슈 <span class="csub">전체 8건</span></div>
@@ -306,132 +216,106 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:.71rem;border
       <thead><tr><th>우선순위</th><th>내용</th><th>금액</th></tr></thead>
       <tbody>
         <tr>
-          <td style="color:#ef4444;font-weight:700;white-space:nowrap;padding:7px 8px">🔴 긴급</td>
-          <td style="padding:7px 8px;line-height:1.45">예산 집행률 저조 (40.8%) — 잔여 142억원, 월평균 14.2억 집행 필요</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">142억원</td>
+          <td class="ic pri-urgent">🔴 긴급</td>
+          <td class="itxt">예산 집행률 저조 (40.8%) - 잔여 142억원 10개월 내 집행 필요</td>
+          <td class="iamt">월평균 14.2억원</td>
         </tr>
         <tr>
-          <td style="color:#ef4444;font-weight:700;white-space:nowrap;padding:7px 8px">🔴 긴급</td>
-          <td style="padding:7px 8px;line-height:1.45">OASIS SPOT 공사 착공 지연 (집행률 0.4%)</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">35억원</td>
+          <td class="ic pri-urgent">🔴 긴급</td>
+          <td class="itxt">OASIS SPOT 공사 착공 지연 (집행률 0.4%)</td>
+          <td class="iamt">35억원</td>
         </tr>
         <tr>
-          <td style="color:#f59e0b;font-weight:700;white-space:nowrap;padding:7px 8px">🟠 높음</td>
-          <td style="padding:7px 8px;line-height:1.45">서비스 인프라 계약 체결 — 선급금 지급</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">45.33억원</td>
+          <td class="ic pri-high">🟠 높음</td>
+          <td class="itxt">서비스 인프라 계약 체결  - 선급금 지급</td>
+          <td class="iamt">45.33억원</td>
         </tr>
         <tr>
-          <td style="color:#f59e0b;font-weight:700;white-space:nowrap;padding:7px 8px">🟠 높음</td>
-          <td style="padding:7px 8px;line-height:1.45">SDDC Platform 서버실 일정 조정 필요 (현 26.2% 집행)</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">27억원</td>
+          <td class="ic pri-high">🟠 높음</td>
+          <td class="itxt">SDDC Platform 서버실 일정 조정 필요 (현 26.2% 집행)</td>
+          <td class="iamt">27억원</td>
         </tr>
         <tr>
-          <td style="color:#f59e0b;font-weight:700;white-space:nowrap;padding:7px 8px">🟠 높음</td>
-          <td style="padding:7px 8px;line-height:1.45">여비 초과집행 (191.4%) — 비목 간 전용 또는 실시계획 변경 필요</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">-</td>
+          <td class="ic pri-high">🟠 높음</td>
+          <td class="itxt">여비 초과집행 (191.4%) - 비목 간 전용 또는 실시계획 변경 필요</td>
+          <td class="iamt">-</td>
         </tr>
         <tr>
-          <td style="color:#eab308;font-weight:700;white-space:nowrap;padding:7px 8px">🟡 주의</td>
-          <td style="padding:7px 8px;line-height:1.45">DRT 차량 발주 설계 지연 (연구개발비 미집행)</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">10억원</td>
+          <td class="ic pri-normal">🟡 주의</td>
+          <td class="itxt">DRT 차량 발주 설계 지연 (연구개발비 미집행)</td>
+          <td class="iamt">10억원</td>
         </tr>
         <tr>
-          <td style="color:#eab308;font-weight:700;white-space:nowrap;padding:7px 8px">🟡 주의</td>
-          <td style="padding:7px 8px;line-height:1.45">감리용역 업체선정 지연</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">1.6억원</td>
+          <td class="ic pri-normal">🟡 주의</td>
+          <td class="itxt">감리용역 업체선정 지연</td>
+          <td class="iamt">1.6억원</td>
         </tr>
         <tr>
-          <td style="color:#eab308;font-weight:700;white-space:nowrap;padding:7px 8px">🟡 주의</td>
-          <td style="padding:7px 8px;line-height:1.45">부스제작비 초과집행 (184.1%) 정리 필요</td>
-          <td style="color:var(--muted);font-size:.72rem;white-space:nowrap;padding:7px 8px">-</td>
+          <td class="ic pri-normal">🟡 주의</td>
+          <td class="itxt">부스제작비 초과집행 (184.1%) 정리 필요</td>
+          <td class="iamt">-</td>
         </tr></tbody>
     </table>
   </div>
 
-  <div class="col-right">
+  <div style="display:flex;flex-direction:column;gap:16px">
     <div class="card">
-      <div class="ctitle">📅 2월 주요 일정</div>
+      <div class="ctitle">📅 최근 일정 현황</div>
       
         <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/06</span>
-          <span class="tltype">제출</span>
-          <span style="flex:1;line-height:1.4">2026년 1월 관리카드 제출</span>
-          <span>✅</span>
+          <span class="tldate">KAIST</span>
+          <span class="tltype">2.0억</span>
+          <span class="tlcontent">1.0억</span>
+          <span class="tlstatus">📅</span>
         </div>
         <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/10</span>
-          <span class="tltype">제출</span>
-          <span style="flex:1;line-height:1.4">25년 4분기·연간보고서 제출</span>
-          <span>✅</span>
+          <span class="tldate">충남연구원</span>
+          <span class="tltype">2.0억</span>
+          <span class="tlcontent">0.72억</span>
+          <span class="tlstatus">📅</span>
         </div>
         <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/10</span>
-          <span class="tltype">공문</span>
-          <span style="flex:1;line-height:1.4">국고보조금 집행실태 점검결과 소명자료 제출</span>
-          <span>✅</span>
+          <span class="tldate">호서대학교</span>
+          <span class="tltype">9.0억</span>
+          <span class="tlcontent">3.77억</span>
+          <span class="tlstatus">📅</span>
         </div>
         <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/10</span>
-          <span class="tltype">공문</span>
-          <span style="flex:1;line-height:1.4">실시계획 변경 승인 요청 공문 제출</span>
-          <span>✅</span>
-        </div>
-        <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/11</span>
-          <span class="tltype">회의</span>
-          <span style="flex:1;line-height:1.4">아산시 스마트시티 사업 운영방안 회의</span>
-          <span>✅</span>
-        </div>
-        <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/11</span>
-          <span class="tltype">협의</span>
-          <span style="flex:1;line-height:1.4">유무선인프라 구축 계약 연장 협의</span>
-          <span>🔄</span>
-        </div>
-        <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/12</span>
-          <span class="tltype">동기화</span>
-          <span style="flex:1;line-height:1.4">Slack #플랜예산 → Notion 전체 동기화</span>
-          <span>✅</span>
-        </div>
-        <div class="tl-item">
-          <span style="color:#2e80e8;font-weight:700;width:32px;flex-shrink:0">02/28</span>
-          <span class="tltype">마감</span>
-          <span style="flex:1;line-height:1.4">2월 월간 추진실적 보고</span>
-          <span>📅</span>
+          <span class="tldate">합계</span>
+          <span class="tltype">13.0억</span>
+          <span class="tlcontent">5.49억</span>
+          <span class="tlstatus">📅</span>
         </div>
     </div>
-
     <div class="card">
       <div class="ctitle">📊 사업기간 진행률</div>
-      <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted)">
+      <div style="display:flex;justify-content:space-between;font-size:.73rem;color:var(--muted)">
         <span>▶ 2023.12.01</span><span>2026.12.31 ◀</span>
       </div>
       <div class="tl-bar-wrap">
-        <div class="tl-bar-fill" style="width:72.1%">72.1% 경과</div>
+        <div class="tl-bar-fill" style="width:72.1%">72.1%</div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:.71rem;color:var(--muted);margin-bottom:16px">
-        <span>경과 812일</span><span>잔여 314일</span>
+      <div class="tl-label">
+        <span>경과 812일</span>
+        <span>잔여 314일</span>
       </div>
-
-      <div class="ctitle" style="margin-bottom:10px">🔗 관련 시스템 바로가기</div>
+      <div class="ctitle">🔗 관련 시스템 바로가기</div>
       <div class="link-grid">
         <a class="link-btn" href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank">📝 Notion DB</a>
         <a class="link-btn" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank">💰 예산관리</a>
         <a class="link-btn" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank">🏗️ 자산관리</a>
         <a class="link-btn" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank">👤 인력관리</a>
-        <a class="link-btn" href="https://www.notion.so/559654aed9404d9f88225ea0adc7d746" target="_blank">📊 WBS</a>
-        <a class="link-btn" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal/actions" target="_blank">⚙️ Actions 로그</a>
+        <a class="link-btn" href="https://leesungho-ai.github.io/Asan-Smartcity-WBS/" target="_blank">📊 WBS</a>
+        <a class="link-btn" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal/actions" target="_blank">⚙️ 동기화 로그</a>
       </div>
     </div>
   </div>
 </div>
 
-</div>
+</div><!-- /container -->
 
 <footer>
-  © 2026 아산시 강소형 스마트시티 구축사업 PMO &nbsp;|&nbsp; (주)제일엔지니어링
-  &nbsp;|&nbsp; 데이터 기준: 2026-02-12 (Notion) &nbsp;|&nbsp; GitHub Actions 자동 갱신 (30분)
+  © 2026 아산시 강소형 스마트시티 구축사업 PMO | (주)제일엔지니어링 | Notion API 자동 연동 (매 30분 갱신)
 </footer>
 </body>
 </html>
