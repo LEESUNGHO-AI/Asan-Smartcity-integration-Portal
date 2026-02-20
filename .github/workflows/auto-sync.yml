@@ -1,0 +1,48 @@
+name: 🔄 Notion 자동 동기화 → Dashboard 생성
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # 매 30분마다 실행
+  workflow_dispatch:           # 수동 실행 가능
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/generate_dashboard.py'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 의존성 설치
+        run: pip install requests python-dateutil
+
+      - name: 🚀 Notion 데이터 수집 → index.html 생성
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_BUDGET_PAGE_ID: ${{ secrets.NOTION_BUDGET_PAGE_ID }}
+        run: python scripts/generate_dashboard.py
+
+      - name: 📤 변경사항 커밋 & 푸시
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html data/snapshot.json
+          if git diff --staged --quiet; then
+            echo "변경사항 없음 - 스킵"
+          else
+            git commit -m "🔄 자동 업데이트: $(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')"
+            git push
+          fi
