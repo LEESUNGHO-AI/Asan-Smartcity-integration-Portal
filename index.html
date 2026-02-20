@@ -1,400 +1,585 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>아산시 강소형 스마트시티 통합 포털</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:#0a0e1a; --surface:#111827; --surface2:#1a2236;
-  --border:rgba(99,179,237,0.15); --accent:#38bdf8; --accent2:#6ee7b7;
-  --danger:#f87171; --warning:#fb923c; --caution:#fbbf24;
-  --text:#e2e8f0; --muted:#64748b; --card-bg:rgba(17,24,39,0.8);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(56,189,248,0.07) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(110,231,183,0.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>아산시 강소형 스마트시티 통합 포털</title>
+  <style>
+    :root {
+      --primary: #1a3a6b;
+      --accent:  #2e80e8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger:  #ef4444;
+      --bg:      #0f1623;
+      --card:    #1a2540;
+      --border:  #2a3a5a;
+      --text:    #e2e8f0;
+      --muted:   #8fa3c0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-/* 로딩 */
-#loading{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:1.5rem;}
-.loader-ring{width:60px;height:60px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-#loading p{color:var(--muted);font-size:0.9rem;letter-spacing:0.1em;}
+    /* ── 헤더 ── */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #0d2444 100%);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--accent);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-left h1 { font-size: 1.4rem; font-weight: 700; }
+    .header-left p  { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: rgba(46,128,232,0.2);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+    #last-updated {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .refresh-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .refresh-btn:hover { background: #1a60c0; }
 
-#app{position:relative;z-index:1;}
+    /* ── 로딩 ── */
+    #loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-/* 헤더 */
-header{background:rgba(10,14,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1.25rem 2rem;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
-.header-left{display:flex;align-items:center;gap:1rem;}
-.header-badge{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0e1a;font-size:0.65rem;font-weight:700;padding:0.25rem 0.6rem;border-radius:4px;letter-spacing:0.08em;}
-header h1{font-size:1.05rem;font-weight:700;letter-spacing:-0.01em;}
-header h1 span{color:var(--accent);}
-.sync-status{display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--muted);font-family:'DM Mono',monospace;}
-.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:pulse-dot 2s ease infinite;}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+    /* ── 에러 ── */
+    #error-box {
+      display: none;
+      margin: 32px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid var(--danger);
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+    }
 
-main{max-width:1400px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+    /* ── 메인 그리드 ── */
+    #main-content { display: none; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
 
-/* 히어로 */
-.hero{display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem 2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--accent),var(--accent2));}
-.hero-title{font-size:1.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.4rem;}
-.hero-sub{font-size:0.85rem;color:var(--muted);}
-.dday-box{text-align:right;background:linear-gradient(135deg,rgba(56,189,248,0.1),rgba(110,231,183,0.1));border:1px solid rgba(56,189,248,0.3);border-radius:12px;padding:1.2rem 2rem;min-width:150px;}
-.dday-label{font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:0.3rem;}
-.dday-value{font-family:'DM Mono',monospace;font-size:2.8rem;font-weight:500;color:var(--accent);line-height:1;}
-.dday-sub{font-size:0.7rem;color:var(--muted);margin-top:0.3rem;}
+    /* ── KPI 카드 4개 ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .kpi-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kpi-value { font-size: 1.9rem; font-weight: 700; }
+    .kpi-sub   { font-size: 0.78rem; color: var(--muted); }
+    .kpi-bar   { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+    .kpi-bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
 
-/* 요약 카드 */
-.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
-@media(max-width:900px){.summary-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:500px){.summary-grid{grid-template-columns:1fr;}}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.5rem;position:relative;overflow:hidden;transition:border-color 0.2s,transform 0.2s;}
-.stat-card:hover{border-color:rgba(99,179,237,0.35);transform:translateY(-2px);}
-.stat-card .icon{font-size:1.3rem;margin-bottom:0.6rem;}
-.stat-card .label{font-size:0.72rem;color:var(--muted);letter-spacing:0.05em;margin-bottom:0.4rem;}
-.stat-card .value{font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;line-height:1;color:var(--accent);}
-.stat-card .value.green{color:var(--accent2);}
-.stat-card .sub{font-size:0.72rem;color:var(--muted);margin-top:0.4rem;}
-.prog-bar-wrap{margin-top:0.8rem;}
-.prog-bar-bg{height:5px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
-.prog-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1s cubic-bezier(.22,1,.36,1);}
+    /* ── 섹션 그리드 ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
 
-/* 섹션 헤더 */
-.section-header{display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem;}
-.section-header h2{font-size:1rem;font-weight:700;}
-.section-header .count{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);background:rgba(255,255,255,0.06);padding:0.2rem 0.55rem;border-radius:99px;}
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-/* 2열 */
-.two-col{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;margin-bottom:1.5rem;}
-@media(max-width:1024px){.two-col{grid-template-columns:1fr;}}
+    /* ── 예산 카테고리 ── */
+    .budget-item {
+      margin-bottom: 14px;
+    }
+    .budget-item-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+    .budget-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .budget-bar-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 1s ease; }
 
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;}
+    /* ── 사업 목록 ── */
+    .project-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.83rem;
+    }
+    .project-item:last-child { border-bottom: none; }
+    .status-badge {
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-완료    { background: rgba(34,197,94,0.15);  color: var(--success); border: 1px solid #22c55e44; }
+    .status-진행중  { background: rgba(46,128,232,0.15); color: var(--accent);  border: 1px solid #2e80e844; }
+    .status-대기    { background: rgba(245,158,11,0.15); color: var(--warning); border: 1px solid #f59e0b44; }
+    .status-default { background: rgba(143,163,192,0.1); color: var(--muted);  border: 1px solid #8fa3c044; }
 
-/* 단위사업 */
-.unit-list{display:flex;flex-direction:column;gap:0.6rem;}
-.unit-item{display:grid;grid-template-columns:2.5rem 1fr auto;align-items:center;gap:0.8rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.8rem 1rem;transition:background 0.2s;}
-.unit-item:hover{background:rgba(56,189,248,0.05);}
-.unit-no{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);text-align:center;background:rgba(255,255,255,0.05);border-radius:6px;padding:0.3rem;}
-.unit-info{min-width:0;}
-.unit-name{font-size:0.85rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:0.4rem;}
-.unit-prog{display:flex;align-items:center;gap:0.6rem;}
-.unit-prog-bar{flex:1;height:4px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
-.unit-prog-fill{height:100%;border-radius:99px;transition:width 1s;}
-.unit-prog-fill.c{background:var(--accent2);}
-.unit-prog-fill.p{background:var(--accent);}
-.unit-prog-fill.w{background:var(--muted);}
-.unit-pct{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);min-width:3rem;text-align:right;}
-.unit-badge{font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;font-weight:600;white-space:nowrap;letter-spacing:0.03em;}
-.badge-completed{background:rgba(110,231,183,0.15);color:var(--accent2);}
-.badge-in_progress{background:rgba(56,189,248,0.15);color:var(--accent);}
-.badge-pending{background:rgba(100,116,139,0.2);color:var(--muted);}
+    .progress-mini {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      min-width: 60px;
+    }
+    .progress-mini-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+    .progress-text { font-size: 0.75rem; color: var(--muted); width: 36px; text-align: right; }
 
-/* 재원별 */
-.budget-list{display:flex;flex-direction:column;gap:0.8rem;}
-.budget-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;}
-.budget-source{font-size:0.82rem;font-weight:600;}
-.budget-nums{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);}
-.budget-bar-bg{height:6px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
-.budget-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1s;}
-.budget-detail{display:flex;justify-content:space-between;margin-top:0.3rem;font-size:0.68rem;color:var(--muted);}
+    /* ── 업무 테이블 ── */
+    .task-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .task-table th {
+      text-align: left;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .task-table td { padding: 8px 8px; border-bottom: 1px solid var(--border); }
+    .task-table tr:last-child td { border-bottom: none; }
+    .priority-높음  { color: #ef4444; font-weight: 600; }
+    .priority-중간  { color: var(--warning); }
+    .priority-낮음  { color: var(--muted); }
 
-/* 리스크 */
-.risk-list{display:flex;flex-direction:column;gap:0.5rem;}
-.risk-item{display:flex;align-items:flex-start;gap:0.75rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.85rem 1rem;border-left:3px solid;transition:background 0.2s;}
-.risk-item:hover{background:rgba(255,255,255,0.05);}
-.risk-item.urgent{border-left-color:var(--danger);}
-.risk-item.high{border-left-color:var(--warning);}
-.risk-item.mid{border-left-color:var(--caution);}
-.risk-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:0.3rem;}
-.urgent .risk-dot{background:var(--danger);}
-.high .risk-dot{background:var(--warning);}
-.mid .risk-dot{background:var(--caution);}
-.risk-text{font-size:0.82rem;line-height:1.5;}
-.risk-level-badge{font-size:0.62rem;font-weight:700;letter-spacing:0.05em;padding:0.1rem 0.4rem;border-radius:3px;margin-right:0.4rem;}
-.urgent .risk-level-badge{background:rgba(248,113,113,0.2);color:var(--danger);}
-.high .risk-level-badge{background:rgba(251,146,60,0.2);color:var(--warning);}
-.mid .risk-level-badge{background:rgba(251,191,36,0.2);color:var(--caution);}
+    /* ── 타임라인 ── */
+    .timeline-bar {
+      background: var(--border);
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 12px 0 6px;
+      position: relative;
+    }
+    .timeline-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #7c3aed);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      transition: width 1.2s ease;
+    }
 
-/* 일정 */
-.schedule-list{display:flex;flex-direction:column;gap:0.5rem;}
-.schedule-item{display:grid;grid-template-columns:3.5rem 2.5rem 1fr auto;align-items:center;gap:0.8rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.75rem 1rem;transition:background 0.2s;}
-.schedule-item:hover{background:rgba(56,189,248,0.04);}
-.sch-date{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent);}
-.sch-type{font-size:0.65rem;color:var(--muted);background:rgba(255,255,255,0.06);padding:0.15rem 0.4rem;border-radius:4px;text-align:center;}
-.sch-content{font-size:0.82rem;}
-.sch-status{font-size:0.78rem;white-space:nowrap;}
+    /* ── 링크 박스 ── */
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    .link-btn {
+      background: rgba(46,128,232,0.08);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .link-btn:hover {
+      background: rgba(46,128,232,0.18);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .link-icon { font-size: 1.1rem; }
 
-/* 푸터 */
-footer{margin-top:2rem;border-top:1px solid var(--border);padding:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;font-size:0.75rem;color:var(--muted);}
-.footer-links{display:flex;gap:1rem;flex-wrap:wrap;}
-.footer-links a{color:var(--muted);text-decoration:none;padding:0.3rem 0.7rem;border:1px solid var(--border);border-radius:6px;transition:border-color 0.2s,color 0.2s;}
-.footer-links a:hover{border-color:var(--accent);color:var(--accent);}
-
-.last-sync{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:0.6rem 1rem;border-radius:8px;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.6rem;}
-.last-sync span{color:var(--accent2);}
-
-#error-msg{display:none;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:1rem 1.5rem;color:var(--danger);font-size:0.85rem;margin-bottom:1rem;}
-
-.fade-in{animation:fadeIn 0.5s ease both;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
-.fade-in:nth-child(1){animation-delay:0.05s;}
-.fade-in:nth-child(2){animation-delay:0.10s;}
-.fade-in:nth-child(3){animation-delay:0.15s;}
-.fade-in:nth-child(4){animation-delay:0.20s;}
-</style>
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      border-top: 1px solid var(--border);
+      margin-top: 16px;
+    }
+  </style>
 </head>
 <body>
 
+<header>
+  <div class="header-left">
+    <h1>🏙️ 아산시 강소형 스마트시티 통합 포털</h1>
+    <p>아산시 | (주)제일엔지니어링 PMO | 호서대 · 충남연구원 · KAIST</p>
+  </div>
+  <div class="header-right">
+    <span class="badge">2023.12 ~ 2025.12</span>
+    <span class="badge">총 240억원</span>
+    <div id="last-updated">데이터 로딩 중...</div>
+    <button class="refresh-btn" onclick="loadData()">🔄 새로고침</button>
+  </div>
+</header>
+
+<!-- 로딩 -->
 <div id="loading">
-  <div class="loader-ring"></div>
-  <p>Notion 데이터 로딩 중...</p>
+  <div class="spinner"></div>
+  <p style="color:var(--muted);font-size:0.85rem;">Notion 데이터를 불러오는 중...</p>
 </div>
 
-<div id="app" style="display:none;">
-  <header>
-    <div class="header-left">
-      <div class="header-badge">SMART CITY</div>
-      <h1>아산시 강소형 <span>스마트시티</span> 통합 포털</h1>
-    </div>
-    <div class="sync-status">
-      <div class="sync-dot"></div>
-      <span id="header-sync">Notion 연동</span>
-    </div>
-  </header>
-
-  <main>
-    <div id="error-msg">⚠️ dashboard.json 로드 실패. GitHub Actions 동기화 상태를 확인해주세요.</div>
-
-    <div class="last-sync">
-      🔄 마지막 Notion 동기화: <span id="last-updated">—</span>
-      &nbsp;|&nbsp; 매일 09:00 KST 자동 갱신 (GitHub Actions)
-    </div>
-
-    <div class="hero fade-in">
-      <div>
-        <div class="hero-title">아산시 강소형 스마트시티 조성사업</div>
-        <div class="hero-sub">디지털 OASIS 구현을 통한 지역경제 활성화 및 데이터 기반 스마트시티 조성 · ✅ 12개월 연장 승인완료</div>
-      </div>
-      <div class="dday-box">
-        <div class="dday-label">사업 종료까지</div>
-        <div class="dday-value" id="dday">—</div>
-        <div class="dday-sub">2026년 12월 31일</div>
-      </div>
-    </div>
-
-    <div class="summary-grid">
-      <div class="stat-card fade-in">
-        <div class="icon">💰</div>
-        <div class="label">총 사업비</div>
-        <div class="value" id="total-budget">240억</div>
-        <div class="sub">국비 50% · 도비 12% · 시비 38%</div>
-      </div>
-      <div class="stat-card fade-in">
-        <div class="icon">📊</div>
-        <div class="label">예산 집행률</div>
-        <div class="value" id="exec-rate">—%</div>
-        <div class="sub" id="exec-sub">—</div>
-        <div class="prog-bar-wrap"><div class="prog-bar-bg"><div class="prog-bar-fill" id="exec-bar" style="width:0%"></div></div></div>
-      </div>
-      <div class="stat-card fade-in">
-        <div class="icon">📈</div>
-        <div class="label">전체 진도율</div>
-        <div class="value green" id="progress-rate">—%</div>
-        <div class="sub" id="progress-sub">—</div>
-        <div class="prog-bar-wrap"><div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-bar" style="width:0%"></div></div></div>
-      </div>
-      <div class="stat-card fade-in">
-        <div class="icon">⚠️</div>
-        <div class="label">리스크 현황</div>
-        <div class="value" id="risk-count" style="color:#f87171;">—건</div>
-        <div class="sub" id="risk-sub">—</div>
-      </div>
-    </div>
-
-    <div class="two-col">
-      <div class="panel fade-in">
-        <div class="section-header">
-          <h2>🏗️ 단위사업 현황</h2>
-          <span class="count" id="unit-count">—</span>
-        </div>
-        <div class="unit-list" id="unit-list"><div style="color:var(--muted);font-size:0.85rem;">로딩 중...</div></div>
-      </div>
-      <div class="panel fade-in">
-        <div class="section-header"><h2>💵 재원별 예산</h2></div>
-        <div class="budget-list" id="budget-list"><div style="color:var(--muted);font-size:0.85rem;">로딩 중...</div></div>
-        <div style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border);">
-          <div class="section-header" style="margin-bottom:0.6rem;"><h2>🏦 집행 합계</h2></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;" id="budget-total"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="two-col">
-      <div class="panel fade-in">
-        <div class="section-header">
-          <h2>⚠️ 리스크 관리 현황</h2>
-          <span class="count" id="risk-total-count">—건</span>
-        </div>
-        <div class="risk-list" id="risk-list"><div style="color:var(--muted);font-size:0.85rem;">로딩 중...</div></div>
-      </div>
-      <div class="panel fade-in">
-        <div class="section-header">
-          <h2>📅 주요 일정</h2>
-          <span class="count" id="schedule-count">—건</span>
-        </div>
-        <div class="schedule-list" id="schedule-list"><div style="color:var(--muted);font-size:0.85rem;">로딩 중...</div></div>
-      </div>
-    </div>
-
-    <footer>
-      <div>
-        <div style="margin-bottom:0.3rem;">주관기관: 아산시 스마트도시팀 &nbsp;|&nbsp; 수행기관: (주)제일엔지니어링 PMO</div>
-        <div>사업기간: 2023.12 ~ 2026.12 (12개월 연장) &nbsp;|&nbsp; 문의: smartcity-pmo@cheileng.com</div>
-      </div>
-      <div class="footer-links">
-        <a href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank">📋 Notion 프로젝트</a>
-        <a href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank">💰 예산관리 BMS</a>
-        <a href="https://leesungho-ai.github.io/Asan-Smartcity-WBS/" target="_blank">📋 WBS</a>
-        <a href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank">📦 자산관리</a>
-      </div>
-    </footer>
-  </main>
+<!-- 에러 -->
+<div id="error-box">
+  <p style="font-size:1.5rem;margin-bottom:12px;">⚠️</p>
+  <p id="error-msg">데이터를 불러올 수 없습니다.</p>
+  <button class="refresh-btn" style="margin-top:16px;" onclick="loadData()">다시 시도</button>
 </div>
+
+<!-- 메인 -->
+<div id="main-content">
+  <div class="container">
+
+    <!-- KPI 4개 -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">⏳ D-Day</div>
+        <div class="kpi-value" id="kpi-dday" style="color:#f59e0b;">-</div>
+        <div class="kpi-sub" id="kpi-dday-sub">사업 종료까지</div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-elapsed" style="background:#7c3aed;width:0%"></div></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">💰 예산 집행률</div>
+        <div class="kpi-value" id="kpi-budget-rate" style="color:#2e80e8;">-</div>
+        <div class="kpi-sub" id="kpi-budget-sub">집행 현황</div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-budget" style="background:#2e80e8;width:0%"></div></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">📊 사업 진도율</div>
+        <div class="kpi-value" id="kpi-progress" style="color:#22c55e;">-</div>
+        <div class="kpi-sub" id="kpi-progress-sub">전체 사업 현황</div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-progress" style="background:#22c55e;width:0%"></div></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">📋 업무 완료율</div>
+        <div class="kpi-value" id="kpi-task-rate" style="color:#e879f9;">-</div>
+        <div class="kpi-sub" id="kpi-task-sub">업무 처리 현황</div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-task" style="background:#e879f9;width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- 예산 + 사업현황 -->
+    <div class="grid-2">
+
+      <!-- 예산 카테고리 -->
+      <div class="card">
+        <div class="card-title">💰 예산 집행 현황 <span style="font-size:0.72rem;color:var(--muted);font-weight:400;margin-left:auto;" id="budget-total-label"></span></div>
+        <div id="budget-categories">
+          <p style="color:var(--muted);font-size:0.82rem;">데이터 없음</p>
+        </div>
+      </div>
+
+      <!-- 사업 목록 -->
+      <div class="card">
+        <div class="card-title">📋 사업항목별 현황</div>
+        <div id="project-list">
+          <p style="color:var(--muted);font-size:0.82rem;">데이터 없음</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 업무 + 타임라인 -->
+    <div class="grid-2">
+
+      <!-- 최근 업무 -->
+      <div class="card">
+        <div class="card-title">✅ 최근 업무 현황</div>
+        <table class="task-table">
+          <thead>
+            <tr>
+              <th>업무명</th>
+              <th>담당자</th>
+              <th>상태</th>
+              <th>우선순위</th>
+            </tr>
+          </thead>
+          <tbody id="task-tbody">
+            <tr><td colspan="4" style="color:var(--muted);text-align:center;padding:16px;">데이터 없음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 사업 타임라인 + 링크 -->
+      <div class="card">
+        <div class="card-title">📅 사업 기간 현황</div>
+
+        <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--muted);">
+          <span>▶ 2023.12.01 사업 시작</span>
+          <span>2025.12.31 종료 ◀</span>
+        </div>
+        <div class="timeline-bar">
+          <div class="timeline-fill" id="timeline-fill" style="width:0%">0%</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--muted);">
+          <span id="elapsed-days-label">-</span>
+          <span id="remaining-days-label">-</span>
+        </div>
+
+        <div style="margin-top:20px;">
+          <div class="card-title">🔗 관련 시스템 바로가기</div>
+          <div class="link-grid">
+            <a class="link-btn" href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank">
+              <span class="link-icon">📝</span> Notion DB
+            </a>
+            <a class="link-btn" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank">
+              <span class="link-icon">💰</span> 예산관리
+            </a>
+            <a class="link-btn" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank">
+              <span class="link-icon">🏗️</span> 자산관리
+            </a>
+            <a class="link-btn" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank">
+              <span class="link-icon">👤</span> 인력관리
+            </a>
+            <a class="link-btn" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal/actions" target="_blank">
+              <span class="link-icon">⚙️</span> 동기화 로그
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</div><!-- /main-content -->
+
+<footer id="footer-bar">
+  © 2025 아산시 강소형 스마트시티 구축사업 PMO | (주)제일엔지니어링 |
+  데이터: Notion API 자동 연동 (매 30분 갱신)
+</footer>
 
 <script>
-const $=id=>document.getElementById(id);
-const fmt=n=>n!=null?parseFloat(n).toFixed(1):'—';
+// ─────────────────────────────────────────────
+// 데이터 로드 (dashboard.json ← GitHub Actions가 30분마다 갱신)
+// ─────────────────────────────────────────────
+const DATA_URL = 'data/dashboard.json';
 
-function statusLabel(c){return{completed:'완료',in_progress:'진행중',pending:'대기'}[c]||'—';}
-function statusClass(c){return{completed:'badge-completed',in_progress:'badge-in_progress',pending:'badge-pending'}[c]||'badge-pending';}
-function fillClass(c){return{completed:'c',in_progress:'p',pending:'w'}[c]||'w';}
-function riskLabel(l){return{urgent:'긴급',high:'높음',mid:'주의'}[l]||'주의';}
+function fmt억(n) {
+  if (n >= 1e8) return (n / 1e8).toFixed(1) + '억원';
+  if (n >= 1e4) return (n / 1e4).toFixed(0) + '만원';
+  return n.toLocaleString() + '원';
+}
 
-async function loadDashboard(){
-  try{
-    const res=await fetch('data/dashboard.json?t='+Date.now());
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    render(await res.json());
-  }catch(e){
-    console.error(e);
-    $('error-msg').style.display='block';
-    $('loading').style.display='none';
-    $('app').style.display='block';
+function statusClass(s) {
+  if (!s) return 'status-default';
+  if (s.includes('완료')) return 'status-완료';
+  if (s.includes('진행')) return 'status-진행중';
+  if (s.includes('대기') || s.includes('준비')) return 'status-대기';
+  return 'status-default';
+}
+
+function priorityClass(p) {
+  if (!p) return '';
+  if (p.includes('높') || p.toLowerCase().includes('high')) return 'priority-높음';
+  if (p.includes('중') || p.toLowerCase().includes('med'))  return 'priority-중간';
+  return 'priority-낮음';
+}
+
+async function loadData() {
+  document.getElementById('loading').style.display = 'flex';
+  document.getElementById('main-content').style.display = 'none';
+  document.getElementById('error-box').style.display = 'none';
+
+  try {
+    const resp = await fetch(DATA_URL + '?t=' + Date.now());
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const d = await resp.json();
+    render(d);
+  } catch (e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error-box').style.display = 'block';
+    document.getElementById('error-msg').textContent =
+      `데이터 로드 실패: ${e.message} — GitHub Actions 워크플로우를 확인하세요.`;
   }
 }
 
-function render(d){
-  const s=d.summary||{};
+function render(d) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
 
-  /* 동기화 시간 */
-  if(d.lastUpdated){
-    const kst=new Date(d.lastUpdated).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
-    $('last-updated').textContent=kst+' KST';
-    $('header-sync').textContent='Notion 동기화 완료';
+  const meta     = d.meta     || {};
+  const dday     = d.dday     || {};
+  const budget   = d.budget   || {};
+  const projects = d.projects || {};
+  const tasks    = d.tasks    || {};
+
+  // ── 마지막 업데이트 ──
+  document.getElementById('last-updated').textContent =
+    '🕐 ' + (meta.last_updated || '-');
+
+  // ── KPI ──
+  const dd = dday.dday ?? '-';
+  document.getElementById('kpi-dday').textContent = dd >= 0 ? `D-${dd}` : `D+${Math.abs(dd)}`;
+  document.getElementById('kpi-dday-sub').textContent =
+    `경과 ${dday.elapsed_days || 0}일 / 전체 ${dday.total_days || 0}일`;
+  setBarWidth('bar-elapsed', dday.elapsed_rate || 0);
+
+  const br = budget.execution_rate || 0;
+  document.getElementById('kpi-budget-rate').textContent = br + '%';
+  document.getElementById('kpi-budget-sub').textContent =
+    fmt억(budget.total_executed || 0) + ' / ' + fmt억(budget.total_budget || 0);
+  setBarWidth('bar-budget', br);
+
+  const pr = projects.overall_progress || 0;
+  document.getElementById('kpi-progress').textContent = pr + '%';
+  const sc = projects.status_count || {};
+  document.getElementById('kpi-progress-sub').textContent =
+    `완료 ${sc['완료']||0} · 진행 ${sc['진행중']||0} · 대기 ${sc['대기']||0}`;
+  setBarWidth('bar-progress', pr);
+
+  const total = tasks.total || 0;
+  const done  = tasks.done  || 0;
+  const tr    = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('kpi-task-rate').textContent = tr + '%';
+  document.getElementById('kpi-task-sub').textContent =
+    `완료 ${done} / 전체 ${total}건`;
+  setBarWidth('bar-task', tr);
+
+  // ── 예산 카테고리 ──
+  document.getElementById('budget-total-label').textContent =
+    '집행률 ' + br + '%';
+
+  const budgetEl = document.getElementById('budget-categories');
+  const cats = budget.categories || [];
+  if (cats.length === 0) {
+    budgetEl.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;">Notion DB_BUDGET 연결 후 자동 표시됩니다.</p>';
+  } else {
+    budgetEl.innerHTML = cats.map(c => `
+      <div class="budget-item">
+        <div class="budget-item-header">
+          <span>${c.name}</span>
+          <span style="color:var(--muted)">${fmt억(c.executed)} / ${fmt억(c.budget)} (${c.rate}%)</span>
+        </div>
+        <div class="budget-bar">
+          <div class="budget-bar-fill" style="width:${Math.min(c.rate,100)}%"></div>
+        </div>
+      </div>
+    `).join('');
   }
 
-  /* D-Day */
-  if(s.dday!=null) $('dday').textContent='D-'+s.dday;
-
-  /* 요약 카드 */
-  $('total-budget').textContent=(s.totalBudget||240)+'억';
-  if(s.executionRate!=null){
-    $('exec-rate').textContent=fmt(s.executionRate)+'%';
-    $('exec-sub').textContent=fmt(s.executed)+'억 집행 / 잔액 '+fmt(s.balance)+'억';
-    setTimeout(()=>{$('exec-bar').style.width=Math.min(s.executionRate,100)+'%';},100);
-  }
-  if(s.progress!=null){
-    $('progress-rate').textContent=fmt(s.progress)+'%';
-    const u=d.units||[];
-    const comp=u.filter(x=>x.statusCode==='completed').length;
-    const prog=u.filter(x=>x.statusCode==='in_progress').length;
-    const pend=u.filter(x=>x.statusCode==='pending').length;
-    $('progress-sub').textContent='완료 '+comp+'개 · 진행 '+prog+'개 · 대기 '+pend+'개';
-    setTimeout(()=>{$('prog-bar').style.width=Math.min(s.progress,100)+'%';},150);
+  // ── 사업 목록 ──
+  const projEl = document.getElementById('project-list');
+  const items  = (projects.items || []).slice(0, 12);
+  if (items.length === 0) {
+    projEl.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;">Notion DB_MILESTONES 연결 후 자동 표시됩니다.</p>';
+  } else {
+    projEl.innerHTML = items.map(p => `
+      <div class="project-item">
+        <span class="status-badge ${statusClass(p.status)}">${p.status || '-'}</span>
+        <span style="flex:2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</span>
+        <div class="progress-mini"><div class="progress-mini-fill" style="width:${p.progress}%"></div></div>
+        <span class="progress-text">${p.progress}%</span>
+      </div>
+    `).join('');
   }
 
-  /* 리스크 요약 */
-  const risks=d.risks||[];
-  const urgent=risks.filter(r=>r.level==='urgent').length;
-  const high=risks.filter(r=>r.level==='high').length;
-  const mid=risks.filter(r=>r.level==='mid').length;
-  $('risk-count').textContent=risks.length+'건';
-  $('risk-sub').textContent='긴급 '+urgent+' · 높음 '+high+' · 주의 '+mid;
-  $('risk-total-count').textContent=risks.length+'건';
+  // ── 업무 테이블 ──
+  const tbody = document.getElementById('task-tbody');
+  const recent = tasks.recent || [];
+  if (recent.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:16px;">Notion DB_TASKS 연결 후 자동 표시됩니다.</td></tr>';
+  } else {
+    tbody.innerHTML = recent.map(t => `
+      <tr>
+        <td>${t.name}</td>
+        <td>${t.assignee || '-'}</td>
+        <td><span class="status-badge ${statusClass(t.status)}">${t.status || '-'}</span></td>
+        <td class="${priorityClass(t.priority)}">${t.priority || '-'}</td>
+      </tr>
+    `).join('');
+  }
 
-  /* 단위사업 */
-  const units=d.units||[];
-  $('unit-count').textContent=units.length+'개';
-  $('unit-list').innerHTML=units.length===0?'<div style="color:var(--muted);font-size:0.85rem;">데이터 없음</div>':
-    units.map(u=>`
-      <div class="unit-item">
-        <div class="unit-no">${u.no}</div>
-        <div class="unit-info">
-          <div class="unit-name">${u.name}</div>
-          <div class="unit-prog">
-            <div class="unit-prog-bar"><div class="unit-prog-fill ${fillClass(u.statusCode)}" style="width:${Math.min(u.rate||0,100)}%"></div></div>
-            <div class="unit-pct">${u.rate!=null?u.rate+'%':'—'}</div>
-          </div>
-          <div style="font-size:0.68rem;color:var(--muted);margin-top:0.2rem;">예산 ${u.budgetText||u.budget+'억'} → 집행 ${u.executedText||(u.executed||0)+'억'}</div>
-        </div>
-        <span class="unit-badge ${statusClass(u.statusCode)}">${statusLabel(u.statusCode)}</span>
-      </div>`).join('');
-
-  /* 재원별 예산 */
-  const budgets=d.budgetSources||[];
-  $('budget-list').innerHTML=budgets.length===0?'<div style="color:var(--muted);font-size:0.85rem;">데이터 없음</div>':
-    budgets.map(b=>`
-      <div>
-        <div class="budget-row">
-          <span class="budget-source">${b.source}</span>
-          <span class="budget-nums">${b.rate}% 집행</span>
-        </div>
-        <div class="budget-bar-bg"><div class="budget-bar-fill" style="width:${Math.min(b.rate||0,100)}%"></div></div>
-        <div class="budget-detail">
-          <span>총 ${b.totalText||b.total+'억'}</span>
-          <span>집행 ${b.executedText||b.executed+'억'} · 잔액 ${b.balanceText||b.balance+'억'}</span>
-        </div>
-      </div>`).join('');
-
-  const totalExec=budgets.reduce((a,b)=>a+(b.executed||0),0);
-  const totalBal=budgets.reduce((a,b)=>a+(b.balance||0),0);
-  $('budget-total').innerHTML=`
-    <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);border-radius:8px;padding:0.8rem;text-align:center;">
-      <div style="font-size:0.68rem;color:var(--muted);margin-bottom:0.2rem;">총 집행</div>
-      <div style="font-family:'DM Mono',monospace;font-size:1.3rem;color:var(--accent);">${fmt(totalExec||s.executed)}억</div>
-    </div>
-    <div style="background:rgba(110,231,183,0.08);border:1px solid rgba(110,231,183,0.2);border-radius:8px;padding:0.8rem;text-align:center;">
-      <div style="font-size:0.68rem;color:var(--muted);margin-bottom:0.2rem;">잔액</div>
-      <div style="font-family:'DM Mono',monospace;font-size:1.3rem;color:var(--accent2);">${fmt(totalBal||s.balance)}억</div>
-    </div>`;
-
-  /* 리스크 */
-  $('risk-list').innerHTML=risks.length===0?'<div style="color:var(--muted);font-size:0.85rem;">데이터 없음</div>':
-    risks.map(r=>`
-      <div class="risk-item ${r.level}">
-        <div class="risk-dot"></div>
-        <div class="risk-text"><span class="risk-level-badge">${riskLabel(r.level)}</span>${r.content}</div>
-      </div>`).join('');
-
-  /* 일정 */
-  const sch=d.schedule||[];
-  $('schedule-count').textContent=sch.length+'건';
-  $('schedule-list').innerHTML=sch.length===0?'<div style="color:var(--muted);font-size:0.85rem;">데이터 없음</div>':
-    sch.map(sc=>`
-      <div class="schedule-item">
-        <div class="sch-date">${sc.date}</div>
-        <div class="sch-type">${sc.type}</div>
-        <div class="sch-content">${sc.content}</div>
-        <div class="sch-status">${sc.status}</div>
-      </div>`).join('');
-
-  $('loading').style.display='none';
-  $('app').style.display='block';
+  // ── 타임라인 ──
+  const er = dday.elapsed_rate || 0;
+  const tfill = document.getElementById('timeline-fill');
+  tfill.style.width = Math.min(er, 100) + '%';
+  tfill.textContent = er + '%';
+  document.getElementById('elapsed-days-label').textContent =
+    `경과 ${dday.elapsed_days || 0}일`;
+  document.getElementById('remaining-days-label').textContent =
+    `잔여 ${Math.max((dday.total_days||0)-(dday.elapsed_days||0),0)}일`;
 }
 
-loadDashboard();
+function setBarWidth(id, pct) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.style.width = Math.min(pct, 100) + '%';
+  }, 100);
+}
+
+// 최초 로드
+loadData();
+
+// 10분마다 자동 새로고침 (GitHub Actions가 30분마다 JSON 갱신)
+setInterval(loadData, 10 * 60 * 1000);
 </script>
 </body>
 </html>
