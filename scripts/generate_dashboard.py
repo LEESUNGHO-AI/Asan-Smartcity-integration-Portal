@@ -610,7 +610,7 @@ footer{{text-align:center;padding:18px;color:var(--muted);font-size:.71rem;borde
         <a class="link-btn" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank">💰 예산관리</a>
         <a class="link-btn" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank">🏗️ 자산관리</a>
         <a class="link-btn" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank">👤 인력관리</a>
-        <a class="link-btn" href="https://www.notion.so/559654aed9404d9f88225ea0adc7d746" target="_blank">📊 WBS</a>
+        <a class="link-btn" href="https://https://leesungho-ai.github.io/Asan-Smartcity-WBS/" target="_blank">📊 WBS</a>
         <a class="link-btn" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal/actions" target="_blank">⚙️ 동기화 로그</a>
       </div>
     </div>
