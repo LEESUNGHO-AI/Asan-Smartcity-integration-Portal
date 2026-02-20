@@ -1,165 +1,287 @@
 {
   "meta": {
-    "last_updated": "2026-02-20 04:50 KST+9h",
-    "source": "Notion API 자동 연동"
+    "updated": "2026-02-20 14:27 KST",
+    "source": "Notion API 실시간"
   },
   "dday": {
-    "today": "2026-02-20",
-    "start": "2023-12-01",
-    "end": "2026-12-31",
-    "total_days": 1126,
-    "elapsed_days": 812,
-    "remain_days": 314,
-    "elapsed_pct": 72.1,
-    "dday_label": "D-314"
+    "label": "D-314",
+    "total": 1126,
+    "elapsed": 812,
+    "remain": 314,
+    "pct": 72.1
   },
-  "budget": {
-    "total": 24000000000.0,
-    "executed": 9800000000.0,
-    "remaining": 14200000000.0,
+  "summary": {
+    "total": 240.0,
+    "executed": 98.0,
+    "remaining": 142.0,
     "exec_rate": 40.8,
-    "categories": []
+    "national": 49.0,
+    "provincial": 11.8,
+    "municipal": 37.2
   },
-  "projects": [
+  "cats": [
     {
-      "name": "19.0억",
-      "budget": 1830000000.0,
-      "executed": 70000000.0,
+      "name": "인건비",
+      "budget": 19.0,
+      "executed": 18.3,
       "rate": 96.1,
-      "status": "🔄 진행중",
       "note": "정규직+계약직 (2024년)"
     },
     {
-      "name": "7.5억",
-      "budget": 430000000.0,
-      "executed": 320000000.0,
+      "name": "운영비",
+      "budget": 7.5,
+      "executed": 4.3,
       "rate": 57.0,
-      "status": "🔄 진행중",
       "note": "부스제작비 초과(184%)"
     },
     {
-      "name": "0.4억",
-      "budget": 80000000.0,
-      "executed": 40000000.0,
+      "name": "여비",
+      "budget": 0.4,
+      "executed": 0.8,
       "rate": 191.4,
-      "status": "🔄 진행중",
       "note": "⚠️ 초과집행"
     },
     {
-      "name": "10.0억",
-      "budget": 0.0,
-      "executed": 1000000000.0,
+      "name": "연구개발비",
+      "budget": 10.0,
+      "executed": 0.0,
       "rate": 0.0,
-      "status": "🔄 진행중",
       "note": "DRT 플랫폼 (미착수)"
     },
     {
-      "name": "0.2억",
-      "budget": 20000000.0,
-      "executed": 4000000.0,
+      "name": "유형자산",
+      "budget": 0.2,
+      "executed": 0.2,
       "rate": 82.1,
-      "status": "🔄 진행중",
       "note": "이노베이션 센터 PC"
     },
     {
-      "name": "90.5억",
-      "budget": 3829999999.9999995,
-      "executed": 5230000000.0,
+      "name": "무형자산 (SW)",
+      "budget": 90.5,
+      "executed": 38.3,
       "rate": 42.3,
-      "status": "🔄 진행중",
       "note": "6개 플랫폼 개발"
     },
     {
-      "name": "99.4억",
-      "budget": 2320000000.0,
-      "executed": 7609999999.999999,
+      "name": "건설비",
+      "budget": 99.4,
+      "executed": 23.2,
       "rate": 23.4,
-      "status": "🔄 진행중",
       "note": "7개 시설 공사"
     },
     {
-      "name": "13.0억",
-      "budget": 1300000000.0,
-      "executed": 0.0,
+      "name": "사업비배분",
+      "budget": 13.0,
+      "executed": 13.0,
       "rate": 100.0,
-      "status": "✅ 완료",
       "note": "✅ 간접보조 교부 완료"
+    }
+  ],
+  "projects": [
+    {
+      "num": 1,
+      "name": "유무선 네트워크 구축",
+      "budget": 11.35,
+      "executed": 4.15,
+      "rate": 36.6,
+      "status": "✅ 완료",
+      "note": "✅ 계약완료 (연장 협의 중)"
     },
     {
-      "name": "240.0억",
-      "budget": 9800000000.0,
-      "executed": 14200000000.0,
-      "rate": 40.8,
+      "num": 2,
+      "name": "서비스 인프라 플랫폼 (KT)",
+      "budget": 45.33,
+      "executed": 0.0,
+      "rate": 0.0,
       "status": "🔄 진행중",
-      "note": "-"
+      "note": "🔄 계약체결 진행중 (선급금 예정)"
+    },
+    {
+      "num": 3,
+      "name": "이노베이션 센터 구축",
+      "budget": 13.0,
+      "executed": 11.86,
+      "rate": 91.2,
+      "status": "✅ 완료",
+      "note": "✅ 구축완료 (운영중)"
+    },
+    {
+      "num": 4,
+      "name": "디지털 OASIS SPOT",
+      "budget": 35.0,
+      "executed": 0.15,
+      "rate": 0.4,
+      "status": "✅ 완료",
+      "note": "🔄 부지승인 완료, 설계용역 진행"
+    },
+    {
+      "num": 5,
+      "name": "SDDC Platform 구축",
+      "budget": 27.0,
+      "executed": 7.09,
+      "rate": 26.2,
+      "status": "🔄 진행중",
+      "note": "🔄 서버실 구축 진행중"
+    },
+    {
+      "num": 6,
+      "name": "AI 통합관제 플랫폼",
+      "budget": 16.0,
+      "executed": 9.29,
+      "rate": 58.1,
+      "status": "🔄 진행중",
+      "note": "🔄 서비스 인프라에 통합 계약"
+    },
+    {
+      "num": 7,
+      "name": "디지털 OASIS 정보관리",
+      "budget": 25.0,
+      "executed": 10.93,
+      "rate": 43.7,
+      "status": "🔄 진행중",
+      "note": "🔄 개발 진행중"
+    },
+    {
+      "num": 8,
+      "name": "DRT 수요응답형 교통",
+      "budget": 10.0,
+      "executed": 0.0,
+      "rate": 0.0,
+      "status": "🔄 진행중",
+      "note": "⏸️ 설계 진행중"
+    },
+    {
+      "num": 9,
+      "name": "감리용역 (신설)",
+      "budget": 1.6,
+      "executed": 0.0,
+      "rate": 0.0,
+      "status": "🆕 신설",
+      "note": "🆕 업체선정 준비"
     }
   ],
   "issues": [
     {
-      "priority": "🔴 긴급",
-      "content": "예산 집행률 저조 (40.8%) - 잔여 142억원 10개월 내 집행 필요",
-      "amount": "월평균 14.2억원"
+      "level": "🔴 긴급",
+      "color": "#ef4444",
+      "content": "예산 집행률 저조 (40.8%) — 잔여 142억, 월평균 14.2억 집행 필요",
+      "amount": "142억원"
     },
     {
-      "priority": "🔴 긴급",
+      "level": "🔴 긴급",
+      "color": "#ef4444",
       "content": "OASIS SPOT 공사 착공 지연 (집행률 0.4%)",
       "amount": "35억원"
     },
     {
-      "priority": "🟠 높음",
-      "content": "서비스 인프라 계약 체결  - 선급금 지급",
+      "level": "🟠 높음",
+      "color": "#f59e0b",
+      "content": "서비스 인프라 계약 체결  — 45.33억원, 선급금 지급",
       "amount": "45.33억원"
     },
     {
-      "priority": "🟠 높음",
+      "level": "🟠 높음",
+      "color": "#f59e0b",
       "content": "SDDC Platform 서버실 일정 조정 필요 (현 26.2% 집행)",
       "amount": "27억원"
     },
     {
-      "priority": "🟠 높음",
-      "content": "여비 초과집행 (191.4%) - 비목 간 전용 또는 실시계획 변경 필요",
+      "level": "🟠 높음",
+      "color": "#f59e0b",
+      "content": "여비 초과집행 (191.4%) — 비목 간 전용 또는 실시계획 변경 필요",
       "amount": "-"
     },
     {
-      "priority": "🟡 주의",
-      "content": "DRT 차량 발주 설계 지연 (연구개발비 미집행)",
+      "level": "🟡 주의",
+      "color": "#eab308",
+      "content": "DRT 차량 발주 설계 지연 (연구개발비 전액 미집행)",
       "amount": "10억원"
     },
     {
-      "priority": "🟡 주의",
+      "level": "🟡 주의",
+      "color": "#eab308",
       "content": "감리용역 업체선정 지연",
       "amount": "1.6억원"
     },
     {
-      "priority": "🟡 주의",
+      "level": "🟡 주의",
+      "color": "#eab308",
       "content": "부스제작비 초과집행 (184.1%) 정리 필요",
       "amount": "-"
     }
   ],
   "timeline": [
     {
-      "date": "KAIST",
-      "type": "2.0억",
-      "content": "1.0억",
-      "status": "1.0억"
+      "date": "02/03",
+      "type": "회의",
+      "content": "서버실 구축 및 장비 설치 조정 회의",
+      "done": true
     },
     {
-      "date": "충남연구원",
-      "type": "2.0억",
-      "content": "0.72억",
-      "status": "1.28억"
+      "date": "02/05",
+      "type": "보고",
+      "content": "서비스 인프라 구축 용역 주간 공정 보고",
+      "done": true
     },
     {
-      "date": "호서대학교",
-      "type": "9.0억",
-      "content": "3.77억",
-      "status": "5.23억"
+      "date": "02/06",
+      "type": "제출",
+      "content": "2026년 1월 관리카드 제출",
+      "done": true
     },
     {
-      "date": "합계",
-      "type": "13.0억",
-      "content": "5.49억",
-      "status": "7.51억"
+      "date": "02/06",
+      "type": "데이터",
+      "content": "사업비 집행현황 업데이트 (예산표 재업로드)",
+      "done": true
+    },
+    {
+      "date": "02/10",
+      "type": "제출",
+      "content": "25년 4분기보고서 및 25년 연간보고서 제출",
+      "done": true
+    },
+    {
+      "date": "02/10",
+      "type": "공문",
+      "content": "국고보조금 집행실태 점검결과(4분기) 소명자료 제출",
+      "done": true
+    },
+    {
+      "date": "02/10",
+      "type": "공문",
+      "content": "실시계획 변경 승인 요청 공문 to 아산시",
+      "done": true
+    },
+    {
+      "date": "02/10",
+      "type": "공문",
+      "content": "실시계획 변경 승인 전 사업비 집행 사유서 제출",
+      "done": true
+    },
+    {
+      "date": "02/11",
+      "type": "회의",
+      "content": "아산시 스마트시티 사업 운영방안 회의",
+      "done": true
+    },
+    {
+      "date": "02/11",
+      "type": "협의",
+      "content": "유무선인프라 구축 계약 연장 협의",
+      "done": false
+    },
+    {
+      "date": "02/12",
+      "type": "동기화",
+      "content": "Slack #플랜예산 → Notion 데이터 전체 동기화",
+      "done": true
+    },
+    {
+      "date": "02/28",
+      "type": "마감",
+      "content": "2월 월간 추진실적 보고",
+      "done": null
     }
   ]
 }
