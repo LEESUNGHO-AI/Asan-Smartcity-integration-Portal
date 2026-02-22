@@ -1,14 +1,14 @@
 {
   "meta": {
-    "updated": "2026-02-22 08:30 KST",
+    "updated": "2026-02-22 11:41 KST",
     "source": "Notion API 실시간"
   },
   "dday": {
-    "label": "D-313",
+    "label": "D-312",
     "total": 1126,
-    "elapsed": 813,
-    "remain": 313,
-    "pct": 72.2
+    "elapsed": 814,
+    "remain": 312,
+    "pct": 72.3
   },
   "summary": {
     "total": 240.0,
