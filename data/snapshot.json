@@ -1,14 +1,14 @@
 {
   "meta": {
-    "updated": "2026-02-23 08:31 KST",
-    "source": "Notion API 실시간"
+    "updated": "2026-02-23 11:41 KST",
+    "source": "기본 데이터 (Notion 2026-02-12)"
   },
   "dday": {
-    "label": "D-312",
+    "label": "D-311",
     "total": 1126,
-    "elapsed": 814,
-    "remain": 312,
-    "pct": 72.3
+    "elapsed": 815,
+    "remain": 311,
+    "pct": 72.4
   },
   "summary": {
     "total": 240.0,
@@ -32,7 +32,7 @@
       "budget": 7.5,
       "executed": 4.3,
       "rate": 57.0,
-      "note": "부스제작비 초과(184%)"
+      "note": "부스제작비 초과 184%"
     },
     {
       "name": "여비",
@@ -46,17 +46,17 @@
       "budget": 10.0,
       "executed": 0.0,
       "rate": 0.0,
-      "note": "DRT 플랫폼 (미착수)"
+      "note": "DRT 플랫폼 미착수"
     },
     {
       "name": "유형자산",
       "budget": 0.2,
       "executed": 0.2,
       "rate": 82.1,
-      "note": "이노베이션 센터 PC"
+      "note": "이노베이션센터 PC"
     },
     {
-      "name": "무형자산 (SW)",
+      "name": "무형자산(SW)",
       "budget": 90.5,
       "executed": 38.3,
       "rate": 42.3,
@@ -74,7 +74,7 @@
       "budget": 13.0,
       "executed": 13.0,
       "rate": 100.0,
-      "note": "✅ 간접보조 교부 완료"
+      "note": "✅ 간접보조 교부완료"
     }
   ],
   "projects": [
@@ -85,16 +85,16 @@
       "executed": 4.15,
       "rate": 36.6,
       "status": "✅ 완료",
-      "note": "✅ 계약완료 (연장 협의 중)"
+      "note": "계약완료 (연장협의 중)"
     },
     {
       "num": 2,
-      "name": "서비스 인프라 플랫폼 (한국정보기술 컨소시엄사)",
+      "name": "서비스 인프라 플랫폼",
       "budget": 45.33,
       "executed": 0.0,
       "rate": 0.0,
       "status": "🔄 진행중",
-      "note": "⚠️ 계약체결 진행중 (선급금 예정)"
+      "note": "계약체결 진행중 (선급금 예정)"
     },
     {
       "num": 3,
@@ -103,7 +103,7 @@
       "executed": 11.86,
       "rate": 91.2,
       "status": "✅ 완료",
-      "note": "✅ 구축완료 (운영중)"
+      "note": "구축완료 (운영중)"
     },
     {
       "num": 4,
@@ -111,8 +111,8 @@
       "budget": 35.0,
       "executed": 0.15,
       "rate": 0.4,
-      "status": "✅ 완료",
-      "note": "🔄 부지승인 완료, 설계용역 진행"
+      "status": "🔄 진행중",
+      "note": "부지승인 완료, 설계용역 진행"
     },
     {
       "num": 5,
@@ -121,7 +121,7 @@
       "executed": 7.09,
       "rate": 26.2,
       "status": "🔄 진행중",
-      "note": "🔄 서버실 구축 진행중"
+      "note": "서버실 구축 진행중"
     },
     {
       "num": 6,
@@ -130,7 +130,7 @@
       "executed": 9.29,
       "rate": 58.1,
       "status": "🔄 진행중",
-      "note": "🔄 서비스 인프라에 통합 계약"
+      "note": "서비스 인프라에 통합 계약"
     },
     {
       "num": 7,
@@ -139,7 +139,7 @@
       "executed": 10.93,
       "rate": 43.7,
       "status": "🔄 진행중",
-      "note": "🔄 개발 진행중"
+      "note": "개발 진행중"
     },
     {
       "num": 8,
@@ -147,8 +147,8 @@
       "budget": 10.0,
       "executed": 0.0,
       "rate": 0.0,
-      "status": "🔄 진행중",
-      "note": "⏸️ 설계 진행중"
+      "status": "⏸️ 대기",
+      "note": "설계 진행중"
     },
     {
       "num": 9,
@@ -157,7 +157,7 @@
       "executed": 0.0,
       "rate": 0.0,
       "status": "🆕 신설",
-      "note": "🆕 업체선정 준비"
+      "note": "업체선정 준비"
     }
   ],
   "issues": [
@@ -218,51 +218,27 @@
       "done": true
     },
     {
-      "date": "02/05",
-      "type": "보고",
-      "content": "서비스 인프라 구축 용역 주간 공정 보고",
-      "done": true
-    },
-    {
       "date": "02/06",
       "type": "제출",
       "content": "2026년 1월 관리카드 제출",
       "done": true
     },
     {
-      "date": "02/06",
-      "type": "데이터",
-      "content": "사업비 집행현황 업데이트 (예산표 재업로드)",
-      "done": true
-    },
-    {
       "date": "02/10",
       "type": "제출",
-      "content": "25년 4분기보고서 및 25년 연간보고서 제출",
+      "content": "25년 4분기·연간보고서 제출",
       "done": true
     },
     {
       "date": "02/10",
       "type": "공문",
-      "content": "국고보조금 집행실태 점검결과(4분기) 소명자료 제출",
+      "content": "국고보조금 집행실태 점검결과 소명자료 제출",
       "done": true
     },
     {
       "date": "02/10",
       "type": "공문",
-      "content": "실시계획 변경 승인 요청 공문 to 아산시",
-      "done": true
-    },
-    {
-      "date": "02/10",
-      "type": "공문",
-      "content": "실시계획 변경 승인 전 사업비 집행 사유서 제출",
-      "done": true
-    },
-    {
-      "date": "02/11",
-      "type": "회의",
-      "content": "아산시 스마트시티 사업 운영방안 회의",
+      "content": "실시계획 변경 승인 요청 공문 → 아산시",
       "done": true
     },
     {
@@ -274,7 +250,7 @@
     {
       "date": "02/12",
       "type": "동기화",
-      "content": "Slack #플랜예산 → Notion 데이터 전체 동기화",
+      "content": "Slack #플랜예산 → Notion 전체 동기화",
       "done": true
     },
     {
