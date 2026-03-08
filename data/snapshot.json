@@ -1,14 +1,14 @@
 {
   "meta": {
-    "updated": "2026-03-08 08:48 KST",
+    "updated": "2026-03-08 11:38 KST",
     "source": "기본 데이터 (Notion 2026-02-12)"
   },
   "dday": {
-    "label": "D-299",
+    "label": "D-298",
     "total": 1126,
-    "elapsed": 827,
-    "remain": 299,
-    "pct": 73.4
+    "elapsed": 828,
+    "remain": 298,
+    "pct": 73.5
   },
   "summary": {
     "total": 240.0,
