@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-03-11 09:00 KST",
+    "updated": "2026-03-11 12:49 KST",
     "source": "기본 데이터 (Notion 2026-03-10)"
   },
   "dday": {
@@ -20,42 +20,232 @@
     "municipal": 37.2
   },
   "cats": [
-    {"name": "인건비",     "budget": 19.0, "executed": 18.3, "rate": 96.1, "note": "정규직+계약직 (2024년)"},
-    {"name": "운영비",     "budget":  7.5, "executed":  4.3, "rate": 57.0, "note": "부스제작비 초과 184%"},
-    {"name": "여비",       "budget":  0.4, "executed":  0.8, "rate":191.4, "note": "⚠️ 초과집행 — 비목 간 전용 필요"},
-    {"name": "연구개발비", "budget": 10.0, "executed":  0.0, "rate":  0.0, "note": "DRT 플랫폼 설계 진행중"},
-    {"name": "유형자산",   "budget":  0.2, "executed":  0.2, "rate": 82.1, "note": "이노베이션센터 PC"},
-    {"name": "무형자산(SW)","budget": 90.5, "executed": 38.3, "rate": 42.3, "note": "6개 플랫폼 개발 진행중"},
-    {"name": "건설비",     "budget": 99.4, "executed": 23.2, "rate": 23.4, "note": "OASIS SPOT 착공 추진 중"},
-    {"name": "사업비배분", "budget": 13.0, "executed": 13.0, "rate":100.0, "note": "✅ 간접보조 교부완료"}
+    {
+      "name": "인건비",
+      "budget": 19.0,
+      "executed": 18.3,
+      "rate": 96.1,
+      "note": "정규직+계약직 (2024년)"
+    },
+    {
+      "name": "운영비",
+      "budget": 7.5,
+      "executed": 4.3,
+      "rate": 57.0,
+      "note": "부스제작비 초과 184%"
+    },
+    {
+      "name": "여비",
+      "budget": 0.4,
+      "executed": 0.8,
+      "rate": 191.4,
+      "note": "⚠️ 초과집행 — 비목 간 전용 필요"
+    },
+    {
+      "name": "연구개발비",
+      "budget": 10.0,
+      "executed": 0.0,
+      "rate": 0.0,
+      "note": "DRT 플랫폼 설계 진행중"
+    },
+    {
+      "name": "유형자산",
+      "budget": 0.2,
+      "executed": 0.2,
+      "rate": 82.1,
+      "note": "이노베이션센터 PC"
+    },
+    {
+      "name": "무형자산(SW)",
+      "budget": 90.5,
+      "executed": 38.3,
+      "rate": 42.3,
+      "note": "6개 플랫폼 개발 진행중"
+    },
+    {
+      "name": "건설비",
+      "budget": 99.4,
+      "executed": 23.2,
+      "rate": 23.4,
+      "note": "OASIS SPOT 착공 추진 중"
+    },
+    {
+      "name": "사업비배분",
+      "budget": 13.0,
+      "executed": 13.0,
+      "rate": 100.0,
+      "note": "✅ 간접보조 교부완료"
+    }
   ],
   "projects": [
-    {"num":1,"name":"유무선 네트워크 구축",  "budget":11.35,"executed": 4.15,"rate":36.6,"status":"✅ 완료",  "note":"변경계약·연장 합의서 체결완료 (2/25)"},
-    {"num":2,"name":"서비스 인프라 플랫폼",  "budget":45.33,"executed": 0.00,"rate": 0.0,"status":"🔄 진행중","note":"7~9주차 공정보고 제출완료, 선급금 집행 필요"},
-    {"num":3,"name":"이노베이션 센터 구축",  "budget":13.00,"executed":11.86,"rate":91.2,"status":"✅ 완료",  "note":"구축완료 (운영중, 음향·조경 마무리)"},
-    {"num":4,"name":"디지털 OASIS SPOT",     "budget":35.00,"executed": 0.15,"rate": 0.4,"status":"🔄 진행중","note":"부지 확정(도고면 기곡리 296-4), 착공 추진"},
-    {"num":5,"name":"SDDC Platform 구축",    "budget":27.00,"executed": 7.09,"rate":26.2,"status":"🔄 진행중","note":"서버실 HW·SW 납품 및 설치 진행중"},
-    {"num":6,"name":"AI 통합관제 플랫폼",    "budget":16.00,"executed": 9.29,"rate":58.1,"status":"🔄 진행중","note":"서비스 인프라 통합 계약, 선급금 집행 필요"},
-    {"num":7,"name":"디지털 OASIS 정보관리", "budget":25.00,"executed":10.93,"rate":43.7,"status":"🔄 진행중","note":"개발 진행중"},
-    {"num":8,"name":"DRT 수요응답형 교통",   "budget":10.00,"executed": 0.00,"rate": 0.0,"status":"⏸️ 대기", "note":"설계 진행중, 1분기 내 발주 목표"},
-    {"num":9,"name":"감리용역 (신설)",        "budget": 1.60,"executed": 0.00,"rate": 0.0,"status":"🆕 신설", "note":"업체선정 준비 중"}
+    {
+      "num": 1,
+      "name": "유무선 네트워크 구축",
+      "budget": 11.35,
+      "executed": 4.15,
+      "rate": 36.6,
+      "status": "✅ 완료",
+      "note": "변경계약·연장 합의서 체결완료 (2/25)"
+    },
+    {
+      "num": 2,
+      "name": "서비스 인프라 플랫폼",
+      "budget": 45.33,
+      "executed": 0.0,
+      "rate": 0.0,
+      "status": "🔄 진행중",
+      "note": "7~9주차 공정보고 제출완료, 선급금 집행 필요"
+    },
+    {
+      "num": 3,
+      "name": "이노베이션 센터 구축",
+      "budget": 13.0,
+      "executed": 11.86,
+      "rate": 91.2,
+      "status": "✅ 완료",
+      "note": "구축완료 (운영중, 음향·조경 마무리)"
+    },
+    {
+      "num": 4,
+      "name": "디지털 OASIS SPOT",
+      "budget": 35.0,
+      "executed": 0.15,
+      "rate": 0.4,
+      "status": "🔄 진행중",
+      "note": "부지 확정(도고면 기곡리 296-4), 착공 추진"
+    },
+    {
+      "num": 5,
+      "name": "SDDC Platform 구축",
+      "budget": 27.0,
+      "executed": 7.09,
+      "rate": 26.2,
+      "status": "🔄 진행중",
+      "note": "서버실 HW·SW 납품 및 설치 진행중"
+    },
+    {
+      "num": 6,
+      "name": "AI 통합관제 플랫폼",
+      "budget": 16.0,
+      "executed": 9.29,
+      "rate": 58.1,
+      "status": "🔄 진행중",
+      "note": "서비스 인프라 통합 계약, 선급금 집행 필요"
+    },
+    {
+      "num": 7,
+      "name": "디지털 OASIS 정보관리",
+      "budget": 25.0,
+      "executed": 10.93,
+      "rate": 43.7,
+      "status": "🔄 진행중",
+      "note": "개발 진행중"
+    },
+    {
+      "num": 8,
+      "name": "DRT 수요응답형 교통",
+      "budget": 10.0,
+      "executed": 0.0,
+      "rate": 0.0,
+      "status": "⏸️ 대기",
+      "note": "설계 진행중, 1분기 내 발주 목표"
+    },
+    {
+      "num": 9,
+      "name": "감리용역 (신설)",
+      "budget": 1.6,
+      "executed": 0.0,
+      "rate": 0.0,
+      "status": "🆕 신설",
+      "note": "업체선정 준비 중"
+    }
   ],
   "issues": [
-    {"level":"🔴 긴급","color":"#ef4444","content":"예산 집행률 저조 (40.8%) — 잔여 142억, 1분기 50% 집행 목표","amount":"142억원"},
-    {"level":"🔴 긴급","color":"#ef4444","content":"OASIS SPOT 공사 착공 지연 — 부지 확정, 3월 내 착공 필요","amount":"35억원"},
-    {"level":"🟠 높음","color":"#f59e0b","content":"서비스 인프라·AI관제 선급금 미집행 — 대형사업 집행 가속화 시급","amount":"61.33억원"},
-    {"level":"🟠 높음","color":"#f59e0b","content":"SDDC Platform 서버실 납품·설치 일정 준수 필요 (현 26.2% 집행)","amount":"27억원"},
-    {"level":"🟠 높음","color":"#f59e0b","content":"여비 초과집행 (191.4%) — 비목 간 전용 또는 실시계획 변경 필요","amount":"-"},
-    {"level":"🟡 주의","color":"#eab308","content":"DRT 1분기 발주 미착수 — 연구개발비 전액 미집행","amount":"10억원"},
-    {"level":"🟡 주의","color":"#eab308","content":"감리용역 업체선정 지연","amount":"1.6억원"},
-    {"level":"🟡 주의","color":"#eab308","content":"유무선 네트워크 세목별 초과집행 지속 — 정산 필요","amount":"-"}
+    {
+      "level": "🔴 긴급",
+      "color": "#ef4444",
+      "content": "예산 집행률 저조 (40.8%) — 잔여 142억, 1분기 50% 집행 목표",
+      "amount": "142억원"
+    },
+    {
+      "level": "🔴 긴급",
+      "color": "#ef4444",
+      "content": "OASIS SPOT 공사 착공 지연 — 부지 확정, 3월 내 착공 필요",
+      "amount": "35억원"
+    },
+    {
+      "level": "🟠 높음",
+      "color": "#f59e0b",
+      "content": "서비스 인프라·AI관제 선급금 미집행 — 대형사업 집행 가속화 시급",
+      "amount": "61.33억원"
+    },
+    {
+      "level": "🟠 높음",
+      "color": "#f59e0b",
+      "content": "SDDC Platform 서버실 납품·설치 일정 준수 필요 (현 26.2% 집행)",
+      "amount": "27억원"
+    },
+    {
+      "level": "🟠 높음",
+      "color": "#f59e0b",
+      "content": "여비 초과집행 (191.4%) — 비목 간 전용 또는 실시계획 변경 필요",
+      "amount": "-"
+    },
+    {
+      "level": "🟡 주의",
+      "color": "#eab308",
+      "content": "DRT 1분기 발주 미착수 — 연구개발비 전액 미집행",
+      "amount": "10억원"
+    },
+    {
+      "level": "🟡 주의",
+      "color": "#eab308",
+      "content": "감리용역 업체선정 지연",
+      "amount": "1.6억원"
+    },
+    {
+      "level": "🟡 주의",
+      "color": "#eab308",
+      "content": "유무선 네트워크 세목별 초과집행 지속 — 정산 필요",
+      "amount": "-"
+    }
   ],
   "timeline": [
-    {"date":"03/02","type":"동기화","content":"WBS 동기화 179건 업데이트 완료","done":true},
-    {"date":"03/05","type":"데이터","content":"예산 파일 재업로드 (Slack #플랜예산 — 김주용)","done":true},
-    {"date":"03/09","type":"제출","content":"유무선 네트워크 2월 공정보고서 일괄 제출 (싸인텔레콤)","done":true},
-    {"date":"03/09","type":"제출","content":"서비스 인프라 7~9주차 공정보고서 제출 완료","done":true},
-    {"date":"03/10","type":"제출","content":"2026년 2월 관리카드 제출","done":false},
-    {"date":"03/31","type":"마감","content":"1분기 예산 집행 점검 (50% 달성 목표)","done":null}
+    {
+      "date": "03/02",
+      "type": "동기화",
+      "content": "WBS 동기화 179건 업데이트 완료",
+      "done": true
+    },
+    {
+      "date": "03/05",
+      "type": "데이터",
+      "content": "예산 파일 재업로드 (Slack #플랜예산 — 김주용)",
+      "done": true
+    },
+    {
+      "date": "03/09",
+      "type": "제출",
+      "content": "유무선 네트워크 2월 공정보고서 일괄 제출 (싸인텔레콤)",
+      "done": true
+    },
+    {
+      "date": "03/09",
+      "type": "제출",
+      "content": "서비스 인프라 7~9주차 공정보고서 제출 완료",
+      "done": true
+    },
+    {
+      "date": "03/10",
+      "type": "제출",
+      "content": "2026년 2월 관리카드 제출",
+      "done": false
+    },
+    {
+      "date": "03/31",
+      "type": "마감",
+      "content": "1분기 예산 집행 점검 (50% 달성 목표)",
+      "done": null
+    }
   ]
 }
