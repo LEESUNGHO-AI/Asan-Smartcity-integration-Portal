@@ -598,6 +598,22 @@ footer{{text-align:center;padding:16px;color:var(--muted);font-size:.70rem;borde
       </div>
       <span class="sys-arrow">→</span>
     </a>
+    <a class="sys-card" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank" style="--sc:#f59e0b">
+      <span class="sys-icon">🏛️</span>
+      <div class="sys-info">
+        <div class="sys-name">자산관리 시스템</div>
+        <div class="sys-desc">사업 자산 · 물품 현황 관리</div>
+      </div>
+      <span class="sys-arrow">→</span>
+    </a>
+    <a class="sys-card" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank" style="--sc:#ec4899">
+      <span class="sys-icon">👤</span>
+      <div class="sys-info">
+        <div class="sys-name">인력관리 시스템</div>
+        <div class="sys-desc">투입인력 · 기관별 현황</div>
+      </div>
+      <span class="sys-arrow">→</span>
+    </a>
   </div>
 
   <div class="sys-section-label" style="margin-top:16px">🏛️ 정부 업무 시스템</div>
