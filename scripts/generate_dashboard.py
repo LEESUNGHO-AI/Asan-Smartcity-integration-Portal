@@ -108,10 +108,17 @@ def source_budget():
     print("\n📦 [예산] 소싱...")
     bms = fetch_json(URL_BMS, "BMS budget.json")
     if bms and "bimok_summary" in bms:
-        return parse_bms_cats(bms), "BMS"
+        s = bms.get("summary", {})
+        bms_info = {
+            "total_budget": s.get("총사업비", 0) / 1e8,
+            "total_exec": s.get("총집행액", 0) / 1e8,
+            "total_remain": s.get("총잔액", 0) / 1e8,
+            "exec_rate": s.get("전체집행률", 0),
+        }
+        return parse_bms_cats(bms), "BMS", bms_info
     cats = fetch_notion_cats()
-    if cats: return cats, "Notion"
-    return FALLBACK_CATS, "Fallback"
+    if cats: return cats, "Notion", None
+    return FALLBACK_CATS, "Fallback", None
 
 def parse_bms_cats(bms):
     CLEAN = {"인건비(110)":"인건비","운영비(210)":"운영비","여비(220)":"여비",
@@ -194,11 +201,16 @@ def source_projects():
     print("  ⚠️  fallback")
     return FALLBACK_PROJECTS, "Fallback"
 
-def generate_issues(projects, cats, wbs_data, dday):
+def generate_issues(projects, cats, wbs_data, dday, bms_info=None):
     issues = []
-    tb = sum(p["budget"] for p in projects)
-    te = sum(p["executed"] for p in projects)
-    er = round(te/tb*100,1) if tb else 0
+    if bms_info and bms_info.get("total_budget"):
+        tb = bms_info["total_budget"]
+        te = bms_info["total_exec"]
+        er = bms_info["exec_rate"]
+    else:
+        tb = sum(p["budget"] for p in projects)
+        te = sum(p["executed"] for p in projects)
+        er = round(te/tb*100,1) if tb else 0
     tp = dday["pct"]
     gap = tp - er
     if gap > 30:
@@ -250,18 +262,25 @@ def sbadge(s):
     c,l = SB.get(s,("s-etc",s.replace("✅","").replace("🔄","").replace("⏸️","").replace("🆕","").strip()))
     return f'<span class="sbadge {c}">{l}</span>'
 
-def build_html(projects, cats, wbs_data, dday, sources):
+def build_html(projects, cats, wbs_data, dday, sources, bms_info=None):
     ts = NOW_KST.strftime("%Y-%m-%d %H:%M")
     wo = wbs_data.get("overall",0)
     svcs = wbs_data.get("services",[])
-    tb = sum(p["budget"] for p in projects)
-    te = sum(p["executed"] for p in projects)
-    tr = round(tb-te,2)
-    rate = round(te/tb*100,1) if tb else 0
+    # BMS 총집행률 우선 적용 (단위사업 Fallback일 때 정합성 보장)
+    if bms_info and bms_info.get("total_budget"):
+        tb = round(bms_info["total_budget"], 1)
+        te = round(bms_info["total_exec"], 1)
+        tr = round(bms_info["total_remain"], 1)
+        rate = bms_info["exec_rate"]
+    else:
+        tb = sum(p["budget"] for p in projects)
+        te = sum(p["executed"] for p in projects)
+        tr = round(tb-te,2)
+        rate = round(te/tb*100,1) if tb else 0
     dc = sum(1 for p in projects if "완료" in p["status"])
     pc = sum(1 for p in projects if "진행" in p["status"])
     wc = len(projects)-dc-pc
-    issues = generate_issues(projects, cats, wbs_data, dday)
+    issues = generate_issues(projects, cats, wbs_data, dday, bms_info)
     uc = sum(1 for i in issues if "긴급" in i["level"])
     hc = sum(1 for i in issues if "높음" in i["level"])
     sl = " + ".join(set(sources.values()))
@@ -470,7 +489,7 @@ def main():
     print(f"🚀 통합 포털 v4.0 — {NOW_KST.strftime('%Y-%m-%d %H:%M')} KST")
     print("="*60)
     sources = {}
-    cats, src_b = source_budget()
+    cats, src_b, bms_info = source_budget()
     sources["예산"] = src_b
     wbs_data, src_w = source_wbs()
     sources["WBS"] = src_w
@@ -484,18 +503,21 @@ def main():
         "pct": round((TODAY-PROJECT_START).days/(PROJECT_END-PROJECT_START).days*100,1),
     }
     print(f"\n📊 소스: {sources}")
-    tb = sum(p["budget"] for p in projects)
-    te = sum(p["executed"] for p in projects)
-    print(f"   집행률: {te/tb*100:.1f}%, WBS: {wbs_data['overall']:.1f}%")
+    if bms_info and bms_info.get("total_budget"):
+        print(f"   집행률: {bms_info['exec_rate']}% (BMS), WBS: {wbs_data['overall']:.1f}%")
+    else:
+        tb = sum(p["budget"] for p in projects)
+        te = sum(p["executed"] for p in projects)
+        print(f"   집행률: {te/tb*100:.1f}%, WBS: {wbs_data['overall']:.1f}%")
     os.makedirs("data", exist_ok=True)
     with open("data/snapshot.json","w",encoding="utf-8") as f:
         json.dump({"meta":{"updated":NOW_KST.strftime("%Y-%m-%d %H:%M KST"),"sources":sources,"version":"v4.0"},
                    "dday":dday,"projects":projects,"cats":cats,
                    "wbs_overall":wbs_data["overall"],"wbs_services":wbs_data.get("services",[]),
-                   "issues":generate_issues(projects, cats, wbs_data, dday)},
+                   "issues":generate_issues(projects, cats, wbs_data, dday, bms_info)},
                   f, ensure_ascii=False, indent=2)
     print("✅ data/snapshot.json")
-    html = build_html(projects, cats, wbs_data, dday, sources)
+    html = build_html(projects, cats, wbs_data, dday, sources, bms_info)
     with open("index.html","w",encoding="utf-8") as f:
         f.write(html)
     print(f"✅ index.html ({len(html):,} bytes)")
