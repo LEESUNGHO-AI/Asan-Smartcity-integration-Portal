@@ -1,7 +1,12 @@
 {
   "meta": {
-    "updated": "2026-04-07 09:00 KST",
-    "source": "📡 Notion 실시간"
+    "updated": "2026-04-07 09:47 KST",
+    "sources": {
+      "예산": "BMS",
+      "WBS": "WBS-JSON",
+      "단위사업": "Fallback"
+    },
+    "version": "v4.0"
   },
   "dday": {
     "label": "D-268",
@@ -19,8 +24,8 @@
       "exec_rate": 36.6,
       "wbs_rate": 67,
       "status": "🔄 진행중",
-      "vendor": "싸인텔레콤 컨소시엄",
-      "note": "변경계약·연장 합의서 체결(2/25), 7월 완료 목표",
+      "vendor": "싸인텔레콤",
+      "note": "",
       "color": "#2e80e8",
       "zone": "공통인프라",
       "icon": "📡"
@@ -33,8 +38,8 @@
       "exec_rate": 0.0,
       "wbs_rate": 60,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
-      "note": "7~9주차 공정보고 완료, NOP·ACP·ECC·BIS 상세설계 진행",
+      "vendor": "한국정보기술",
+      "note": "",
       "color": "#7c3aed",
       "zone": "공통인프라",
       "icon": "🖥️"
@@ -48,7 +53,7 @@
       "wbs_rate": 100,
       "status": "✅ 완료",
       "vendor": "호서대학교",
-      "note": "구축완료·운영중 (리빙랩·관제센터·테스트베드)",
+      "note": "구축완료",
       "color": "#22c55e",
       "zone": "배방 이노베이션존",
       "icon": "🏢"
@@ -62,7 +67,7 @@
       "wbs_rate": 5,
       "status": "🔄 진행중",
       "vendor": "(발주준비중)",
-      "note": "부지확정(도고면 기곡리 296-4), 3/16 발주공고 착수",
+      "note": "",
       "color": "#f59e0b",
       "zone": "도고 디지털 OASIS존",
       "icon": "🌿"
@@ -75,8 +80,8 @@
       "exec_rate": 26.3,
       "wbs_rate": 43,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
-      "note": "분리망 설계 완료(3/31), 코어구축 30% 진행",
+      "vendor": "한국정보기술",
+      "note": "",
       "color": "#06b6d4",
       "zone": "공통인프라",
       "icon": "☁️"
@@ -89,8 +94,8 @@
       "exec_rate": 58.1,
       "wbs_rate": 60,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
-      "note": "선급금 9.29억 집행완료, 상세설계 30%",
+      "vendor": "한국정보기술",
+      "note": "",
       "color": "#ec4899",
       "zone": "공통인프라",
       "icon": "🤖"
@@ -103,8 +108,8 @@
       "exec_rate": 43.7,
       "wbs_rate": 43,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
-      "note": "선급금 10.93억 집행완료, OIM 상세설계 30%",
+      "vendor": "한국정보기술",
+      "note": "",
       "color": "#10b981",
       "zone": "도고 디지털 OASIS존",
       "icon": "📊"
@@ -118,7 +123,7 @@
       "wbs_rate": 0,
       "status": "⏸️ 미착수",
       "vendor": "(미선정)",
-      "note": "3/16 발주공고 착수, 4/30 계약 완료 목표",
+      "note": "",
       "color": "#f97316",
       "zone": "도고 디지털 OASIS존",
       "icon": "🚌"
@@ -131,8 +136,8 @@
       "exec_rate": 0.0,
       "wbs_rate": 0,
       "status": "🆕 신설",
-      "vendor": "(업체선정 준비)",
-      "note": "실시계획 7차 변경 신설, 업체선정 준비 중",
+      "vendor": "(준비중)",
+      "note": "",
       "color": "#a78bfa",
       "zone": "공통인프라",
       "icon": "🔍"
@@ -141,182 +146,161 @@
   "cats": [
     {
       "name": "인건비",
-      "budget": 19.0,
-      "executed": 18.3,
-      "rate": 96.3,
+      "budget": 19.02,
+      "executed": 19.02,
+      "rate": 100.0,
       "status": "🟢 정상",
-      "note": "정규직+계약직 (2024년)",
-      "status_color": "#22c55e"
+      "status_color": "#22c55e",
+      "note": ""
     },
     {
       "name": "운영비",
-      "budget": 7.5,
-      "executed": 4.3,
-      "rate": 57.3,
-      "status": "🟡 주의",
-      "note": "부스제작비 초과 184%",
-      "status_color": "#eab308"
+      "budget": 6.43,
+      "executed": 4.23,
+      "rate": 65.7,
+      "status": "🟢 정상",
+      "status_color": "#22c55e",
+      "note": ""
     },
     {
       "name": "여비",
-      "budget": 0.4,
-      "executed": 0.8,
-      "rate": 200.0,
-      "status": "🟠 초과",
-      "note": "⚠️ 초과집행 200%, 비목간 전용",
-      "status_color": "#f97316"
+      "budget": 1.3,
+      "executed": 0.83,
+      "rate": 63.7,
+      "status": "🟢 정상",
+      "status_color": "#22c55e",
+      "note": ""
     },
     {
       "name": "연구개발비",
-      "budget": 10.0,
+      "budget": 1.5,
       "executed": 0.0,
       "rate": 0.0,
       "status": "🔴 미집행",
-      "note": "DRT 플랫폼 (미착수)",
-      "status_color": "#ef4444"
+      "status_color": "#ef4444",
+      "note": ""
     },
     {
       "name": "유형자산",
-      "budget": 0.2,
-      "executed": 0.16,
-      "rate": 80.0,
-      "status": "🟢 정상",
-      "note": "이노베이션센터 PC",
-      "status_color": "#22c55e"
+      "budget": 0.25,
+      "executed": 0.0,
+      "rate": 0.0,
+      "status": "🔴 미집행",
+      "status_color": "#ef4444",
+      "note": ""
     },
     {
       "name": "무형자산(SW)",
-      "budget": 90.5,
-      "executed": 38.25,
-      "rate": 42.3,
+      "budget": 70.1,
+      "executed": 28.96,
+      "rate": 41.3,
       "status": "🟡 주의",
-      "note": "6개 플랫폼 개발 진행중",
-      "status_color": "#eab308"
+      "status_color": "#eab308",
+      "note": ""
     },
     {
       "name": "건설비",
-      "budget": 99.4,
-      "executed": 23.25,
-      "rate": 23.4,
+      "budget": 86.35,
+      "executed": 11.39,
+      "rate": 13.2,
       "status": "🟡 주의",
-      "note": "OASIS SPOT 착공 추진 중",
-      "status_color": "#eab308"
+      "status_color": "#eab308",
+      "note": ""
     },
     {
       "name": "사업비배분",
-      "budget": 13.0,
+      "budget": 15.0,
       "executed": 13.0,
-      "rate": 100.0,
+      "rate": 86.7,
       "status": "🟢 정상",
-      "note": "간접보조 교부완료",
-      "status_color": "#22c55e"
+      "status_color": "#22c55e",
+      "note": ""
+    },
+    {
+      "name": "기타",
+      "budget": 40.0,
+      "executed": 21.35,
+      "rate": 53.4,
+      "status": "🟢 정상",
+      "status_color": "#22c55e",
+      "note": ""
     }
   ],
-  "wbs_overall": 49.6,
+  "wbs_overall": 52.3,
+  "wbs_services": [
+    {
+      "name": "[2] 실시설계",
+      "rate": 98,
+      "planned": 100,
+      "weight": 10
+    },
+    {
+      "name": "[3] 나라장터 발주 지원",
+      "rate": 88,
+      "planned": 100,
+      "weight": 10
+    },
+    {
+      "name": "[1] 프로젝트 관리/거버넌스",
+      "rate": 75,
+      "planned": 100,
+      "weight": 10
+    },
+    {
+      "name": "[4] 서비스 구축(앱/웹/플랫폼) 구축",
+      "rate": 40,
+      "planned": 100,
+      "weight": 63
+    },
+    {
+      "name": "[9] 구축 완료 후 운영(3년)",
+      "rate": 40,
+      "planned": 0,
+      "weight": 2.5
+    },
+    {
+      "name": "[5] 통합시험·시범운영·안정화",
+      "rate": 0,
+      "planned": 100,
+      "weight": 3
+    },
+    {
+      "name": "[6] 준공·검수·인수인계·이관",
+      "rate": 0,
+      "planned": 0,
+      "weight": 3
+    }
+  ],
   "issues": [
     {
       "level": "🔴 긴급",
       "c": "#ef4444",
-      "content": "예산 집행률 저조 (40.9%) — 잔여 142억, 2026년 집중 집행 필요",
-      "amt": "142억원"
-    },
-    {
-      "level": "🔴 긴급",
-      "c": "#ef4444",
-      "content": "OASIS SPOT 착공 지연 — 3/16 발주공고 착수, 4월 착공 목표",
-      "amt": "35억원"
+      "content": "예산 집행률(23.6%)이 기간 소진율(76%) 대비 53%p 부족 — 잔여 140.8억 집중 집행 필요",
+      "amt": "140.8억"
     },
     {
       "level": "🟠 높음",
       "c": "#f59e0b",
-      "content": "서비스 인프라(45.33억) 선급금 미집행 — 조속 집행 필요",
-      "amt": "45.33억"
+      "content": "#2 서비스 인프라 플랫폼(45억) 집행률 0.0%",
+      "amt": "45억"
     },
     {
       "level": "🟠 높음",
       "c": "#f59e0b",
-      "content": "SDDC 코어구축 30% — 납품·설치 일정 집중 관리 필요",
-      "amt": "27억원"
+      "content": "#4 디지털 OASIS SPOT(35억) 집행률 0.4%",
+      "amt": "35억"
     },
     {
       "level": "🟠 높음",
       "c": "#f59e0b",
-      "content": "여비 초과집행 200% — 비목간 전용 또는 실시계획 변경 필요",
-      "amt": "0.4억원"
+      "content": "#8 DRT 수요응답형 교통(10억) 집행률 0.0%",
+      "amt": "10억"
     },
     {
       "level": "🟡 주의",
       "c": "#eab308",
-      "content": "DRT·메타버스·무인매장·스마트폴 3/16 발주착수 — 4/30 계약 목표",
-      "amt": "10억+"
-    },
-    {
-      "level": "🟡 주의",
-      "c": "#eab308",
-      "content": "감리용역 업체선정 지연 — 서비스 인프라 착수 전 선정 필요",
-      "amt": "1.6억"
-    },
-    {
-      "level": "🟡 주의",
-      "c": "#eab308",
-      "content": "유무선 네트워크 세목별 초과집행 지속 — 정산 필요",
-      "amt": "-"
-    }
-  ],
-  "timeline": [
-    {
-      "date": "03/09",
-      "type": "완료",
-      "done": true,
-      "content": "서비스 인프라 7~9주차 공정보고서 제출"
-    },
-    {
-      "date": "03/09",
-      "type": "완료",
-      "done": true,
-      "content": "[4.6.2] 분리망(보안망·서비스망) 설계/구현 완료"
-    },
-    {
-      "date": "03/12",
-      "type": "완료",
-      "done": true,
-      "content": "Notion WBS DB 현행화 (전체 공정률 49.6%)"
-    },
-    {
-      "date": "03/16",
-      "type": "발주",
-      "done": false,
-      "content": "OASIS SPOT·DRT·메타버스·무인매장·스마트폴 발주공고 착수"
-    },
-    {
-      "date": "03/31",
-      "type": "마감",
-      "done": false,
-      "content": "NOP·ACP·ECC·BIS·OIM 상세설계 1차 완료"
-    },
-    {
-      "date": "03/31",
-      "type": "마감",
-      "done": false,
-      "content": "1분기 예산 집행 점검 (50% 달성 목표)"
-    },
-    {
-      "date": "04/30",
-      "type": "계약",
-      "done": false,
-      "content": "신규 발주 5건 계약 완료 (DRT, 메타버스 등)"
-    },
-    {
-      "date": "07/31",
-      "type": "완료",
-      "done": false,
-      "content": "서비스 플랫폼 전체 개발 완료 (NOP·ECC·ACP·BIS·OIM)"
-    },
-    {
-      "date": "10/31",
-      "type": "완료",
-      "done": false,
-      "content": "통합시험·시범운영·안정화 완료"
+      "content": "사업 종료까지 268일 잔여",
+      "amt": "D-268"
     }
   ]
 }
