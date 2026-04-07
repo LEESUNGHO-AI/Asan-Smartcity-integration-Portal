@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<html lang="ko"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>아산시 강소형 스마트시티 통합 포털</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
 <style>
 :root{--bg:#0f1623;--card:#1a2540;--bdr:#2a3a5a;--txt:#e2e8f0;--muted:#8fa3c0;--acc:#2e80e8;--ok:#22c55e;--pri:#1a3a6b}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
+body{font-family:'Pretendard','Malgun Gothic',sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
 header{background:linear-gradient(135deg,var(--pri),#0d2444);padding:14px 26px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--acc);flex-wrap:wrap;gap:8px}
 .ht{font-size:1.25rem;font-weight:700}.hs{font-size:.74rem;color:var(--muted);margin-top:3px}
 .hr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -43,15 +42,14 @@ header{background:linear-gradient(135deg,var(--pri),#0d2444);padding:14px 26px;d
 .badge-oasis{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid #f59e0b44}
 .badge-inno{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid #22c55e44}
 .badge-common{background:rgba(46,128,232,.12);color:#7ea8d4;border:1px solid #2e80e833}
-.pcard-name{font-size:.92rem;font-weight:700;color:var(--txt);line-height:1.3}
+.pcard-name{font-size:.92rem;font-weight:700;line-height:1.3}
 .pcard-vendor{font-size:.70rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pcard-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:4px 0}
 .pm-block{background:rgba(255,255,255,.04);border-radius:7px;padding:7px 8px;text-align:center}
 .pm-label{font-size:.63rem;color:var(--muted);margin-bottom:2px}
 .pm-val{font-size:.95rem;font-weight:700}.pm-unit{font-size:.65rem;color:var(--muted);font-weight:400}
 .pbar-row{display:grid;grid-template-columns:52px 1fr 42px;align-items:center;gap:7px}
-.pbar-lbl{font-size:.67rem;color:var(--muted);text-align:right}
-.pbar-wrap{flex:1}
+.pbar-lbl{font-size:.67rem;color:var(--muted);text-align:right}.pbar-wrap{flex:1}
 .pbar-pct{font-size:.72rem;font-weight:700;text-align:right}
 .pcard-note{font-size:.67rem;color:var(--muted);line-height:1.4;background:rgba(255,255,255,.03);border-radius:6px;padding:5px 8px;border-left:2px solid var(--bdr)}
 .bi{margin-bottom:11px}
@@ -61,15 +59,10 @@ header{background:linear-gradient(135deg,var(--pri),#0d2444);padding:14px 26px;d
 .bb{height:7px;background:var(--bdr);border-radius:4px;overflow:hidden}
 .bd{font-size:.67rem;color:var(--muted);margin-top:3px;line-height:1.4}
 .irow{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.03);margin-bottom:6px}
-.ilv{font-size:.71rem;font-weight:700;white-space:nowrap;width:62px;flex-shrink:0;margin-top:1px}
+.ilv{font-size:.71rem;font-weight:700;white-space:nowrap;width:62px;flex-shrink:0}
 .ict{flex:1;font-size:.77rem;line-height:1.4}
-.iamt{font-size:.74rem;font-weight:700;white-space:nowrap;margin-top:1px}
-.tli{display:flex;align-items:flex-start;gap:7px;padding:6px 0;border-bottom:1px solid var(--bdr);font-size:.77rem}
-.tli:last-child{border-bottom:none}
-.tld{color:#2e80e8;font-weight:700;width:32px;flex-shrink:0}
-.tlt{border-radius:8px;padding:1px 6px;font-size:.66rem;flex-shrink:0;margin-top:1px}
-.tlc{flex:1;line-height:1.4}
-.sbadge{padding:2px 8px;border-radius:10px;font-size:.68rem;font-weight:600;white-space:nowrap;flex-shrink:0}
+.iamt{font-size:.74rem;font-weight:700;white-space:nowrap}
+.sbadge{padding:2px 8px;border-radius:10px;font-size:.68rem;font-weight:600;white-space:nowrap}
 .s-done{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid #22c55e44}
 .s-prog{background:rgba(46,128,232,.15);color:#2e80e8;border:1px solid #2e80e844}
 .s-wait{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid #f59e0b44}
@@ -81,780 +74,190 @@ footer{text-align:center;padding:16px;color:var(--muted);font-size:.70rem;border
 .org-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:.78rem}
 @media(max-width:760px){.org-grid{grid-template-columns:repeat(2,1fr)}}
 .org-card{border:1px solid var(--bdr);border-radius:8px;padding:12px}
-/* ── 시스템 바로가기 ── */
-.sys-section-label{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;
-  letter-spacing:.06em;margin-bottom:9px;padding-left:2px}
+.wbs-summary-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px;padding:10px;background:rgba(255,255,255,.03);border-radius:8px}
+.wbs-stat{text-align:center}.wbs-stat-val{font-size:1.1rem;font-weight:700}.wbs-stat-lbl{font-size:.65rem;color:var(--muted);margin-top:2px}
+@media(max-width:600px){.wbs-summary-grid{grid-template-columns:repeat(3,1fr)}}
+.sys-section-label{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px;padding-left:2px}
 .sys-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:4px}
 @media(max-width:1100px){.sys-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.sys-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.sys-grid{grid-template-columns:1fr}}
-.sys-card{display:flex;align-items:center;gap:10px;padding:10px 12px;
-  border-radius:9px;border:1px solid var(--bdr);
-  background:rgba(255,255,255,.03);
-  text-decoration:none;color:var(--txt);
-  transition:all .18s;cursor:pointer}
-.sys-card:hover{background:rgba(var(--sc-rgb,46,128,232),.12);
-  border-color:var(--sc,var(--acc));
-  transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.sys-card{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;border:1px solid var(--bdr);background:rgba(255,255,255,.03);text-decoration:none;color:var(--txt);transition:all .18s;cursor:pointer}
+.sys-card:hover{background:rgba(var(--sc-rgb,46,128,232),.12);border-color:var(--sc,var(--acc));transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.3)}
 .sys-icon{font-size:1.35rem;flex-shrink:0;width:32px;text-align:center}
-.sys-info{flex:1;min-width:0}
-.sys-name{font-size:.79rem;font-weight:700;color:var(--txt);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sys-desc{font-size:.66rem;color:var(--muted);margin-top:1px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sys-arrow{font-size:.80rem;color:var(--muted);flex-shrink:0;
-  transition:transform .18s;margin-left:2px}
-.sys-card:hover .sys-arrow{transform:translateX(3px);color:var(--sc,var(--acc))}
-.sys-card:hover .sys-name{color:var(--sc,var(--acc))}
-</style>
-</head>
-<body>
-<header>
-  <div>
-    <div class="ht">🌆 아산시 강소형 스마트시티 통합 포털</div>
-    <div class="hs">디지털 OASIS 구현 · 충남 아산시 도고면·배방읍 일원 · 총 240억원 · '23.12 ~ '26.12</div>
-  </div>
-  <div class="hr">
-    <span class="badge">📅 D-268</span>
-    <span class="badge">⚡ WBS 49.6%</span>
-    <span class="src">📡 Notion 실시간</span>
-    <span class="upd">🕐 2026-04-07 09:00 KST</span>
-  </div>
-</header>
+.sys-info{flex:1;min-width:0}.sys-name{font-size:.79rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sys-desc{font-size:.66rem;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sys-arrow{font-size:.80rem;color:var(--muted);flex-shrink:0;transition:transform .18s;margin-left:2px}
+.sys-card:hover .sys-arrow{transform:translateX(3px);color:var(--sc,var(--acc))}.sys-card:hover .sys-name{color:var(--sc,var(--acc))}
+</style></head><body>
+<header><div><div class="ht">🌆 아산시 강소형 스마트시티 통합 포털</div><div class="hs">디지털 OASIS 구현 · 충남 아산시 도고면·배방읍 일원 · 총 240억원 · '23.12 ~ '26.12</div></div>
+<div class="hr"><span class="badge">📅 D-268</span><span class="badge">⚡ WBS 52.3%</span><span class="badge">💰 집행 23.6%</span><span class="src">📡 WBS-JSON + BMS + Fallback</span><span class="upd">🕐 2026-04-07 09:47 KST</span></div></header>
 <div class="wrap">
-
-<!-- KPI 4종 -->
 <div class="g4">
-  <div class="card">
-    <div class="kl">예산 집행률</div>
-    <div class="kv" style="color:#2e80e8">23.6%</div>
-    <div class="ks">43.5억 집행 / 140.8억 잔액<br>총 184.3억원</div>
-    <div class="kb"><div style="width:23.6%;background:#2e80e8"></div></div>
-  </div>
-  <div class="card">
-    <div class="kl">WBS 전체 공정률</div>
-    <div class="kv" style="color:#7c3aed">49.6%</div>
-    <div class="ks">계획 대비 진행 수준<br>Level-1 가중평균 기준</div>
-    <div class="kb"><div style="width:49.6%;background:#7c3aed"></div></div>
-  </div>
-  <div class="card">
-    <div class="kl">사업 기간 / D-Day</div>
-    <div class="kv" style="color:#f59e0b">D-268</div>
-    <div class="ks">경과 858일 / 총 1126일<br>기간 소진율 76.2%</div>
-    <div class="kb"><div style="width:76.2%;background:#f59e0b"></div></div>
-  </div>
-  <div class="card">
-    <div class="kl">단위사업 현황</div>
-    <div class="kv" style="color:#22c55e">9개</div>
-    <div class="ks">✅ 완료 1개 · 🔄 진행중 6개<br>⏸️ 미착수·신설 2개</div>
-    <div class="kb"><div style="width:11%;background:#22c55e"></div></div>
-  </div>
+  <div class="card"><div class="kl">예산 집행률</div><div class="kv" style="color:#2e80e8">23.6%</div><div class="ks">43.5억 집행 / 140.8억 잔액<br>총 184.3억원</div><div class="kb"><div style="width:23.6%;background:#2e80e8"></div></div></div>
+  <div class="card"><div class="kl">WBS 전체 공정률</div><div class="kv" style="color:#7c3aed">52.3%</div><div class="ks">실적공정률 기준<br>Level-1 가중평균</div><div class="kb"><div style="width:52.3%;background:#7c3aed"></div></div></div>
+  <div class="card"><div class="kl">사업 기간 / D-Day</div><div class="kv" style="color:#f59e0b">D-268</div><div class="ks">경과 858일 / 총 1126일<br>기간 소진율 76.2%</div><div class="kb"><div style="width:76.2%;background:#f59e0b"></div></div></div>
+  <div class="card"><div class="kl">단위사업 현황</div><div class="kv" style="color:#22c55e">9개</div><div class="ks">✅ 완료 1개 · 🔄 진행중 6개<br>⏸️ 미착수·신설 2개</div><div class="kb"><div style="width:11%;background:#22c55e"></div></div></div>
 </div>
-
-<!-- 이중 진척 바 -->
-<div class="dual-bar-wrap">
-  <div class="dual-bar-title">📊 사업 진척 현황 비교</div>
-  <div class="dual-item">
-    <div class="dual-lbl">⏱ 기간 소진율</div>
-    <div class="dbar"><div style="width:76.2%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div>
-    <div class="dual-pct" style="color:#f59e0b">76.2%</div>
-  </div>
-  <div class="dual-item">
-    <div class="dual-lbl">📋 WBS 공정률</div>
-    <div class="dbar"><div style="width:49.6%;background:linear-gradient(90deg,#7c3aed,#2e80e8)"></div></div>
-    <div class="dual-pct" style="color:#7c3aed">49.6%</div>
-  </div>
-  <div class="dual-item">
-    <div class="dual-lbl">💰 예산 집행률</div>
-    <div class="dbar"><div style="width:23.6%;background:linear-gradient(90deg,#2e80e8,#06b6d4)"></div></div>
-    <div class="dual-pct" style="color:#2e80e8">23.6%</div>
-  </div>
+<div class="dual-bar-wrap"><div class="dual-bar-title">📊 사업 진척 현황 비교</div>
+  <div class="dual-item"><div class="dual-lbl">⏱ 기간 소진율</div><div class="dbar"><div style="width:76.2%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div><div class="dual-pct" style="color:#f59e0b">76.2%</div></div>
+  <div class="dual-item"><div class="dual-lbl">📋 WBS 공정률</div><div class="dbar"><div style="width:52.3%;background:linear-gradient(90deg,#7c3aed,#2e80e8)"></div></div><div class="dual-pct" style="color:#7c3aed">52.3%</div></div>
+  <div class="dual-item"><div class="dual-lbl">💰 예산 집행률</div><div class="dbar"><div style="width:23.6%;background:linear-gradient(90deg,#2e80e8,#06b6d4)"></div></div><div class="dual-pct" style="color:#2e80e8">23.6%</div></div>
 </div>
-
-<!-- 단위사업 카드 9개 -->
-<div class="card" style="margin-bottom:18px">
-  <div class="sec-title">🏗️ 단위사업별 현황 (9개 사업) <span class="sec-sub">예산집행률 / WBS공정률</span></div>
-  <div class="proj-grid">
+<div class="card" style="margin-bottom:18px"><div class="sec-title">🏗️ 단위사업별 현황 (9개 사업) <span class="sec-sub">예산집행률 / WBS공정률</span></div><div class="proj-grid">
 <div class="pcard" style="border-top:3px solid #2e80e8">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#2e80e8">📡 #1</span>
-    <span class="pzone badge-common">공통인프라</span>
-    <span class="sbadge s-prog">진행중</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#2e80e8">📡 #1</span><span class="pzone badge-common">공통인프라</span><span class="sbadge s-prog">진행중</span></div>
   <div class="pcard-name">유무선 네트워크 구축</div>
-  <div class="pcard-vendor">🏢 싸인텔레콤 컨소시엄</div>
+  <div class="pcard-vendor">🏢 싸인텔레콤</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#2e80e8">11.35<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">4.15<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">7.20<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#2e80e8">11.35<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">4.15<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">7.20<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:36.6%;background:#2e80e8;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#2e80e8">36.6%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:67%;background:#2e80e888;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#2e80e8aa">67%</span>
-  </div>
-  <div class="pcard-note">변경계약·연장 합의서 체결(2/25), 7월 완료 목표</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:36.6%;background:#2e80e8;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#2e80e8">36.6%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:67%;background:#2e80e888;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#2e80e8aa">67%</span></div>
+  <div class="pcard-note"></div>
 </div>
 <div class="pcard" style="border-top:3px solid #7c3aed">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#7c3aed">🖥️ #2</span>
-    <span class="pzone badge-common">공통인프라</span>
-    <span class="sbadge s-prog">진행중</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#7c3aed">🖥️ #2</span><span class="pzone badge-common">공통인프라</span><span class="sbadge s-prog">진행중</span></div>
   <div class="pcard-name">서비스 인프라 플랫폼</div>
-  <div class="pcard-vendor">🏢 한국정보기술 컨소시엄</div>
+  <div class="pcard-vendor">🏢 한국정보기술</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#7c3aed">45.33<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">0.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">45.33<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#7c3aed">45.33<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">0.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">45.33<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:0.0%;background:#7c3aed;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#7c3aed">0.0%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:60%;background:#7c3aed88;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#7c3aedaa">60%</span>
-  </div>
-  <div class="pcard-note">7~9주차 공정보고 완료, NOP·ACP·ECC·BIS 상세설계 진행</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:0.0%;background:#7c3aed;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#7c3aed">0.0%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:60%;background:#7c3aed88;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#7c3aedaa">60%</span></div>
+  <div class="pcard-note"></div>
 </div>
 <div class="pcard" style="border-top:3px solid #22c55e">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#22c55e">🏢 #3</span>
-    <span class="pzone badge-inno">배방 이노베이션존</span>
-    <span class="sbadge s-done">완료</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#22c55e">🏢 #3</span><span class="pzone badge-inno">배방 이노베이션존</span><span class="sbadge s-done">완료</span></div>
   <div class="pcard-name">이노베이션 센터 구축</div>
   <div class="pcard-vendor">🏢 호서대학교</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#22c55e">13.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">11.86<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">1.14<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#22c55e">13.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">11.86<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">1.14<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:91.2%;background:#22c55e;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#22c55e">91.2%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:100%;background:#22c55e88;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#22c55eaa">100%</span>
-  </div>
-  <div class="pcard-note">구축완료·운영중 (리빙랩·관제센터·테스트베드)</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:91.2%;background:#22c55e;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#22c55e">91.2%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:100%;background:#22c55e88;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#22c55eaa">100%</span></div>
+  <div class="pcard-note">구축완료</div>
 </div>
 <div class="pcard" style="border-top:3px solid #f59e0b">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#f59e0b">🌿 #4</span>
-    <span class="pzone badge-oasis">도고 디지털 OASIS존</span>
-    <span class="sbadge s-prog">진행중</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#f59e0b">🌿 #4</span><span class="pzone badge-oasis">도고 디지털 OASIS존</span><span class="sbadge s-prog">진행중</span></div>
   <div class="pcard-name">디지털 OASIS SPOT</div>
   <div class="pcard-vendor">🏢 (발주준비중)</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#f59e0b">35.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">0.15<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">34.85<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#f59e0b">35.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">0.15<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">34.85<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:0.4%;background:#f59e0b;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#f59e0b">0.4%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:5%;background:#f59e0b88;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#f59e0baa">5%</span>
-  </div>
-  <div class="pcard-note">부지확정(도고면 기곡리 296-4), 3/16 발주공고 착수</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:0.4%;background:#f59e0b;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#f59e0b">0.4%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:5%;background:#f59e0b88;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#f59e0baa">5%</span></div>
+  <div class="pcard-note"></div>
 </div>
 <div class="pcard" style="border-top:3px solid #06b6d4">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#06b6d4">☁️ #5</span>
-    <span class="pzone badge-common">공통인프라</span>
-    <span class="sbadge s-prog">진행중</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#06b6d4">☁️ #5</span><span class="pzone badge-common">공통인프라</span><span class="sbadge s-prog">진행중</span></div>
   <div class="pcard-name">SDDC Platform 구축</div>
-  <div class="pcard-vendor">🏢 한국정보기술 컨소시엄</div>
+  <div class="pcard-vendor">🏢 한국정보기술</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#06b6d4">27.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">7.09<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">19.91<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#06b6d4">27.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">7.09<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">19.91<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:26.3%;background:#06b6d4;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#06b6d4">26.3%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:43%;background:#06b6d488;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#06b6d4aa">43%</span>
-  </div>
-  <div class="pcard-note">분리망 설계 완료(3/31), 코어구축 30% 진행</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:26.3%;background:#06b6d4;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#06b6d4">26.3%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:43%;background:#06b6d488;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#06b6d4aa">43%</span></div>
+  <div class="pcard-note"></div>
 </div>
 <div class="pcard" style="border-top:3px solid #ec4899">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#ec4899">🤖 #6</span>
-    <span class="pzone badge-common">공통인프라</span>
-    <span class="sbadge s-prog">진행중</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#ec4899">🤖 #6</span><span class="pzone badge-common">공통인프라</span><span class="sbadge s-prog">진행중</span></div>
   <div class="pcard-name">AI 통합관제 플랫폼</div>
-  <div class="pcard-vendor">🏢 한국정보기술 컨소시엄</div>
+  <div class="pcard-vendor">🏢 한국정보기술</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#ec4899">16.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">9.29<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">6.71<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#ec4899">16.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">9.29<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">6.71<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:58.1%;background:#ec4899;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#ec4899">58.1%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:60%;background:#ec489988;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#ec4899aa">60%</span>
-  </div>
-  <div class="pcard-note">선급금 9.29억 집행완료, 상세설계 30%</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:58.1%;background:#ec4899;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#ec4899">58.1%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:60%;background:#ec489988;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#ec4899aa">60%</span></div>
+  <div class="pcard-note"></div>
 </div>
 <div class="pcard" style="border-top:3px solid #10b981">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#10b981">📊 #7</span>
-    <span class="pzone badge-oasis">도고 디지털 OASIS존</span>
-    <span class="sbadge s-prog">진행중</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#10b981">📊 #7</span><span class="pzone badge-oasis">도고 디지털 OASIS존</span><span class="sbadge s-prog">진행중</span></div>
   <div class="pcard-name">디지털 OASIS 정보관리</div>
-  <div class="pcard-vendor">🏢 한국정보기술 컨소시엄</div>
+  <div class="pcard-vendor">🏢 한국정보기술</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#10b981">25.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">10.93<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">14.07<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#10b981">25.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">10.93<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">14.07<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:43.7%;background:#10b981;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#10b981">43.7%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:43%;background:#10b98188;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#10b981aa">43%</span>
-  </div>
-  <div class="pcard-note">선급금 10.93억 집행완료, OIM 상세설계 30%</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:43.7%;background:#10b981;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#10b981">43.7%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:43%;background:#10b98188;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#10b981aa">43%</span></div>
+  <div class="pcard-note"></div>
 </div>
 <div class="pcard" style="border-top:3px solid #f97316">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#f97316">🚌 #8</span>
-    <span class="pzone badge-oasis">도고 디지털 OASIS존</span>
-    <span class="sbadge s-wait">미착수</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#f97316">🚌 #8</span><span class="pzone badge-oasis">도고 디지털 OASIS존</span><span class="sbadge s-wait">미착수</span></div>
   <div class="pcard-name">DRT 수요응답형 교통</div>
   <div class="pcard-vendor">🏢 (미선정)</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#f97316">10.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">0.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">10.00<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#f97316">10.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">0.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">10.00<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:0.0%;background:#f97316;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#f97316">0.0%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:0%;background:#f9731688;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#f97316aa">0%</span>
-  </div>
-  <div class="pcard-note">3/16 발주공고 착수, 4/30 계약 완료 목표</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:0.0%;background:#f97316;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#f97316">0.0%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:0%;background:#f9731688;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#f97316aa">0%</span></div>
+  <div class="pcard-note"></div>
 </div>
 <div class="pcard" style="border-top:3px solid #a78bfa">
-  <div class="pcard-h">
-    <span class="pcard-num" style="color:#a78bfa">🔍 #9</span>
-    <span class="pzone badge-common">공통인프라</span>
-    <span class="sbadge s-new">신설</span>
-  </div>
+  <div class="pcard-h"><span class="pcard-num" style="color:#a78bfa">🔍 #9</span><span class="pzone badge-common">공통인프라</span><span class="sbadge s-new">신설</span></div>
   <div class="pcard-name">감리용역 (신설)</div>
-  <div class="pcard-vendor">🏢 (업체선정 준비)</div>
+  <div class="pcard-vendor">🏢 (준비중)</div>
   <div class="pcard-metrics">
-    <div class="pm-block">
-      <div class="pm-label">예산총액</div>
-      <div class="pm-val" style="color:#a78bfa">1.60<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">집행금액</div>
-      <div class="pm-val">0.00<span class="pm-unit">억</span></div>
-    </div>
-    <div class="pm-block">
-      <div class="pm-label">잔액</div>
-      <div class="pm-val" style="color:#94a3b8">1.60<span class="pm-unit">억</span></div>
-    </div>
+    <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:#a78bfa">1.60<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">0.00<span class="pm-unit">억</span></div></div>
+    <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">1.60<span class="pm-unit">억</span></div></div>
   </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">예산집행</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:0.0%;background:#a78bfa;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#a78bfa">0.0%</span>
-  </div>
-  <div class="pbar-row">
-    <span class="pbar-lbl">WBS공정</span>
-    <div class="pbar-wrap"><div class="bb"><div style="width:0%;background:#a78bfa88;height:100%;border-radius:4px"></div></div></div>
-    <span class="pbar-pct" style="color:#a78bfaaa">0%</span>
-  </div>
-  <div class="pcard-note">실시계획 7차 변경 신설, 업체선정 준비 중</div>
+  <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:0.0%;background:#a78bfa;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#a78bfa">0.0%</span></div>
+  <div class="pbar-row"><span class="pbar-lbl">WBS공정</span><div class="pbar-wrap"><div class="bb"><div style="width:0%;background:#a78bfa88;height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:#a78bfaaa">0%</span></div>
+  <div class="pcard-note"></div>
+</div></div></div>
+<div class="g2"><div class="card"><div class="sec-title">💰 비목별 예산 집행 현황 <span class="sec-sub">9개 비목</span></div><div class="bi"><div class="bih"><span class="bin">인건비</span><span class="bir" style="color:#22c55e">100.0%</span></div><div class="bb"><div style="width:100.0%;background:#22c55e;height:100%;border-radius:4px"></div></div><div class="bd">19.0억 예산 / 19.02억 집행</div></div><div class="bi"><div class="bih"><span class="bin">운영비</span><span class="bir" style="color:#22c55e">65.7%</span></div><div class="bb"><div style="width:65.7%;background:#22c55e;height:100%;border-radius:4px"></div></div><div class="bd">6.4억 예산 / 4.23억 집행</div></div><div class="bi"><div class="bih"><span class="bin">여비</span><span class="bir" style="color:#22c55e">63.7%</span></div><div class="bb"><div style="width:63.7%;background:#22c55e;height:100%;border-radius:4px"></div></div><div class="bd">1.3억 예산 / 0.83억 집행</div></div><div class="bi"><div class="bih"><span class="bin">연구개발비</span><span class="bir" style="color:#ef4444">0.0%</span></div><div class="bb"><div style="width:0.0%;background:#ef4444;height:100%;border-radius:4px"></div></div><div class="bd">1.5억 예산 / 0.00억 집행</div></div><div class="bi"><div class="bih"><span class="bin">유형자산</span><span class="bir" style="color:#ef4444">0.0%</span></div><div class="bb"><div style="width:0.0%;background:#ef4444;height:100%;border-radius:4px"></div></div><div class="bd">0.2억 예산 / 0.00억 집행</div></div><div class="bi"><div class="bih"><span class="bin">무형자산(SW)</span><span class="bir" style="color:#eab308">41.3%</span></div><div class="bb"><div style="width:41.3%;background:#eab308;height:100%;border-radius:4px"></div></div><div class="bd">70.1억 예산 / 28.96억 집행</div></div><div class="bi"><div class="bih"><span class="bin">건설비</span><span class="bir" style="color:#eab308">13.2%</span></div><div class="bb"><div style="width:13.2%;background:#eab308;height:100%;border-radius:4px"></div></div><div class="bd">86.3억 예산 / 11.39억 집행</div></div><div class="bi"><div class="bih"><span class="bin">사업비배분</span><span class="bir" style="color:#22c55e">86.7%</span></div><div class="bb"><div style="width:86.7%;background:#22c55e;height:100%;border-radius:4px"></div></div><div class="bd">15.0억 예산 / 13.00억 집행</div></div><div class="bi"><div class="bih"><span class="bin">기타</span><span class="bir" style="color:#22c55e">53.4%</span></div><div class="bb"><div style="width:53.4%;background:#22c55e;height:100%;border-radius:4px"></div></div><div class="bd">40.0억 예산 / 21.35억 집행</div></div></div>
+<div class="card"><div class="sec-title">⚙️ WBS 공정률 (Level-1) <span class="sec-sub">7개 분류</span></div><div class="wbs-summary-grid"><div class="wbs-stat"><div class="wbs-stat-val">175</div><div class="wbs-stat-lbl">전체</div></div><div class="wbs-stat"><div class="wbs-stat-val" style="color:#22c55e">89</div><div class="wbs-stat-lbl">완료</div></div><div class="wbs-stat"><div class="wbs-stat-val" style="color:#2e80e8">61</div><div class="wbs-stat-lbl">진행</div></div><div class="wbs-stat"><div class="wbs-stat-val" style="color:#ef4444">10</div><div class="wbs-stat-lbl">지연</div></div><div class="wbs-stat"><div class="wbs-stat-val" style="color:#f59e0b">15</div><div class="wbs-stat-lbl">대기</div></div><div class="wbs-stat"><div class="wbs-stat-val" style="color:#7c3aed">50.9%</div><div class="wbs-stat-lbl">달성률</div></div></div><div class="bi"><div class="bih"><span class="bin">[2] 실시설계</span><span class="bir" style="color:#22c55e">98%</span></div><div class="bb"><div style="width:98%;background:#22c55e;height:100%;border-radius:4px"></div></div><div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 가중치 10%</div></div><div class="bi"><div class="bih"><span class="bin">[3] 나라장터 발주 지원</span><span class="bir" style="color:#2e80e8">88%</span></div><div class="bb"><div style="width:88%;background:#2e80e8;height:100%;border-radius:4px"></div></div><div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 가중치 10%</div></div><div class="bi"><div class="bih"><span class="bin">[1] 프로젝트 관리/거버넌스</span><span class="bir" style="color:#7c3aed">75%</span></div><div class="bb"><div style="width:75%;background:#7c3aed;height:100%;border-radius:4px"></div></div><div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 가중치 10%</div></div><div class="bi"><div class="bih"><span class="bin">[4] 서비스 구축(앱/웹/플랫폼) 구축</span><span class="bir" style="color:#ec4899">40%</span></div><div class="bb"><div style="width:40%;background:#ec4899;height:100%;border-radius:4px"></div></div><div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 가중치 63%</div></div><div class="bi"><div class="bih"><span class="bin">[9] 구축 완료 후 운영(3년)</span><span class="bir" style="color:#06b6d4">40%</span></div><div class="bb"><div style="width:40%;background:#06b6d4;height:100%;border-radius:4px"></div></div><div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 가중치 2%</div></div><div class="bi"><div class="bih"><span class="bin">[5] 통합시험·시범운영·안정화</span><span class="bir" style="color:#10b981">0%</span></div><div class="bb"><div style="width:0%;background:#10b981;height:100%;border-radius:4px"></div></div><div class="bd"><span style="color:#f59e0b;font-size:.68rem">대기</span> · 가중치 3%</div></div><div class="bi"><div class="bih"><span class="bin">[6] 준공·검수·인수인계·이관</span><span class="bir" style="color:#f59e0b">0%</span></div><div class="bb"><div style="width:0%;background:#f59e0b;height:100%;border-radius:4px"></div></div><div class="bd"><span style="color:#f59e0b;font-size:.68rem">대기</span> · 가중치 3%</div></div></div></div>
+<div class="card" style="margin-bottom:18px"><div class="sec-title">⚠️ 리스크 현황 (자동 분석) <span class="sec-sub">🔴 긴급 1건 · 🟠 높음 3건</span></div><div class="irow" style="border-left:3px solid #ef4444"><div class="ilv" style="color:#ef4444">🔴 긴급</div><div class="ict">예산 집행률(23.6%)이 기간 소진율(76%) 대비 53%p 부족 — 잔여 140.8억 집중 집행 필요</div><div class="iamt" style="color:#ef4444">140.8억</div></div><div class="irow" style="border-left:3px solid #f59e0b"><div class="ilv" style="color:#f59e0b">🟠 높음</div><div class="ict">#2 서비스 인프라 플랫폼(45억) 집행률 0.0%</div><div class="iamt" style="color:#f59e0b">45억</div></div><div class="irow" style="border-left:3px solid #f59e0b"><div class="ilv" style="color:#f59e0b">🟠 높음</div><div class="ict">#4 디지털 OASIS SPOT(35억) 집행률 0.4%</div><div class="iamt" style="color:#f59e0b">35억</div></div><div class="irow" style="border-left:3px solid #f59e0b"><div class="ilv" style="color:#f59e0b">🟠 높음</div><div class="ict">#8 DRT 수요응답형 교통(10억) 집행률 0.0%</div><div class="iamt" style="color:#f59e0b">10억</div></div><div class="irow" style="border-left:3px solid #eab308"><div class="ilv" style="color:#eab308">🟡 주의</div><div class="ict">사업 종료까지 268일 잔여</div><div class="iamt" style="color:#eab308">D-268</div></div></div>
+<div class="card" style="margin-bottom:18px"><div class="sec-title">🔗 업무 시스템 바로가기 <span class="sec-sub">클릭하여 접속</span></div>
+<div class="sys-section-label">📋 프로젝트 관리 (Notion)</div><div class="sys-grid">
+<a class="sys-card" href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank" style="--sc:#2e80e8"><span class="sys-icon">📌</span><div class="sys-info"><div class="sys-name">프로젝트 관리</div><div class="sys-desc">사업 총괄 · 단위사업 현황</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.notion.so/559654aed9404d9f88225ea0adc7d746?v=3aa59e73-6641-4463-b157-d7c06c129bfb" target="_blank" style="--sc:#7c3aed"><span class="sys-icon">📊</span><div class="sys-info"><div class="sys-name">WBS 관리</div><div class="sys-desc">175개 작업 · 공정률 추적</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.notion.so/2aa50aa9577d8128b6d4c5c21d845796" target="_blank" style="--sc:#10b981"><span class="sys-icon">💰</span><div class="sys-info"><div class="sys-name">예산관리 시스템</div><div class="sys-desc">비목별 · 단위사업별 집행현황</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.notion.so/2b850aa9577d8128ad35d86b79f67d12" target="_blank" style="--sc:#f59e0b"><span class="sys-icon">👥</span><div class="sys-info"><div class="sys-name">인력 현황 대시보드</div><div class="sys-desc">기관별 투입 현황</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.notion.so/2aa50aa9577d817da233c79ce0c441fe" target="_blank" style="--sc:#06b6d4"><span class="sys-icon">🖥️</span><div class="sys-info"><div class="sys-name">통합 대시보드</div><div class="sys-desc">Notion 통합 현황판</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.notion.so/2a750aa9577d8080af05e5f952d1c8b4" target="_blank" style="--sc:#ec4899"><span class="sys-icon">🗺️</span><div class="sys-info"><div class="sys-name">프로덕트 로드맵</div><div class="sys-desc">서비스별 개발 로드맵</div></div><span class="sys-arrow">→</span></a>
+</div>
+<div class="sys-section-label" style="margin-top:16px">📈 GitHub Pages 대시보드</div><div class="sys-grid">
+<a class="sys-card" href="https://leesungho-ai.github.io/Asan-Smartcity-integration-Portal/" target="_blank" style="--sc:#22c55e"><span class="sys-icon">🌐</span><div class="sys-info"><div class="sys-name">통합 포털 (현재)</div><div class="sys-desc">본 페이지 · 30분 자동 갱신</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://leesungho-ai.github.io/Asan-Smartcity-WBS/" target="_blank" style="--sc:#7c3aed"><span class="sys-icon">📋</span><div class="sys-info"><div class="sys-name">WBS 대시보드</div><div class="sys-desc">Gantt · 공정률 시각화</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank" style="--sc:#10b981"><span class="sys-icon">💳</span><div class="sys-info"><div class="sys-name">BMS 예산 대시보드</div><div class="sys-desc">예산집행 · 비목별 분석</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank" style="--sc:#f59e0b"><span class="sys-icon">🏛️</span><div class="sys-info"><div class="sys-name">자산관리 시스템</div><div class="sys-desc">사업 자산 · 물품 현황 관리</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank" style="--sc:#ec4899"><span class="sys-icon">👤</span><div class="sys-info"><div class="sys-name">인력관리 시스템</div><div class="sys-desc">투입인력 · 기관별 현황</div></div><span class="sys-arrow">→</span></a>
+</div>
+<div class="sys-section-label" style="margin-top:16px">🏛️ 정부 업무 시스템</div><div class="sys-grid">
+<a class="sys-card" href="https://www.g2b.go.kr" target="_blank" style="--sc:#ef4444"><span class="sys-icon">🛒</span><div class="sys-info"><div class="sys-name">나라장터</div><div class="sys-desc">입찰공고 · 계약관리</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.gosims.go.kr" target="_blank" style="--sc:#f97316"><span class="sys-icon">💼</span><div class="sys-info"><div class="sys-name">e나라도움</div><div class="sys-desc">보조금 집행 · 정산</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.smartcity.go.kr" target="_blank" style="--sc:#2e80e8"><span class="sys-icon">🏙️</span><div class="sys-info"><div class="sys-name">국토부 스마트시티</div><div class="sys-desc">사업 정보 · 정책 동향</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://www.asan.go.kr" target="_blank" style="--sc:#06b6d4"><span class="sys-icon">🌿</span><div class="sys-info"><div class="sys-name">아산시청</div><div class="sys-desc">발주처 · 스마트도시팀</div></div><span class="sys-arrow">→</span></a>
+</div>
+<div class="sys-section-label" style="margin-top:16px">💬 협업 도구</div><div class="sys-grid">
+<a class="sys-card" href="https://app.slack.com/client/T070J9TK0MY/C07061F0MFG" target="_blank" style="--sc:#4a154b"><span class="sys-icon">💬</span><div class="sys-info"><div class="sys-name">Slack #wbs</div><div class="sys-desc">WBS 파일 공유</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://app.slack.com/client/T070J9TK0MY/C0836U9HVU1" target="_blank" style="--sc:#4a154b"><span class="sys-icon">💬</span><div class="sys-info"><div class="sys-name">Slack #플랜예산</div><div class="sys-desc">예산 xlsx 공유</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://docs.google.com/spreadsheets/d/12LVhySV-AkKCOvd2Q2H1qoBclmtpw5894njN_8B2TQI" target="_blank" style="--sc:#34a853"><span class="sys-icon">📗</span><div class="sys-info"><div class="sys-name">WBS 원본 Sheets</div><div class="sys-desc">Google Sheets</div></div><span class="sys-arrow">→</span></a>
+<a class="sys-card" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal" target="_blank" style="--sc:#6e7681"><span class="sys-icon">⚙️</span><div class="sys-info"><div class="sys-name">GitHub 저장소</div><div class="sys-desc">소스코드 · Actions</div></div><span class="sys-arrow">→</span></a>
 </div></div>
-</div>
-
-<!-- 비목별 예산 + WBS 서비스 -->
-<div class="g2">
-  <div class="card">
-    <div class="sec-title">💰 비목별 예산 집행 현황 <span class="sec-sub">8개 비목</span></div>
-    <div class="bi">
-  <div class="bih"><span class="bin">인건비</span><span class="bir" style="color:#22c55e">96.3%</span></div>
-  <div class="bb"><div style="width:96.3%;background:#22c55e;height:100%;border-radius:4px"></div></div>
-  <div class="bd">19.0억 예산 / 18.30억 집행 · 정규직+계약직 (2024년)</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">운영비</span><span class="bir" style="color:#eab308">57.3%</span></div>
-  <div class="bb"><div style="width:57.3%;background:#eab308;height:100%;border-radius:4px"></div></div>
-  <div class="bd">7.5억 예산 / 4.30억 집행 · 부스제작비 초과 184%</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">여비</span><span class="bir" style="color:#f97316">⚠️ 200.0%</span></div>
-  <div class="bb"><div style="width:100%;background:#f97316;height:100%;border-radius:4px"></div></div>
-  <div class="bd">0.4억 예산 / 0.80억 집행 · ⚠️ 초과집행 200%, 비목간 전용</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">연구개발비</span><span class="bir" style="color:#ef4444">0.0%</span></div>
-  <div class="bb"><div style="width:0.0%;background:#ef4444;height:100%;border-radius:4px"></div></div>
-  <div class="bd">10.0억 예산 / 0.00억 집행 · DRT 플랫폼 (미착수)</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">유형자산</span><span class="bir" style="color:#22c55e">80.0%</span></div>
-  <div class="bb"><div style="width:80.0%;background:#22c55e;height:100%;border-radius:4px"></div></div>
-  <div class="bd">0.2억 예산 / 0.16억 집행 · 이노베이션센터 PC</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">무형자산(SW)</span><span class="bir" style="color:#eab308">42.3%</span></div>
-  <div class="bb"><div style="width:42.3%;background:#eab308;height:100%;border-radius:4px"></div></div>
-  <div class="bd">90.5억 예산 / 38.25억 집행 · 6개 플랫폼 개발 진행중</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">건설비</span><span class="bir" style="color:#eab308">23.4%</span></div>
-  <div class="bb"><div style="width:23.4%;background:#eab308;height:100%;border-radius:4px"></div></div>
-  <div class="bd">99.4억 예산 / 23.25억 집행 · OASIS SPOT 착공 추진 중</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">사업비배분</span><span class="bir" style="color:#22c55e">100.0%</span></div>
-  <div class="bb"><div style="width:100.0%;background:#22c55e;height:100%;border-radius:4px"></div></div>
-  <div class="bd">13.0억 예산 / 13.00억 집행 · 간접보조 교부완료</div>
-</div>
-  </div>
-  <div class="card">
-    <div class="sec-title">⚙️ 서비스별 WBS 공정률 <span class="sec-sub">11개 서비스</span></div>
-    <div class="bi">
-  <div class="bih"><span class="bin">이노베이션 관제센터</span><span class="bir" style="color:#22c55e">100%</span></div>
-  <div class="bb"><div style="width:100%;background:#22c55e;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#22c55e;font-size:.68rem">완료</span> · 준공완료·운영중</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">유무선 네트워크</span><span class="bir" style="color:#2e80e8">67%</span></div>
-  <div class="bb"><div style="width:67%;background:#2e80e8;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 변경계약 완료, 구축 67%</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">NOP (OASIS 운영서비스)</span><span class="bir" style="color:#7c3aed">60%</span></div>
-  <div class="bb"><div style="width:60%;background:#7c3aed;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 상세설계 30%, 7/31 완료목표</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">ECC (모바일 전자시민증)</span><span class="bir" style="color:#7c3aed">60%</span></div>
-  <div class="bb"><div style="width:60%;background:#7c3aed;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 상세설계 30%, 7/31 완료목표</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">ACP (AI시티관제)</span><span class="bir" style="color:#ec4899">60%</span></div>
-  <div class="bb"><div style="width:60%;background:#ec4899;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 상세설계 30%, 7/31 완료목표</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">BIS (AI융복합서비스)</span><span class="bir" style="color:#7c3aed">60%</span></div>
-  <div class="bb"><div style="width:60%;background:#7c3aed;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 상세설계 30%, 7/31 완료목표</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">OIM (데이터허브)</span><span class="bir" style="color:#10b981">43%</span></div>
-  <div class="bb"><div style="width:43%;background:#10b981;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 계약완료, 상세설계 30%</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">SDDC 기반인프라</span><span class="bir" style="color:#06b6d4">43%</span></div>
-  <div class="bb"><div style="width:43%;background:#06b6d4;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#2e80e8;font-size:.68rem">진행중</span> · 분리망 완료, 코어구축 30%</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">DRT (수요응답형교통)</span><span class="bir" style="color:#f97316">0%</span></div>
-  <div class="bb"><div style="width:0%;background:#f97316;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#f59e0b;font-size:.68rem">착수</span> · 3/16 발주공고 착수</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">메타버스 플랫폼</span><span class="bir" style="color:#f59e0b">0%</span></div>
-  <div class="bb"><div style="width:0%;background:#f59e0b;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#f59e0b;font-size:.68rem">착수</span> · 3/16 발주공고 착수</div>
-</div><div class="bi">
-  <div class="bih"><span class="bin">시설물위치기반 플랫폼</span><span class="bir" style="color:#f59e0b">0%</span></div>
-  <div class="bb"><div style="width:0%;background:#f59e0b;height:100%;border-radius:4px"></div></div>
-  <div class="bd"><span style="color:#f59e0b;font-size:.68rem">착수</span> · 3/16 발주공고 착수</div>
-</div>
-  </div>
-</div>
-
-<!-- 이슈 + 타임라인 -->
-<div class="g2">
-  <div class="card">
-    <div class="sec-title">⚠️ 리스크 현황 <span class="sec-sub">🔴 긴급 2건 · 🟠 높음 3건</span></div>
-    <div class="irow" style="border-left:3px solid #ef4444">
-  <div class="ilv" style="color:#ef4444">🔴 긴급</div>
-  <div class="ict">예산 집행률 저조 (40.9%) — 잔여 142억, 2026년 집중 집행 필요</div>
-  <div class="iamt" style="color:#ef4444">142억원</div>
-</div><div class="irow" style="border-left:3px solid #ef4444">
-  <div class="ilv" style="color:#ef4444">🔴 긴급</div>
-  <div class="ict">OASIS SPOT 착공 지연 — 3/16 발주공고 착수, 4월 착공 목표</div>
-  <div class="iamt" style="color:#ef4444">35억원</div>
-</div><div class="irow" style="border-left:3px solid #f59e0b">
-  <div class="ilv" style="color:#f59e0b">🟠 높음</div>
-  <div class="ict">서비스 인프라(45.33억) 선급금 미집행 — 조속 집행 필요</div>
-  <div class="iamt" style="color:#f59e0b">45.33억</div>
-</div><div class="irow" style="border-left:3px solid #f59e0b">
-  <div class="ilv" style="color:#f59e0b">🟠 높음</div>
-  <div class="ict">SDDC 코어구축 30% — 납품·설치 일정 집중 관리 필요</div>
-  <div class="iamt" style="color:#f59e0b">27억원</div>
-</div><div class="irow" style="border-left:3px solid #f59e0b">
-  <div class="ilv" style="color:#f59e0b">🟠 높음</div>
-  <div class="ict">여비 초과집행 200% — 비목간 전용 또는 실시계획 변경 필요</div>
-  <div class="iamt" style="color:#f59e0b">0.4억원</div>
-</div><div class="irow" style="border-left:3px solid #eab308">
-  <div class="ilv" style="color:#eab308">🟡 주의</div>
-  <div class="ict">DRT·메타버스·무인매장·스마트폴 3/16 발주착수 — 4/30 계약 목표</div>
-  <div class="iamt" style="color:#eab308">10억+</div>
-</div><div class="irow" style="border-left:3px solid #eab308">
-  <div class="ilv" style="color:#eab308">🟡 주의</div>
-  <div class="ict">감리용역 업체선정 지연 — 서비스 인프라 착수 전 선정 필요</div>
-  <div class="iamt" style="color:#eab308">1.6억</div>
-</div><div class="irow" style="border-left:3px solid #eab308">
-  <div class="ilv" style="color:#eab308">🟡 주의</div>
-  <div class="ict">유무선 네트워크 세목별 초과집행 지속 — 정산 필요</div>
-  <div class="iamt" style="color:#eab308">-</div>
-</div>
-  </div>
-  <div class="card">
-    <div class="sec-title">📅 3월 주요 일정 <span class="sec-sub">2026년 1~2분기</span></div>
-    <div class="tli">
-  <div class="tld">03/09</div>
-  <span class="tlt" style="background:#22c55e22;color:#22c55e">완료</span>
-  <div class="tlc">✅ 서비스 인프라 7~9주차 공정보고서 제출</div>
-</div><div class="tli">
-  <div class="tld">03/09</div>
-  <span class="tlt" style="background:#22c55e22;color:#22c55e">완료</span>
-  <div class="tlc">✅ [4.6.2] 분리망(보안망·서비스망) 설계/구현 완료</div>
-</div><div class="tli">
-  <div class="tld">03/12</div>
-  <span class="tlt" style="background:#22c55e22;color:#22c55e">완료</span>
-  <div class="tlc">✅ Notion WBS DB 현행화 (전체 공정률 49.6%)</div>
-</div><div class="tli">
-  <div class="tld">03/16</div>
-  <span class="tlt" style="background:#2e80e822;color:#2e80e8">발주</span>
-  <div class="tlc">📋 OASIS SPOT·DRT·메타버스·무인매장·스마트폴 발주공고 착수</div>
-</div><div class="tli">
-  <div class="tld">03/31</div>
-  <span class="tlt" style="background:#f59e0b22;color:#f59e0b">마감</span>
-  <div class="tlc">📋 NOP·ACP·ECC·BIS·OIM 상세설계 1차 완료</div>
-</div><div class="tli">
-  <div class="tld">03/31</div>
-  <span class="tlt" style="background:#f59e0b22;color:#f59e0b">마감</span>
-  <div class="tlc">📋 1분기 예산 집행 점검 (50% 달성 목표)</div>
-</div><div class="tli">
-  <div class="tld">04/30</div>
-  <span class="tlt" style="background:#7c3aed22;color:#7c3aed">계약</span>
-  <div class="tlc">📋 신규 발주 5건 계약 완료 (DRT, 메타버스 등)</div>
-</div><div class="tli">
-  <div class="tld">07/31</div>
-  <span class="tlt" style="background:#22c55e22;color:#22c55e">완료</span>
-  <div class="tlc">📋 서비스 플랫폼 전체 개발 완료 (NOP·ECC·ACP·BIS·OIM)</div>
-</div><div class="tli">
-  <div class="tld">10/31</div>
-  <span class="tlt" style="background:#22c55e22;color:#22c55e">완료</span>
-  <div class="tlc">📋 통합시험·시범운영·안정화 완료</div>
-</div>
-  </div>
-</div>
-
-<!-- 시스템 바로가기 -->
-<div class="card" style="margin-bottom:18px">
-  <div class="sec-title">🔗 업무 시스템 바로가기 <span class="sec-sub">클릭하여 접속</span></div>
-  <div class="sys-section-label">📋 프로젝트 관리 (Notion)</div>
-  <div class="sys-grid">
-    <a class="sys-card" href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank" style="--sc:#2e80e8">
-      <span class="sys-icon">📌</span>
-      <div class="sys-info">
-        <div class="sys-name">프로젝트 관리</div>
-        <div class="sys-desc">사업 총괄 · 단위사업 현황</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.notion.so/559654aed9404d9f88225ea0adc7d746?v=3aa59e73-6641-4463-b157-d7c06c129bfb" target="_blank" style="--sc:#7c3aed">
-      <span class="sys-icon">📊</span>
-      <div class="sys-info">
-        <div class="sys-name">WBS 관리</div>
-        <div class="sys-desc">187개 작업 · 공정률 추적</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.notion.so/2aa50aa9577d8128b6d4c5c21d845796" target="_blank" style="--sc:#10b981">
-      <span class="sys-icon">💰</span>
-      <div class="sys-info">
-        <div class="sys-name">예산관리 시스템</div>
-        <div class="sys-desc">비목별 · 단위사업별 집행현황</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.notion.so/2b850aa9577d8128ad35d86b79f67d12" target="_blank" style="--sc:#f59e0b">
-      <span class="sys-icon">👥</span>
-      <div class="sys-info">
-        <div class="sys-name">인력 현황 대시보드</div>
-        <div class="sys-desc">54명 · 기관별 투입 현황</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.notion.so/2aa50aa9577d817da233c79ce0c441fe" target="_blank" style="--sc:#06b6d4">
-      <span class="sys-icon">🖥️</span>
-      <div class="sys-info">
-        <div class="sys-name">통합 대시보드</div>
-        <div class="sys-desc">Notion 통합 현황판</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.notion.so/2a750aa9577d8080af05e5f952d1c8b4" target="_blank" style="--sc:#ec4899">
-      <span class="sys-icon">🗺️</span>
-      <div class="sys-info">
-        <div class="sys-name">프로덕트 로드맵</div>
-        <div class="sys-desc">서비스별 개발 로드맵</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-  </div>
-
-  <div class="sys-section-label" style="margin-top:16px">📈 GitHub Pages 대시보드</div>
-  <div class="sys-grid">
-    <a class="sys-card" href="https://leesungho-ai.github.io/Asan-Smartcity-integration-Portal/" target="_blank" style="--sc:#22c55e">
-      <span class="sys-icon">🌐</span>
-      <div class="sys-info">
-        <div class="sys-name">통합 포털 (현재)</div>
-        <div class="sys-desc">본 페이지 · 30분 자동 갱신</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://leesungho-ai.github.io/Asan-Smartcity-WBS/" target="_blank" style="--sc:#7c3aed">
-      <span class="sys-icon">📋</span>
-      <div class="sys-info">
-        <div class="sys-name">WBS 대시보드</div>
-        <div class="sys-desc">Gantt · 공정률 시각화</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank" style="--sc:#10b981">
-      <span class="sys-icon">💳</span>
-      <div class="sys-info">
-        <div class="sys-name">BMS 예산 대시보드</div>
-        <div class="sys-desc">예산집행 · 비목별 분석</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank" style="--sc:#f59e0b">
-      <span class="sys-icon">🏛️</span>
-      <div class="sys-info">
-        <div class="sys-name">자산관리 시스템</div>
-        <div class="sys-desc">사업 자산 · 물품 현황 관리</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank" style="--sc:#ec4899">
-      <span class="sys-icon">👤</span>
-      <div class="sys-info">
-        <div class="sys-name">인력관리 시스템</div>
-        <div class="sys-desc">투입인력 · 기관별 현황</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-  </div>
-
-  <div class="sys-section-label" style="margin-top:16px">🏛️ 정부 업무 시스템</div>
-  <div class="sys-grid">
-    <a class="sys-card" href="https://www.g2b.go.kr" target="_blank" style="--sc:#ef4444">
-      <span class="sys-icon">🛒</span>
-      <div class="sys-info">
-        <div class="sys-name">나라장터</div>
-        <div class="sys-desc">입찰공고 · 계약관리 · 조달</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.gosims.go.kr" target="_blank" style="--sc:#f97316">
-      <span class="sys-icon">💼</span>
-      <div class="sys-info">
-        <div class="sys-name">e나라도움</div>
-        <div class="sys-desc">보조금 집행 · 정산 관리</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.smartcity.go.kr" target="_blank" style="--sc:#2e80e8">
-      <span class="sys-icon">🏙️</span>
-      <div class="sys-info">
-        <div class="sys-name">국토부 스마트시티</div>
-        <div class="sys-desc">사업 정보 · 정책 동향</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://www.asan.go.kr" target="_blank" style="--sc:#06b6d4">
-      <span class="sys-icon">🌿</span>
-      <div class="sys-info">
-        <div class="sys-name">아산시청</div>
-        <div class="sys-desc">발주처 · 스마트도시팀</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-  </div>
-
-  <div class="sys-section-label" style="margin-top:16px">💬 협업 도구</div>
-  <div class="sys-grid">
-    <a class="sys-card" href="https://app.slack.com/client/T070J9TK0MY/C07061F0MFG" target="_blank" style="--sc:#4a154b">
-      <span class="sys-icon">💬</span>
-      <div class="sys-info">
-        <div class="sys-name">Slack #wbs</div>
-        <div class="sys-desc">WBS 파일 공유 · 동기화</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://app.slack.com/client/T070J9TK0MY/C0836U9HVU1" target="_blank" style="--sc:#4a154b">
-      <span class="sys-icon">💬</span>
-      <div class="sys-info">
-        <div class="sys-name">Slack #플랜예산</div>
-        <div class="sys-desc">예산 xlsx · 집행현황 공유</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://docs.google.com/spreadsheets/d/12LVhySV-AkKCOvd2Q2H1qoBclmtpw5894njN_8B2TQI" target="_blank" style="--sc:#34a853">
-      <span class="sys-icon">📗</span>
-      <div class="sys-info">
-        <div class="sys-name">WBS 원본 Sheets</div>
-        <div class="sys-desc">Google Sheets · Notion 동기화</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-    <a class="sys-card" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal" target="_blank" style="--sc:#6e7681">
-      <span class="sys-icon">⚙️</span>
-      <div class="sys-info">
-        <div class="sys-name">GitHub 저장소</div>
-        <div class="sys-desc">포털 소스코드 · Actions 관리</div>
-      </div>
-      <span class="sys-arrow">→</span>
-    </a>
-  </div>
-</div>
-
-<!-- 추진 체계 -->
-<div class="card" style="margin-bottom:18px">
-  <div class="sec-title">👥 사업 추진 체계</div>
-  <div class="org-grid">
-    <div class="org-card" style="background:rgba(46,128,232,.08)">
-      <div style="color:#2e80e8;font-weight:700;margin-bottom:6px">🏛️ 시행기관</div>
-      <div style="font-weight:600">아산시</div>
-      <div style="color:var(--muted);font-size:.69rem">스마트도시팀 박상국 팀장<br>오세현 시장</div>
-    </div>
-    <div class="org-card" style="background:rgba(34,197,94,.08)">
-      <div style="color:#22c55e;font-weight:700;margin-bottom:6px">🏗️ 직접보조사업자</div>
-      <div style="font-weight:600">제일엔지니어링</div>
-      <div style="color:var(--muted);font-size:.69rem">PMO · 이성호 이사<br>임혁 이사 (PMO Lead)</div>
-    </div>
-    <div class="org-card" style="background:rgba(168,85,247,.08)">
-      <div style="color:#a78bfa;font-weight:700;margin-bottom:6px">🎓 간접보조사업자</div>
-      <div style="font-weight:600">호서대학교</div>
-      <div style="color:var(--muted);font-size:.69rem">이노베이션센터 운영<br>KTX캠퍼스 내</div>
-    </div>
-    <div class="org-card" style="background:rgba(6,182,212,.08)">
-      <div style="color:#06b6d4;font-weight:700;margin-bottom:6px">🔬 간접보조사업자</div>
-      <div style="font-weight:600">충남연구원 · KAIST</div>
-      <div style="color:var(--muted);font-size:.69rem">연구·기술지원<br>성과지표 관리</div>
-    </div>
-  </div>
-</div>
-
-</div>
-<footer>
-  아산시 강소형 스마트시티 조성사업 통합 포털 &nbsp;·&nbsp;
-  제일엔지니어링 PMO팀 &nbsp;·&nbsp;
-  데이터 기준: 2026-04-07 09:00 KST &nbsp;·&nbsp;
-  Notion → GitHub Actions 30분 자동 동기화
-</footer>
+<div class="card" style="margin-bottom:18px"><div class="sec-title">👥 사업 추진 체계</div><div class="org-grid">
+<div class="org-card" style="background:rgba(46,128,232,.08)"><div style="color:#2e80e8;font-weight:700;margin-bottom:6px">🏛️ 시행기관</div><div style="font-weight:600">아산시</div><div style="color:var(--muted);font-size:.69rem">스마트도시팀 박상국 팀장<br>오세현 시장</div></div>
+<div class="org-card" style="background:rgba(34,197,94,.08)"><div style="color:#22c55e;font-weight:700;margin-bottom:6px">🏗️ 직접보조사업자</div><div style="font-weight:600">제일엔지니어링</div><div style="color:var(--muted);font-size:.69rem">PMO · 이성호 이사<br>임혁 이사 (PMO Lead)</div></div>
+<div class="org-card" style="background:rgba(168,85,247,.08)"><div style="color:#a78bfa;font-weight:700;margin-bottom:6px">🎓 간접보조사업자</div><div style="font-weight:600">호서대학교</div><div style="color:var(--muted);font-size:.69rem">이노베이션센터 운영<br>KTX캠퍼스 내</div></div>
+<div class="org-card" style="background:rgba(6,182,212,.08)"><div style="color:#06b6d4;font-weight:700;margin-bottom:6px">🔬 간접보조사업자</div><div style="font-weight:600">충남연구원 · KAIST</div><div style="color:var(--muted);font-size:.69rem">연구·기술지원<br>성과지표 관리</div></div>
+</div></div></div>
+<footer>아산시 강소형 스마트시티 조성사업 통합 포털 v4.0 · 제일엔지니어링 PMO팀 · 데이터 기준: 2026-04-07 09:47 KST · 소스: WBS-JSON + BMS + Fallback · 30분 자동 동기화</footer>
 </body></html>
