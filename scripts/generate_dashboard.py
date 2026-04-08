@@ -166,10 +166,10 @@ def parse_bms_projects(bms):
             if num not in units:
                 units[num] = {"budget":0,"exec":0}
             units[num]["budget"] += (it.get("총예산") or 0)/1e8
-            units[num]["exec"] += (it.get("사용금액") or 0)/1e8
+            units[num]["exec"] += (it.get("집행액") or it.get("사용금액합계") or it.get("사용금액") or 0)/1e8
         else:
             common_budget += (it.get("총예산") or 0)/1e8
-            common_exec += (it.get("사용금액") or 0)/1e8
+            common_exec += (it.get("집행액") or it.get("사용금액합계") or it.get("사용금액") or 0)/1e8
 
     projects = []
     for num in sorted(UNIT_DEF.keys()):
