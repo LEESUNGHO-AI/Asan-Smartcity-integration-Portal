@@ -1,12 +1,11 @@
 {
   "meta": {
-    "updated": "2026-04-08 12:40 KST",
+    "updated": "2026-04-08 13:27 KST",
     "sources": {
       "예산": "BMS",
-      "WBS": "WBS-JSON",
-      "단위사업": "Fallback"
+      "WBS": "WBS-JSON"
     },
-    "version": "v4.0"
+    "version": "v4.2"
   },
   "dday": {
     "label": "D-267",
@@ -22,27 +21,27 @@
       "budget": 11.35,
       "executed": 4.15,
       "exec_rate": 36.6,
-      "wbs_rate": 67,
+      "wbs_rate": 0,
       "status": "🔄 진행중",
-      "vendor": "싸인텔레콤",
+      "vendor": "싸인텔레콤 컨소시엄",
       "note": "",
-      "color": "#2e80e8",
       "zone": "공통인프라",
-      "icon": "📡"
+      "icon": "📡",
+      "color": "#2e80e8"
     },
     {
       "num": 2,
       "name": "서비스 인프라 플랫폼",
-      "budget": 45.33,
-      "executed": 0.0,
-      "exec_rate": 0.0,
-      "wbs_rate": 60,
+      "budget": 41.5,
+      "executed": 18.03,
+      "exec_rate": 43.4,
+      "wbs_rate": 0,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술",
+      "vendor": "한국정보기술 컨소시엄",
       "note": "",
-      "color": "#7c3aed",
       "zone": "공통인프라",
-      "icon": "🖥️"
+      "icon": "🖥️",
+      "color": "#7c3aed"
     },
     {
       "num": 3,
@@ -50,27 +49,27 @@
       "budget": 13.0,
       "executed": 11.86,
       "exec_rate": 91.2,
-      "wbs_rate": 100,
+      "wbs_rate": 0,
       "status": "✅ 완료",
       "vendor": "호서대학교",
-      "note": "구축완료",
-      "color": "#22c55e",
+      "note": "",
       "zone": "배방 이노베이션존",
-      "icon": "🏢"
+      "icon": "🏢",
+      "color": "#22c55e"
     },
     {
       "num": 4,
       "name": "디지털 OASIS SPOT",
-      "budget": 35.0,
+      "budget": 42.0,
       "executed": 0.15,
       "exec_rate": 0.4,
-      "wbs_rate": 5,
+      "wbs_rate": 0,
       "status": "🔄 진행중",
       "vendor": "(발주준비중)",
       "note": "",
-      "color": "#f59e0b",
       "zone": "도고 디지털 OASIS존",
-      "icon": "🌿"
+      "icon": "🌿",
+      "color": "#f59e0b"
     },
     {
       "num": 5,
@@ -78,13 +77,13 @@
       "budget": 27.0,
       "executed": 7.09,
       "exec_rate": 26.3,
-      "wbs_rate": 43,
+      "wbs_rate": 0,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술",
+      "vendor": "한국정보기술 컨소시엄",
       "note": "",
-      "color": "#06b6d4",
       "zone": "공통인프라",
-      "icon": "☁️"
+      "icon": "☁️",
+      "color": "#06b6d4"
     },
     {
       "num": 6,
@@ -92,27 +91,27 @@
       "budget": 16.0,
       "executed": 9.29,
       "exec_rate": 58.1,
-      "wbs_rate": 60,
+      "wbs_rate": 0,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술",
+      "vendor": "한국정보기술 컨소시엄",
       "note": "",
-      "color": "#ec4899",
       "zone": "공통인프라",
-      "icon": "🤖"
+      "icon": "🤖",
+      "color": "#ec4899"
     },
     {
       "num": 7,
       "name": "디지털 OASIS 정보관리",
-      "budget": 25.0,
+      "budget": 22.6,
       "executed": 10.93,
-      "exec_rate": 43.7,
-      "wbs_rate": 43,
+      "exec_rate": 48.4,
+      "wbs_rate": 0,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술",
+      "vendor": "한국정보기술 컨소시엄",
       "note": "",
-      "color": "#10b981",
       "zone": "도고 디지털 OASIS존",
-      "icon": "📊"
+      "icon": "📊",
+      "color": "#10b981"
     },
     {
       "num": 8,
@@ -124,23 +123,65 @@
       "status": "⏸️ 미착수",
       "vendor": "(미선정)",
       "note": "",
-      "color": "#f97316",
       "zone": "도고 디지털 OASIS존",
-      "icon": "🚌"
+      "icon": "🚌",
+      "color": "#f97316"
     },
     {
       "num": 9,
       "name": "감리용역 (신설)",
-      "budget": 1.6,
+      "budget": 1.5,
       "executed": 0.0,
       "exec_rate": 0.0,
       "wbs_rate": 0,
-      "status": "🆕 신설",
-      "vendor": "(준비중)",
+      "status": "⏸️ 미착수",
+      "vendor": "(업체선정 준비)",
       "note": "",
-      "color": "#a78bfa",
       "zone": "공통인프라",
-      "icon": "🔍"
+      "icon": "🔍",
+      "color": "#a78bfa"
+    },
+    {
+      "num": 10,
+      "name": "스마트폴&디스플레이",
+      "budget": 6.0,
+      "executed": 0.0,
+      "exec_rate": 0.0,
+      "wbs_rate": 0,
+      "status": "⏸️ 미착수",
+      "vendor": "(발주준비중)",
+      "note": "",
+      "zone": "공통인프라",
+      "icon": "🔔",
+      "color": "#14b8a6"
+    },
+    {
+      "num": 11,
+      "name": "메타버스 플랫폼",
+      "budget": 6.0,
+      "executed": 0.0,
+      "exec_rate": 0.0,
+      "wbs_rate": 0,
+      "status": "⏸️ 미착수",
+      "vendor": "(발주준비중)",
+      "note": "",
+      "zone": "공통인프라",
+      "icon": "🌐",
+      "color": "#8b5cf6"
+    },
+    {
+      "num": 0,
+      "name": "공통경비 (인건비·운영비·여비 등)",
+      "budget": 43.0,
+      "executed": 37.28,
+      "exec_rate": 86.7,
+      "wbs_rate": 0,
+      "status": "🔄 진행중",
+      "vendor": "제일엔지니어링 등",
+      "note": "인건비·운영비·여비·사업비배분",
+      "zone": "공통",
+      "icon": "🏛️",
+      "color": "#64748b"
     }
   ],
   "cats": [
@@ -271,24 +312,24 @@
       "weight": 3
     }
   ],
+  "bms_info": {
+    "total_budget": 240.0,
+    "total_exec": 98.77646192,
+    "total_remain": 141.22353808,
+    "exec_rate": 41.16
+  },
   "issues": [
     {
       "level": "🔴 긴급",
       "c": "#ef4444",
-      "content": "예산 집행률(41.16%)이 기간 소진율(76%) 대비 35%p 부족 — 잔여 141.2억 집중 집행 필요",
+      "content": "예산 집행률(41.2%)이 기간 소진율(76%) 대비 35%p 부족 — 잔여 141.2억 집중 집행 필요",
       "amt": "141.2억"
     },
     {
       "level": "🟠 높음",
       "c": "#f59e0b",
-      "content": "#2 서비스 인프라 플랫폼(45억) 집행률 0.0%",
-      "amt": "45억"
-    },
-    {
-      "level": "🟠 높음",
-      "c": "#f59e0b",
-      "content": "#4 디지털 OASIS SPOT(35억) 집행률 0.4%",
-      "amt": "35억"
+      "content": "#4 디지털 OASIS SPOT(42억) 집행률 0.4%",
+      "amt": "42억"
     },
     {
       "level": "🟠 높음",
