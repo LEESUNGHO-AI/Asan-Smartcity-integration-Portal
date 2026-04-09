@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-04-09 14:15 KST",
+    "updated": "2026-04-09 15:56 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -173,8 +173,8 @@
       "num": 0,
       "name": "공통경비 (인건비·운영비·여비 등)",
       "budget": 43.05,
-      "executed": 36.24,
-      "exec_rate": 84.2,
+      "executed": 37.41,
+      "exec_rate": 86.9,
       "wbs_rate": 0,
       "status": "🔄 진행중",
       "vendor": "제일엔지니어링 등",
@@ -224,10 +224,10 @@
     {
       "name": "유형자산",
       "budget": 6.25,
-      "executed": 0.0,
-      "rate": 0.0,
-      "status": "🔴 미집행",
-      "status_color": "#ef4444",
+      "executed": 0.16,
+      "rate": 2.6,
+      "status": "🟡 주의",
+      "status_color": "#eab308",
       "note": ""
     },
     {
@@ -251,8 +251,8 @@
     {
       "name": "사업비배분",
       "budget": 15.0,
-      "executed": 12.0,
-      "rate": 80.0,
+      "executed": 13.0,
+      "rate": 86.7,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -305,16 +305,16 @@
   ],
   "bms_info": {
     "total_budget": 240.0,
-    "total_exec": 97.74053742,
+    "total_exec": 98.90437246,
     "total_remain": 0.0,
-    "exec_rate": 40.73
+    "exec_rate": 41.21
   },
   "issues": [
     {
       "level": "🔴 긴급",
       "c": "#ef4444",
-      "content": "예산 집행률(40.7%)이 기간 소진율(76%) 대비 36%p 부족 — 잔여 142.3억 집중 집행 필요",
-      "amt": "142.3억"
+      "content": "예산 집행률(41.2%)이 기간 소진율(76%) 대비 35%p 부족 — 잔여 141.1억 집중 집행 필요",
+      "amt": "141.1억"
     },
     {
       "level": "🟠 높음",
