@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-04-09 08:43 KST",
+    "updated": "2026-04-09 09:02 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -8,11 +8,11 @@
     "version": "v4.2"
   },
   "dday": {
-    "label": "D-267",
-    "remain": 267,
-    "elapsed": 859,
+    "label": "D-266",
+    "remain": 266,
+    "elapsed": 860,
     "total": 1126,
-    "pct": 76.3
+    "pct": 76.4
   },
   "projects": [
     {
@@ -196,9 +196,9 @@
     },
     {
       "name": "운영비",
-      "budget": 6.43,
-      "executed": 4.23,
-      "rate": 65.7,
+      "budget": 7.49,
+      "executed": 4.44,
+      "rate": 59.3,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -223,7 +223,7 @@
     },
     {
       "name": "유형자산",
-      "budget": 0.25,
+      "budget": 6.25,
       "executed": 0.0,
       "rate": 0.0,
       "status": "🔴 미집행",
@@ -232,18 +232,18 @@
     },
     {
       "name": "무형자산(SW)",
-      "budget": 70.1,
-      "executed": 28.96,
-      "rate": 41.3,
+      "budget": 90.1,
+      "executed": 38.25,
+      "rate": 42.5,
       "status": "🟡 주의",
       "status_color": "#eab308",
       "note": ""
     },
     {
       "name": "건설비",
-      "budget": 86.35,
-      "executed": 11.39,
-      "rate": 13.2,
+      "budget": 99.35,
+      "executed": 23.25,
+      "rate": 23.4,
       "status": "🟡 주의",
       "status_color": "#eab308",
       "note": ""
@@ -253,15 +253,6 @@
       "budget": 15.0,
       "executed": 12.0,
       "rate": 80.0,
-      "status": "🟢 정상",
-      "status_color": "#22c55e",
-      "note": ""
-    },
-    {
-      "name": "기타",
-      "budget": 40.0,
-      "executed": 21.35,
-      "rate": 53.4,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -340,8 +331,8 @@
     {
       "level": "🟡 주의",
       "c": "#eab308",
-      "content": "사업 종료까지 267일 잔여",
-      "amt": "D-267"
+      "content": "사업 종료까지 266일 잔여",
+      "amt": "D-266"
     }
   ]
 }
