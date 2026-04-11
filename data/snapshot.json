@@ -1,8 +1,8 @@
 {
   "meta": {
-    "updated": "2026-04-11 16:53 KST",
+    "updated": "2026-04-11 17:52 KST",
     "sources": {
-      "예산": "BMS",
+      "예산": "Fallback",
       "WBS": "WBS-JSON"
     },
     "version": "v4.2"
@@ -21,27 +21,27 @@
       "budget": 11.35,
       "executed": 4.15,
       "exec_rate": 36.6,
-      "wbs_rate": 0,
+      "wbs_rate": 67,
       "status": "🔄 진행중",
-      "vendor": "싸인텔레콤 컨소시엄",
+      "vendor": "싸인텔레콤",
       "note": "",
+      "color": "#2e80e8",
       "zone": "공통인프라",
-      "icon": "📡",
-      "color": "#2e80e8"
+      "icon": "📡"
     },
     {
       "num": 2,
       "name": "서비스 인프라 플랫폼",
-      "budget": 41.5,
+      "budget": 45.33,
       "executed": 18.03,
-      "exec_rate": 43.4,
-      "wbs_rate": 0,
+      "exec_rate": 39.8,
+      "wbs_rate": 60,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
+      "vendor": "한국정보기술",
       "note": "",
+      "color": "#7c3aed",
       "zone": "공통인프라",
-      "icon": "🖥️",
-      "color": "#7c3aed"
+      "icon": "🖥️"
     },
     {
       "num": 3,
@@ -49,13 +49,13 @@
       "budget": 13.0,
       "executed": 11.86,
       "exec_rate": 91.2,
-      "wbs_rate": 0,
+      "wbs_rate": 100,
       "status": "✅ 완료",
       "vendor": "호서대학교",
-      "note": "",
+      "note": "구축완료",
+      "color": "#22c55e",
       "zone": "배방 이노베이션존",
-      "icon": "🏢",
-      "color": "#22c55e"
+      "icon": "🏢"
     },
     {
       "num": 4,
@@ -63,13 +63,13 @@
       "budget": 42.0,
       "executed": 0.15,
       "exec_rate": 0.4,
-      "wbs_rate": 0,
+      "wbs_rate": 5,
       "status": "🔄 진행중",
       "vendor": "(발주준비중)",
       "note": "",
+      "color": "#f59e0b",
       "zone": "도고 디지털 OASIS존",
-      "icon": "🌿",
-      "color": "#f59e0b"
+      "icon": "🌿"
     },
     {
       "num": 5,
@@ -77,13 +77,13 @@
       "budget": 27.0,
       "executed": 7.09,
       "exec_rate": 26.3,
-      "wbs_rate": 0,
+      "wbs_rate": 43,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
+      "vendor": "한국정보기술",
       "note": "",
+      "color": "#06b6d4",
       "zone": "공통인프라",
-      "icon": "☁️",
-      "color": "#06b6d4"
+      "icon": "☁️"
     },
     {
       "num": 6,
@@ -91,13 +91,13 @@
       "budget": 16.0,
       "executed": 9.29,
       "exec_rate": 58.1,
-      "wbs_rate": 0,
+      "wbs_rate": 60,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
+      "vendor": "한국정보기술",
       "note": "",
+      "color": "#ec4899",
       "zone": "공통인프라",
-      "icon": "🤖",
-      "color": "#ec4899"
+      "icon": "🤖"
     },
     {
       "num": 7,
@@ -105,13 +105,13 @@
       "budget": 22.6,
       "executed": 10.93,
       "exec_rate": 48.4,
-      "wbs_rate": 0,
+      "wbs_rate": 43,
       "status": "🔄 진행중",
-      "vendor": "한국정보기술 컨소시엄",
+      "vendor": "한국정보기술",
       "note": "",
+      "color": "#10b981",
       "zone": "도고 디지털 OASIS존",
-      "icon": "📊",
-      "color": "#10b981"
+      "icon": "📊"
     },
     {
       "num": 8,
@@ -123,9 +123,9 @@
       "status": "⏸️ 미착수",
       "vendor": "(미선정)",
       "note": "",
+      "color": "#f97316",
       "zone": "도고 디지털 OASIS존",
-      "icon": "🚌",
-      "color": "#f97316"
+      "icon": "🚌"
     },
     {
       "num": 9,
@@ -134,61 +134,19 @@
       "executed": 0.0,
       "exec_rate": 0.0,
       "wbs_rate": 0,
-      "status": "⏸️ 미착수",
-      "vendor": "(업체선정 준비)",
+      "status": "🆕 신설",
+      "vendor": "(준비중)",
       "note": "",
+      "color": "#a78bfa",
       "zone": "공통인프라",
-      "icon": "🔍",
-      "color": "#a78bfa"
-    },
-    {
-      "num": 10,
-      "name": "스마트폴&디스플레이",
-      "budget": 6.0,
-      "executed": 0.0,
-      "exec_rate": 0.0,
-      "wbs_rate": 0,
-      "status": "⏸️ 미착수",
-      "vendor": "(발주준비중)",
-      "note": "",
-      "zone": "공통인프라",
-      "icon": "🔔",
-      "color": "#14b8a6"
-    },
-    {
-      "num": 11,
-      "name": "메타버스 플랫폼",
-      "budget": 6.0,
-      "executed": 0.0,
-      "exec_rate": 0.0,
-      "wbs_rate": 0,
-      "status": "⏸️ 미착수",
-      "vendor": "(발주준비중)",
-      "note": "",
-      "zone": "공통인프라",
-      "icon": "🌐",
-      "color": "#8b5cf6"
-    },
-    {
-      "num": 0,
-      "name": "공통경비 (인건비·운영비·여비 등)",
-      "budget": 43.05,
-      "executed": 37.41,
-      "exec_rate": 86.9,
-      "wbs_rate": 0,
-      "status": "🔄 진행중",
-      "vendor": "제일엔지니어링 등",
-      "note": "인건비·운영비·여비·사업비배분",
-      "zone": "공통",
-      "icon": "🏛️",
-      "color": "#64748b"
+      "icon": "🔍"
     }
   ],
   "cats": [
     {
       "name": "인건비",
-      "budget": 19.02,
-      "executed": 19.02,
+      "budget": 19.0,
+      "executed": 19.0,
       "rate": 100.0,
       "status": "🟢 정상",
       "status_color": "#22c55e",
@@ -196,9 +154,9 @@
     },
     {
       "name": "운영비",
-      "budget": 7.49,
-      "executed": 4.44,
-      "rate": 59.3,
+      "budget": 6.4,
+      "executed": 4.2,
+      "rate": 65.7,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -206,8 +164,8 @@
     {
       "name": "여비",
       "budget": 1.3,
-      "executed": 0.79,
-      "rate": 60.9,
+      "executed": 0.8,
+      "rate": 63.7,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -223,27 +181,27 @@
     },
     {
       "name": "유형자산",
-      "budget": 6.25,
-      "executed": 0.16,
-      "rate": 2.6,
-      "status": "🟡 주의",
-      "status_color": "#eab308",
+      "budget": 0.2,
+      "executed": 0.0,
+      "rate": 0.0,
+      "status": "🔴 미집행",
+      "status_color": "#ef4444",
       "note": ""
     },
     {
       "name": "무형자산(SW)",
-      "budget": 90.1,
-      "executed": 38.25,
-      "rate": 42.5,
+      "budget": 70.1,
+      "executed": 29.0,
+      "rate": 41.3,
       "status": "🟡 주의",
       "status_color": "#eab308",
       "note": ""
     },
     {
       "name": "건설비",
-      "budget": 99.35,
-      "executed": 23.25,
-      "rate": 23.4,
+      "budget": 86.4,
+      "executed": 11.4,
+      "rate": 13.2,
       "status": "🟡 주의",
       "status_color": "#eab308",
       "note": ""
@@ -304,17 +262,17 @@
     }
   ],
   "bms_info": {
-    "total_budget": 240.0,
-    "total_exec": 98.90437246,
-    "total_remain": 0.0,
-    "exec_rate": 41.21
+    "total_budget": 240,
+    "total_exec": 98.8,
+    "total_remain": 141.2,
+    "exec_rate": 41.16
   },
   "issues": [
     {
       "level": "🔴 긴급",
       "c": "#ef4444",
-      "content": "예산 집행률(41.2%)이 기간 소진율(77%) 대비 35%p 부족 — 잔여 141.1억 집중 집행 필요",
-      "amt": "141.1억"
+      "content": "예산 집행률(41.2%)이 기간 소진율(77%) 대비 35%p 부족 — 잔여 141.2억 집중 집행 필요",
+      "amt": "141.2억"
     },
     {
       "level": "🟠 높음",
