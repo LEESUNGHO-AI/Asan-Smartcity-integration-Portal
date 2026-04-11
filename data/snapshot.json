@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-04-11 09:00 KST",
+    "updated": "2026-04-11 12:25 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -279,27 +279,27 @@
       "weight": 10
     },
     {
-      "name": "[4] 서비스 구축(앱/웹/플랫폼) 구축",
-      "rate": 40,
-      "planned": 100,
-      "weight": 63
-    },
-    {
       "name": "[9] 구축 완료 후 운영(3년)",
       "rate": 40,
       "planned": 0,
       "weight": 2.5
     },
     {
-      "name": "[5] 통합시험·시범운영·안정화",
-      "rate": 0,
+      "name": "[4] 서비스 구축(앱/웹/플랫폼) 구축",
+      "rate": 40,
       "planned": 100,
-      "weight": 3
+      "weight": 63
     },
     {
       "name": "[6] 준공·검수·인수인계·이관",
       "rate": 0,
       "planned": 0,
+      "weight": 3
+    },
+    {
+      "name": "[5] 통합시험·시범운영·안정화",
+      "rate": 0,
+      "planned": 100,
       "weight": 3
     }
   ],
