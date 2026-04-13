@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-04-13 08:40 KST",
+    "updated": "2026-04-13 09:07 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -8,11 +8,11 @@
     "version": "v4.2"
   },
   "dday": {
-    "label": "D-263",
-    "remain": 263,
-    "elapsed": 863,
+    "label": "D-262",
+    "remain": 262,
+    "elapsed": 864,
     "total": 1126,
-    "pct": 76.6
+    "pct": 76.7
   },
   "projects": [
     {
@@ -31,16 +31,16 @@
     },
     {
       "num": 2,
-      "name": "서비스 인프라 플랫폼",
-      "budget": 41.5,
-      "executed": 18.03,
-      "exec_rate": 43.4,
+      "name": "모바일 전자시민증(ECC)",
+      "budget": 12.0,
+      "executed": 5.46,
+      "exec_rate": 45.5,
       "wbs_rate": 0,
       "status": "🔄 진행중",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
-      "icon": "🖥️",
+      "icon": "📱",
       "color": "#7c3aed"
     },
     {
@@ -168,6 +168,48 @@
       "zone": "공통인프라",
       "icon": "🌐",
       "color": "#8b5cf6"
+    },
+    {
+      "num": 12,
+      "name": "디지털 노마드(NOP)",
+      "budget": 20.0,
+      "executed": 8.2,
+      "exec_rate": 41.0,
+      "wbs_rate": 0,
+      "status": "🔄 진행중",
+      "vendor": "한국정보기술 컨소시엄",
+      "note": "",
+      "zone": "도고 디지털 OASIS존",
+      "icon": "💻",
+      "color": "#0ea5e9"
+    },
+    {
+      "num": 13,
+      "name": "AI 융복합 서비스",
+      "budget": 7.5,
+      "executed": 4.37,
+      "exec_rate": 58.3,
+      "wbs_rate": 0,
+      "status": "🔄 진행중",
+      "vendor": "한국정보기술 컨소시엄",
+      "note": "",
+      "zone": "공통인프라",
+      "icon": "🧠",
+      "color": "#d946ef"
+    },
+    {
+      "num": 14,
+      "name": "디지털링크 플랫폼",
+      "budget": 2.0,
+      "executed": 0.0,
+      "exec_rate": 0.0,
+      "wbs_rate": 0,
+      "status": "⏸️ 미착수",
+      "vendor": "한국정보기술 컨소시엄",
+      "note": "",
+      "zone": "공통인프라",
+      "icon": "🔗",
+      "color": "#84cc16"
     },
     {
       "num": 0,
@@ -331,8 +373,8 @@
     {
       "level": "🟡 주의",
       "c": "#eab308",
-      "content": "사업 종료까지 263일 잔여",
-      "amt": "D-263"
+      "content": "사업 종료까지 262일 잔여",
+      "amt": "D-262"
     }
   ]
 }
