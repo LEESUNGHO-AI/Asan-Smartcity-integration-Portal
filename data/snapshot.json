@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-04-15 08:49 KST",
+    "updated": "2026-04-15 12:17 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -8,11 +8,11 @@
     "version": "v4.2"
   },
   "dday": {
-    "label": "D-261",
-    "remain": 261,
-    "elapsed": 865,
+    "label": "D-260",
+    "remain": 260,
+    "elapsed": 866,
     "total": 1126,
-    "pct": 76.8
+    "pct": 76.9
   },
   "projects": [
     {
@@ -321,27 +321,27 @@
       "weight": 10
     },
     {
-      "name": "[9] 구축 완료 후 운영(3년)",
-      "rate": 40,
-      "planned": 0,
-      "weight": 2.5
-    },
-    {
       "name": "[4] 서비스 구축(앱/웹/플랫폼) 구축",
       "rate": 40,
       "planned": 100,
       "weight": 63
     },
     {
-      "name": "[6] 준공·검수·인수인계·이관",
-      "rate": 0,
+      "name": "[9] 구축 완료 후 운영(3년)",
+      "rate": 40,
       "planned": 0,
-      "weight": 3
+      "weight": 2.5
     },
     {
       "name": "[5] 통합시험·시범운영·안정화",
       "rate": 0,
       "planned": 100,
+      "weight": 3
+    },
+    {
+      "name": "[6] 준공·검수·인수인계·이관",
+      "rate": 0,
+      "planned": 0,
       "weight": 3
     }
   ],
@@ -373,8 +373,8 @@
     {
       "level": "🟡 주의",
       "c": "#eab308",
-      "content": "사업 종료까지 261일 잔여",
-      "amt": "D-261"
+      "content": "사업 종료까지 260일 잔여",
+      "amt": "D-260"
     }
   ]
 }
