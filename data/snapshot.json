@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-05-05 08:58 KST",
+    "updated": "2026-05-05 12:41 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -8,11 +8,11 @@
     "version": "v4.2"
   },
   "dday": {
-    "label": "D-241",
-    "remain": 241,
-    "elapsed": 885,
+    "label": "D-240",
+    "remain": 240,
+    "elapsed": 886,
     "total": 1126,
-    "pct": 78.6
+    "pct": 78.7
   },
   "projects": [
     {
@@ -333,15 +333,15 @@
       "weight": 2.5
     },
     {
-      "name": "[6] 준공·검수·인수인계·이관",
-      "rate": 0,
-      "planned": 0,
-      "weight": 3
-    },
-    {
       "name": "[5] 통합시험·시범운영·안정화",
       "rate": 0,
       "planned": 100,
+      "weight": 3
+    },
+    {
+      "name": "[6] 준공·검수·인수인계·이관",
+      "rate": 0,
+      "planned": 0,
       "weight": 3
     }
   ],
@@ -373,8 +373,8 @@
     {
       "level": "🟡 주의",
       "c": "#eab308",
-      "content": "사업 종료까지 241일 잔여",
-      "amt": "D-241"
+      "content": "사업 종료까지 240일 잔여",
+      "amt": "D-240"
     }
   ]
 }
