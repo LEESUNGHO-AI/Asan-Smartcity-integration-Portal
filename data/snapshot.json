@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-05-11 10:25 KST",
+    "updated": "2026-05-11 14:37 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -300,7 +300,7 @@
       "note": ""
     }
   ],
-  "wbs_overall": 57.6,
+  "wbs_overall": 58.7,
   "wbs_services": [
     {
       "name": "[2] 실시설계",
@@ -322,7 +322,7 @@
     },
     {
       "name": "[4] 서비스 구축(앱/웹/플랫폼) 구축",
-      "rate": 49,
+      "rate": 50,
       "planned": 100,
       "weight": 63
     },
