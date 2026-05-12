@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-05-12 09:06 KST",
+    "updated": "2026-05-12 13:23 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -333,15 +333,15 @@
       "weight": 2.5
     },
     {
-      "name": "[5] 통합시험·시범운영·안정화",
-      "rate": 0,
-      "planned": 100,
-      "weight": 3
-    },
-    {
       "name": "[6] 준공·검수·인수인계·이관",
       "rate": 0,
       "planned": 0,
+      "weight": 3
+    },
+    {
+      "name": "[5] 통합시험·시범운영·안정화",
+      "rate": 0,
+      "planned": 100,
       "weight": 3
     }
   ],
