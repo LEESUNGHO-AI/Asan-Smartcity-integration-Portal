@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-05-14 17:10 KST",
+    "updated": "2026-05-14 19:57 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -300,11 +300,11 @@
       "note": ""
     }
   ],
-  "wbs_overall": 58.7,
+  "wbs_overall": 58.4,
   "wbs_services": [
     {
       "name": "[2] 실시설계",
-      "rate": 98,
+      "rate": 99,
       "planned": 100,
       "weight": 10
     },
@@ -316,18 +316,18 @@
     },
     {
       "name": "[1] 프로젝트 관리/거버넌스",
-      "rate": 75,
-      "planned": 100,
+      "rate": 80,
+      "planned": 80,
       "weight": 10
     },
     {
       "name": "[4] 서비스 구축(앱/웹/플랫폼) 구축",
-      "rate": 50,
-      "planned": 100,
+      "rate": 49,
+      "planned": 57,
       "weight": 63
     },
     {
-      "name": "[9] 구축 완료 후 운영(3년)",
+      "name": "[7] 구축 완료 후 운영(3년)",
       "rate": 40,
       "planned": 0,
       "weight": 2.5
@@ -341,7 +341,7 @@
     {
       "name": "[5] 통합시험·시범운영·안정화",
       "rate": 0,
-      "planned": 100,
+      "planned": 0,
       "weight": 3
     }
   ],
