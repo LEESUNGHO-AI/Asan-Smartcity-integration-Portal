@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-05-19 10:30 KST",
+    "updated": "2026-05-19 14:46 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -18,8 +18,8 @@
     {
       "num": 1,
       "name": "유무선 네트워크 구축",
-      "budget": 11.35,
-      "executed": 4.15,
+      "budget": 7.35,
+      "executed": 2.69,
       "exec_rate": 36.6,
       "wbs_rate": 0,
       "status": "🔄 진행중",
@@ -46,11 +46,11 @@
     {
       "num": 3,
       "name": "이노베이션 센터 구축",
-      "budget": 13.0,
-      "executed": 11.86,
-      "exec_rate": 91.2,
+      "budget": 0,
+      "executed": 0,
+      "exec_rate": 0,
       "wbs_rate": 0,
-      "status": "✅ 완료",
+      "status": "🆕 신설",
       "vendor": "호서대학교",
       "note": "",
       "zone": "배방 이노베이션존",
@@ -200,11 +200,11 @@
     {
       "num": 14,
       "name": "디지털링크 플랫폼",
-      "budget": 2.0,
-      "executed": 0.0,
-      "exec_rate": 0.0,
+      "budget": 0,
+      "executed": 0,
+      "exec_rate": 0,
       "wbs_rate": 0,
-      "status": "⏸️ 미착수",
+      "status": "🆕 신설",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
@@ -214,9 +214,9 @@
     {
       "num": 0,
       "name": "공통경비 (인건비·운영비·여비 등)",
-      "budget": 43.05,
-      "executed": 37.41,
-      "exec_rate": 86.9,
+      "budget": 62.05,
+      "executed": 52.81,
+      "exec_rate": 85.1,
       "wbs_rate": 0,
       "status": "🔄 진행중",
       "vendor": "제일엔지니어링 등",
@@ -239,8 +239,8 @@
     {
       "name": "운영비",
       "budget": 7.49,
-      "executed": 4.44,
-      "rate": 59.3,
+      "executed": 4.48,
+      "rate": 59.8,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -248,8 +248,8 @@
     {
       "name": "여비",
       "budget": 1.3,
-      "executed": 0.79,
-      "rate": 60.9,
+      "executed": 0.85,
+      "rate": 65.2,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -284,7 +284,7 @@
     {
       "name": "건설비",
       "budget": 99.35,
-      "executed": 23.25,
+      "executed": 23.23,
       "rate": 23.4,
       "status": "🟡 주의",
       "status_color": "#eab308",
@@ -293,8 +293,8 @@
     {
       "name": "사업비배분",
       "budget": 15.0,
-      "executed": 13.0,
-      "rate": 86.7,
+      "executed": 15.0,
+      "rate": 100.0,
       "status": "🟢 정상",
       "status_color": "#22c55e",
       "note": ""
@@ -347,16 +347,16 @@
   ],
   "bms_info": {
     "total_budget": 240.0,
-    "total_exec": 98.90437246,
+    "total_exec": 100.98348317,
     "total_remain": 0.0,
-    "exec_rate": 41.21
+    "exec_rate": 42.08
   },
   "issues": [
     {
       "level": "🔴 긴급",
       "c": "#ef4444",
-      "content": "예산 집행률(41.2%)이 기간 소진율(80%) 대비 39%p 부족 — 잔여 141.1억 집중 집행 필요",
-      "amt": "141.1억"
+      "content": "예산 집행률(42.1%)이 기간 소진율(80%) 대비 38%p 부족 — 잔여 139.0억 집중 집행 필요",
+      "amt": "139.0억"
     },
     {
       "level": "🟠 높음",
