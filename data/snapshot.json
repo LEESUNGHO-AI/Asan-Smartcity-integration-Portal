@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-05-26 14:43 KST",
+    "updated": "2026-05-26 19:05 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -300,7 +300,7 @@
       "note": ""
     }
   ],
-  "wbs_overall": 58.4,
+  "wbs_overall": 59.2,
   "wbs_services": [
     {
       "name": "[2] 실시설계",
@@ -310,7 +310,7 @@
     },
     {
       "name": "[3] 나라장터 발주 지원",
-      "rate": 89,
+      "rate": 97,
       "planned": 100,
       "weight": 10
     },
