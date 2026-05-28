@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-05-28 07:57 KST",
+    "updated": "2026-05-28 09:06 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -8,11 +8,11 @@
     "version": "v4.2"
   },
   "dday": {
-    "label": "D-218",
-    "remain": 218,
-    "elapsed": 908,
+    "label": "D-217",
+    "remain": 217,
+    "elapsed": 909,
     "total": 1126,
-    "pct": 80.6
+    "pct": 80.7
   },
   "projects": [
     {
@@ -373,8 +373,8 @@
     {
       "level": "🟡 주의",
       "c": "#eab308",
-      "content": "사업 종료까지 218일 잔여",
-      "amt": "D-218"
+      "content": "사업 종료까지 217일 잔여",
+      "amt": "D-217"
     }
   ]
 }
