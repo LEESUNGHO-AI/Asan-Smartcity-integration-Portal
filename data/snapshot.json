@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-06-22 17:39 KST",
+    "updated": "2026-06-22 23:44 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -303,16 +303,28 @@
   "wbs_overall": 62.5,
   "wbs_services": [
     {
-      "name": "4",
-      "rate": 63,
-      "planned": 7,
-      "weight": 54.1
+      "name": "[2] 실시설계",
+      "rate": 99,
+      "planned": 100,
+      "weight": 10
     },
     {
-      "name": "3.2.4.7",
+      "name": "[3] 나라장터 발주 지원",
+      "rate": 97,
+      "planned": 100,
+      "weight": 10
+    },
+    {
+      "name": "[1] 프로젝트 관리/거버넌스",
+      "rate": 81,
+      "planned": 81,
+      "weight": 10
+    },
+    {
+      "name": "[4] 서비스 구축(앱/웹/플랫폼) 구축",
       "rate": 54,
-      "planned": 46,
-      "weight": 100
+      "planned": 75,
+      "weight": 63
     },
     {
       "name": "[7] 구축 완료 후 운영(3년)",
