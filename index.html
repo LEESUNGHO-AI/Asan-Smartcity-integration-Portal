@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>아산시 강소형 스마트시티 통합 포털</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+<style>
+:root{--bg:#0f1623;--card:#1a2540;--bdr:#2a3a5a;--txt:#e2e8f0;--muted:#8fa3c0;--acc:#2e80e8;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;--pri:#1a3a6b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard','Malgun Gothic',sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
+header{background:linear-gradient(135deg,var(--pri),#0d2444);padding:14px 26px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--acc);flex-wrap:wrap;gap:8px}
+.ht{font-size:1.25rem;font-weight:700}.hs{font-size:.74rem;color:var(--muted);margin-top:3px}
+.hr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.badge{background:rgba(46,128,232,.18);border:1px solid var(--acc);border-radius:20px;padding:3px 12px;font-size:.71rem;color:var(--acc)}
+.upd{font-size:.70rem;color:var(--muted)}
+.btn{background:rgba(46,128,232,.18);border:1px solid var(--acc);border-radius:8px;padding:5px 12px;font-size:.72rem;color:#cfe0ff;cursor:pointer}
+.btn:hover{background:rgba(46,128,232,.32)}
+.wrap{max-width:1440px;margin:0 auto;padding:18px 14px}
+.srcbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.spill{font-size:.68rem;border-radius:10px;padding:3px 10px;display:flex;align-items:center;gap:5px;border:1px solid var(--bdr);background:rgba(255,255,255,.03)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.dot.ok{background:var(--ok)}.dot.err{background:var(--bad)}.dot.load{background:var(--warn);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:16px}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.g2{grid-template-columns:1fr}}
+@media(max-width:580px){.g4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:17px}
+.kl{font-size:.70rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.kv{font-size:1.9rem;font-weight:700;margin-bottom:3px}
+.ks{font-size:.72rem;color:var(--muted);line-height:1.5}
+.kb{height:5px;background:var(--bdr);border-radius:3px;overflow:hidden;margin-top:9px}
+.kb div{height:100%;border-radius:3px}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:10px}
+@media(max-width:1100px){.proj-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.proj-grid{grid-template-columns:1fr}}
+.bi{margin-bottom:11px}
+.bih{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;gap:8px}
+.bin{font-size:.80rem;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bir{font-size:.78rem;font-weight:700;white-space:nowrap}
+.bb{height:7px;background:var(--bdr);border-radius:4px;overflow:hidden}
+.bd{font-size:.67rem;color:var(--muted);margin-top:3px;line-height:1.4}
+.irow{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.03);margin-bottom:6px}
+.ilv{font-size:.71rem;font-weight:700;white-space:nowrap;width:62px;flex-shrink:0}
+.ict{flex:1;font-size:.77rem;line-height:1.4}.iamt{font-size:.74rem;font-weight:700;white-space:nowrap}
+.sec-title{font-size:.88rem;font-weight:700;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:6px;padding-bottom:8px;border-bottom:1px solid var(--bdr)}
+.sec-sub{font-size:.68rem;color:var(--muted);margin-left:auto;font-weight:400}
+.wbs-summary-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px;padding:10px;background:rgba(255,255,255,.03);border-radius:8px}
+.wbs-stat{text-align:center}.wbs-stat-val{font-size:1.1rem;font-weight:700}.wbs-stat-lbl{font-size:.65rem;color:var(--muted);margin-top:2px}
+@media(max-width:600px){.wbs-summary-grid{grid-template-columns:repeat(3,1fr)}}
+.sys-section-label{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:16px 0 9px;padding-left:2px}
+.sys-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+@media(max-width:1100px){.sys-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:760px){.sys-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.sys-grid{grid-template-columns:1fr}}
+.sys-card{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-left:3px solid var(--sc,#2e80e8);border-radius:9px;padding:11px;text-decoration:none;color:var(--txt)}
+.sys-card:hover{background:rgba(255,255,255,.06)}
+.sys-icon{font-size:1.1rem}.sys-info{flex:1}.sys-name{font-size:.80rem;font-weight:600}.sys-desc{font-size:.66rem;color:var(--muted)}.sys-arrow{color:var(--muted)}
+.org-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:.78rem}
+@media(max-width:760px){.org-grid{grid-template-columns:repeat(2,1fr)}}
+.org-card{border:1px solid var(--bdr);border-radius:8px;padding:12px}
+.dtab{width:100%;border-collapse:collapse;font-size:.76rem}
+.dtab th,.dtab td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--bdr)}
+.dtab th:first-child,.dtab td:first-child{text-align:left}
+.dtab th{color:var(--muted);font-weight:600;font-size:.70rem}
+.note{font-size:.68rem;color:var(--muted);background:rgba(245,158,11,.08);border:1px solid #f59e0b33;border-radius:8px;padding:8px 11px;margin-bottom:12px;line-height:1.5}
+footer{text-align:center;padding:16px;color:var(--muted);font-size:.70rem;border-top:1px solid var(--bdr);margin-top:4px}
+.skel{color:var(--muted)}
+.pcard{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:15px;display:flex;flex-direction:column;gap:7px}
+.pcard-h{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.pcard-num{font-size:.78rem;font-weight:700}
+.pzone{padding:2px 8px;border-radius:8px;font-size:.62rem;font-weight:600;white-space:nowrap}
+.badge-oasis{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid #f59e0b44}
+.badge-inno{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid #22c55e44}
+.badge-common{background:rgba(46,128,232,.12);color:#7ea8d4;border:1px solid #2e80e833}
+.sbadge{padding:2px 8px;border-radius:10px;font-size:.66rem;font-weight:600;white-space:nowrap}
+.s-done{background:rgba(34,197,94,.15);color:#22c55e}.s-prog{background:rgba(46,128,232,.15);color:#2e80e8}
+.s-wait{background:rgba(245,158,11,.15);color:#f59e0b}.s-new{background:rgba(168,85,247,.15);color:#c084fc}
+.pcard-name{font-size:.92rem;font-weight:700;line-height:1.3}
+.pcard-vendor{font-size:.70rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pcard-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:4px 0}
+.pm-block{background:rgba(255,255,255,.04);border-radius:7px;padding:7px 8px;text-align:center}
+.pm-label{font-size:.62rem;color:var(--muted);margin-bottom:2px}
+.pm-val{font-size:.95rem;font-weight:700}.pm-unit{font-size:.64rem;color:var(--muted);font-weight:400}
+.pbar-row{display:grid;grid-template-columns:52px 1fr 42px;align-items:center;gap:7px}
+.pbar-lbl{font-size:.66rem;color:var(--muted);text-align:right}
+.pbar-pct{font-size:.72rem;font-weight:700;text-align:right}
+.common-row{background:rgba(100,116,139,.08);border:1px solid var(--bdr);border-radius:10px;padding:12px 16px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+</style></head>
+<body>
+<header>
+  <div><div class="ht">🏙️ 아산시 강소형 스마트시티 통합 포털</div>
+  <div class="hs">디지털 OASIS · 제일엔지니어링 PMO · 단위 시스템 실시간 연동</div></div>
+  <div class="hr">
+    <span class="badge" id="autoBadge">⏱ 자동 갱신 3분</span>
+    <span class="upd" id="hdrUpd">데이터 불러오는 중…</span>
+    <button class="btn" id="refreshBtn">🔄 새로고침</button>
+  </div>
+</header>
+<div class="wrap">
+  <div class="srcbar" id="srcbar">
+    <span class="spill"><span class="dot load"></span>BMS 예산</span>
+    <span class="spill"><span class="dot load"></span>WBS 공정</span>
+    <span class="spill"><span class="dot load"></span>자산</span>
+    <span class="spill"><span class="dot load"></span>인력</span>
+  </div>
+
+  <div class="g4" id="kpi"></div>
+
+  <div class="card" style="margin-bottom:18px" id="projectCard"></div>
+
+  <div class="g2">
+    <div class="card" id="sourceCard"></div>
+    <div class="card" id="assetCard"></div>
+  </div>
+
+  <div class="g2">
+    <div class="card" id="bimokCard"></div>
+    <div class="card" id="wbsCard"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px" id="hrCard"></div>
+
+  <div class="card" style="margin-bottom:18px" id="riskCard"></div>
+
+  <div class="card" style="margin-bottom:18px">
+    <div class="sec-title">🔗 업무 시스템 바로가기</div>
+    <div class="sys-section-label">📈 단위 GitHub Pages 대시보드 (실시간 소스)</div>
+    <div class="sys-grid">
+      <a class="sys-card" href="../Asan-Smartcity-WBS/" target="_blank" style="--sc:#7c3aed"><span class="sys-icon">📋</span><div class="sys-info"><div class="sys-name">WBS 대시보드</div><div class="sys-desc">Gantt · 공정률</div></div><span class="sys-arrow">→</span></a>
+      <a class="sys-card" href="../Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank" style="--sc:#10b981"><span class="sys-icon">💳</span><div class="sys-info"><div class="sys-name">BMS 예산</div><div class="sys-desc">집행 · 비목별</div></div><span class="sys-arrow">→</span></a>
+      <a class="sys-card" href="../Asan-asset-management/" target="_blank" style="--sc:#f59e0b"><span class="sys-icon">🏛️</span><div class="sys-info"><div class="sys-name">자산관리</div><div class="sys-desc">물품 · 자산</div></div><span class="sys-arrow">→</span></a>
+      <a class="sys-card" href="../Asan-HR-Management-Portal/" target="_blank" style="--sc:#ec4899"><span class="sys-icon">👤</span><div class="sys-info"><div class="sys-name">인력관리</div><div class="sys-desc">기관별 투입</div></div><span class="sys-arrow">→</span></a>
+      <a class="sys-card" href="../Asan-Report-Generator/" target="_blank" style="--sc:#00d4aa"><span class="sys-icon">📄</span><div class="sys-info"><div class="sys-name">보고서 생성</div><div class="sys-desc">주·월·분기·연간</div></div><span class="sys-arrow">→</span></a>
+    </div>
+    <div class="sys-section-label">🏛️ 정부 · 💬 협업</div>
+    <div class="sys-grid">
+      <a class="sys-card" href="https://www.g2b.go.kr" target="_blank" style="--sc:#ef4444"><span class="sys-icon">🛒</span><div class="sys-info"><div class="sys-name">나라장터</div><div class="sys-desc">입찰 · 계약</div></div><span class="sys-arrow">→</span></a>
+      <a class="sys-card" href="https://www.gosims.go.kr" target="_blank" style="--sc:#f97316"><span class="sys-icon">💼</span><div class="sys-info"><div class="sys-name">e나라도움</div><div class="sys-desc">보조금 정산</div></div><span class="sys-arrow">→</span></a>
+      <a class="sys-card" href="https://app.slack.com/client/T070J9TK0MY/C07061F0MFG" target="_blank" style="--sc:#4a154b"><span class="sys-icon">💬</span><div class="sys-info"><div class="sys-name">Slack #wbs</div><div class="sys-desc">파일 공유</div></div><span class="sys-arrow">→</span></a>
+      <a class="sys-card" href="https://github.com/LEESUNGHO-AI/Asan-Smartcity-integration-Portal" target="_blank" style="--sc:#6e7681"><span class="sys-icon">⚙️</span><div class="sys-info"><div class="sys-name">GitHub 저장소</div><div class="sys-desc">소스 · Actions</div></div><span class="sys-arrow">→</span></a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:18px"><div class="sec-title">👥 사업 추진 체계</div><div class="org-grid">
+    <div class="org-card" style="background:rgba(46,128,232,.08)"><div style="color:#2e80e8;font-weight:700;margin-bottom:6px">🏛️ 시행기관</div><div style="font-weight:600">아산시</div><div style="color:var(--muted);font-size:.69rem">스마트도시팀 박상국 팀장</div></div>
+    <div class="org-card" style="background:rgba(34,197,94,.08)"><div style="color:#22c55e;font-weight:700;margin-bottom:6px">🏗️ 직접보조사업자</div><div style="font-weight:600">제일엔지니어링</div><div style="color:var(--muted);font-size:.69rem">PMO · 이성호 이사</div></div>
+    <div class="org-card" style="background:rgba(168,85,247,.08)"><div style="color:#a78bfa;font-weight:700;margin-bottom:6px">🎓 간접보조사업자</div><div style="font-weight:600">호서대학교</div><div style="color:var(--muted);font-size:.69rem">이노베이션센터 운영</div></div>
+    <div class="org-card" style="background:rgba(6,182,212,.08)"><div style="color:#06b6d4;font-weight:700;margin-bottom:6px">🔬 간접보조사업자</div><div style="font-weight:600">충남연구원 · KAIST</div><div style="color:var(--muted);font-size:.69rem">연구·기술지원</div></div>
+  </div></div>
+</div>
+<footer id="footer">아산시 강소형 스마트시티 통합 포털 v5.2 · 단위 시스템 실시간 연동</footer>
+
+<script>
+const ORIGIN = location.origin;
+const SRC = {
+  bms:   ORIGIN + "/Asan-Smart-City-Budget-Management-System-BMS-/data/budget.json",
+  wbs:   ORIGIN + "/Asan-Smartcity-WBS/data/summary-data.json",
+  wbsTasks: ORIGIN + "/Asan-Smartcity-WBS/data/wbs-data.json",
+  asset: ORIGIN + "/Asan-asset-management/data/assets.json",
+  hr:    ORIGIN + "/Asan-HR-Management-Portal/"
+};
+const REFRESH_MS = 180000;
+const eok = n => (n/1e8);
+const fmtEok = n => eok(n).toLocaleString('ko-KR',{maximumFractionDigits:1});
+const pct = n => (n==null?'-':Number(n).toFixed(1)+'%');
+const barColor = p => p>=80?'#22c55e':p>=50?'#2e80e8':p>=25?'#eab308':'#ef4444';
+const $ = id => document.getElementById(id);
+
+async function getJSON(url){
+  const r = await fetch(url + (url.includes('?')?'&':'?') + '_=' + Date.now(), {cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
+}
+async function getHTML(url){
+  const r = await fetch(url + '?_=' + Date.now(), {cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.text();
+}
+function setPill(i, ok, label){
+  const pills = $('srcbar').children;
+  pills[i].innerHTML = '<span class="dot '+(ok?'ok':'err')+'"></span>'+label;
+}
+
+const state = {ts:[]};
+
+// ── 단위사업 매핑 (BMS 항목 → 단위사업) : 생성기 로직을 클라이언트로 이식 ──
+const BMS_UNIT_MAP = {
+  "스마트 공공 WIFI":1,"아산시 강소형 스마트시티 네트워크 구축":1,
+  "모바일 전자시민증 플랫폼 / 인프라":2,"이노베이션 센터/ 관제 시스템 구축":3,
+  "디지털 OASIS SPOT":4,"무인매장":4,"SDDC Platform 구축":5,
+  "AI통합관제 및 운영 플랫폼 / 인프라":6,"디지털OASIS 정보관리 시스템":7,
+  "수요응답형 DRT 서비스 운영 플랫폼 구축":8,"수요응답형 DRT 서비스 운영 HW 구축":8,
+  "정보통신감리":9,"스마트폴&디스플레이":10,"메타버스 플랫폼":11,
+  "디지털 노마드접수/운영 및 거래관리":12,"데이터기반 AI 융복합 서비스 구축":13,
+  "국제표준 디지털링크 공유 플랫폼":14
+};
+const UNIT_DEF = {
+  1:{name:"유무선 네트워크 구축",vendor:"싸인텔레콤 컨소시엄",zone:"공통인프라",color:"#2e80e8"},
+  2:{name:"모바일 전자시민증(ECC)",vendor:"한국정보기술 컨소시엄",zone:"공통인프라",color:"#7c3aed"},
+  3:{name:"이노베이션 센터 구축",vendor:"호서대학교",zone:"배방 이노베이션존",color:"#22c55e"},
+  4:{name:"디지털 OASIS SPOT",vendor:"(발주준비중)",zone:"도고 OASIS존",color:"#f59e0b"},
+  5:{name:"SDDC Platform 구축",vendor:"한국정보기술 컨소시엄",zone:"공통인프라",color:"#06b6d4"},
+  6:{name:"AI 통합관제 플랫폼",vendor:"한국정보기술 컨소시엄",zone:"공통인프라",color:"#ec4899"},
+  7:{name:"디지털 OASIS 정보관리",vendor:"한국정보기술 컨소시엄",zone:"도고 OASIS존",color:"#10b981"},
+  8:{name:"DRT 수요응답형 교통",vendor:"(미선정)",zone:"도고 OASIS존",color:"#f97316"},
+  9:{name:"감리용역",vendor:"(업체선정 준비)",zone:"공통인프라",color:"#a78bfa"},
+  10:{name:"스마트폴 & 디스플레이",vendor:"(발주준비중)",zone:"공통인프라",color:"#14b8a6"},
+  11:{name:"메타버스 플랫폼",vendor:"(발주준비중)",zone:"공통인프라",color:"#8b5cf6"},
+  12:{name:"디지털 노마드(NOP)",vendor:"한국정보기술 컨소시엄",zone:"도고 OASIS존",color:"#0ea5e9"},
+  13:{name:"AI 융복합 서비스",vendor:"한국정보기술 컨소시엄",zone:"공통인프라",color:"#d946ef"},
+  14:{name:"디지털링크 플랫폼",vendor:"한국정보기술 컨소시엄",zone:"공통인프라",color:"#84cc16"}
+};
+// 정확 매핑 우선, 미스매치 항목은 고신뢰 키워드로 보정(이노베이션센터·네트워크 구축)
+function classifyUnit(name){
+  if(BMS_UNIT_MAP[name]) return BMS_UNIT_MAP[name];
+  if(name.includes("이노베이션센터")) return 3;
+  if(name==="네트워크 구축") return 1;
+  return 0; // 공통경비
+}
+function zoneBadge(zone){
+  if(zone.includes("OASIS")) return '<span class="pzone badge-oasis">'+zone+'</span>';
+  if(zone.includes("이노베이션")) return '<span class="pzone badge-inno">'+zone+'</span>';
+  return '<span class="pzone badge-common">'+zone+'</span>';
+}
+function statusBadge(budget,exec,rate){
+  if(budget<=0) return '<span class="sbadge s-new">신설</span>';
+  if(rate>=90) return '<span class="sbadge s-done">완료단계</span>';
+  if(exec>0) return '<span class="sbadge s-prog">진행중</span>';
+  return '<span class="sbadge s-wait">미착수</span>';
+}
+// ── 단위사업별 공정률(WBS 작업 기반) 라이브 집계 ──
+// 우선순위: ① 작업에 명시적 단위사업 필드(단위사업/unitNo) → ② subCategory·name 키워드
+const UNIT_KW_RULES = [
+  [3,["이노베이션 센터","이노베이션센터","이노베이션 관제"]],
+  [4,["OASIS SPOT","무인매장"]],
+  [8,["DRT","수요응답"]],
+  [10,["스마트폴"]],
+  [11,["메타버스"]],
+  [5,["SDDC"]],
+  [6,["AI통합관제","AI 시티관제","AI시티관제","시티관제 플랫폼","ACP"]],
+  [7,["디지털 OASIS 정보관리","정보관리 서비스(OIM)","데이터 허브·정보관리","(OIM)"]],
+  [13,["AI융복합","AI 융복합"]],
+  [12,["디지털 노마드","노마드","NOP"]],
+  [2,["전자시민증","ECC"]],
+  [14,["디지털링크"]],
+  [1,["스마트공공WiFi","공공WiFi","공공 WiFi","네트워크 구축","유무선 네트워크"]],
+  [9,["정보통신감리"]]
+];
+function unitOfTask(it){
+  const explicit = it.단위사업 || it.unitNo || it.unit_no;
+  if(explicit){ const n=parseInt(explicit); if(n>=1&&n<=14) return n; }
+  const t = (it.subCategory||'')+' '+(it.name||'')+' '+(it.category||'');
+  for(const [num,kws] of UNIT_KW_RULES){ for(const kw of kws){ if(t.includes(kw)) return num; } }
+  return 0;
+}
+function computeUnitProgress(tasks){
+  const agg={}; // n -> {wsum, wrate, rates[]}
+  (tasks||[]).forEach(it=>{
+    if(it.name==='범례') return;
+    const n=unitOfTask(it); if(!n) return;
+    const w=parseFloat(it.weight)||0, r=parseFloat(it.actualRate)||0;
+    if(!agg[n]) agg[n]={wsum:0,wrate:0,rates:[],cnt:0};
+    const a=agg[n]; a.wsum+=w; a.wrate+=w*r; a.rates.push(r); a.cnt++;
+  });
+  const out={};
+  for(const n in agg){ const a=agg[n];
+    out[n]={ rate: a.wsum>0 ? a.wrate/a.wsum : (a.rates.reduce((x,y)=>x+y,0)/a.rates.length), cnt:a.cnt };
+  }
+  return out;
+}
+function maybeRenderProjects(){ if(state.bms) renderProjects(state.bms); }
+
+function renderProjects(b){
+  const units={}; let cb=0, ce=0;
+  (b.items||[]).forEach(it=>{
+    const num=classifyUnit(it.항목명);
+    const bud=(it.총예산||0), ex=(it.집행액||it.사용금액합계||it.사용금액||0);
+    if(num){ if(!units[num])units[num]={b:0,e:0}; units[num].b+=bud; units[num].e+=ex; }
+    else { cb+=bud; ce+=ex; }
+  });
+  let cards='';
+  for(let n=1;n<=14;n++){
+    const d=UNIT_DEF[n], u=units[n]||{b:0,e:0};
+    const bud=eok(u.b), ex=eok(u.e), rem=eok(u.b-u.e);
+    const rate=u.b?(u.e/u.b*100):0;
+    const up=(state.unitProgress||{})[n];
+    const progBar = state.unitProgress
+      ? (up ? `<div class="pbar-row"><span class="pbar-lbl">공정률</span><div class="bb"><div style="width:${Math.min(up.rate,100)}%;background:#7c3aed;height:100%;border-radius:4px"></div></div><span class="pbar-pct" style="color:${barColor(up.rate)}">${pct(up.rate)}</span></div>`
+            : `<div class="pbar-row"><span class="pbar-lbl">공정률</span><div class="bb"></div><span class="pbar-pct" style="color:var(--muted)">—</span></div>`)
+      : `<div class="pbar-row"><span class="pbar-lbl">공정률</span><div class="bb"></div><span class="pbar-pct" style="color:var(--muted)">집계중</span></div>`;
+    cards+=`<div class="pcard" style="border-top:3px solid ${d.color}">
+      <div class="pcard-h"><span class="pcard-num" style="color:${d.color}">#${n}</span>${zoneBadge(d.zone)}${statusBadge(u.b,u.e,rate)}</div>
+      <div class="pcard-name">${d.name}</div>
+      <div class="pcard-vendor">🏢 ${d.vendor}</div>
+      <div class="pcard-metrics">
+        <div class="pm-block"><div class="pm-label">예산총액</div><div class="pm-val" style="color:${d.color}">${bud.toFixed(2)}<span class="pm-unit">억</span></div></div>
+        <div class="pm-block"><div class="pm-label">집행금액</div><div class="pm-val">${ex.toFixed(2)}<span class="pm-unit">억</span></div></div>
+        <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">${rem.toFixed(2)}<span class="pm-unit">억</span></div></div>
+      </div>
+      <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="bb"><div style="width:${Math.min(rate,100)}%;background:${d.color};height:100%;border-radius:4px"></div></div><span class="pbar-pct" style="color:${barColor(rate)}">${pct(rate)}</span></div>
+      ${progBar}
+    </div>`;
+  }
+  const crate=cb?(ce/cb*100):0;
+  const common=`<div class="common-row">
+    <div><span style="font-size:.82rem;font-weight:600">🏛️ 공통경비</span><span style="font-size:.70rem;color:var(--muted);margin-left:8px">인건비·운영비·여비·수수료·사업비배분 등</span></div>
+    <div style="display:flex;gap:16px;font-size:.80rem"><span>예산 <b>${fmtEok(cb)}억</b></span><span>집행 <b>${fmtEok(ce)}억</b></span><span style="color:${barColor(crate)};font-weight:700">${pct(crate)}</span></div>
+  </div>`;
+  $('projectCard').innerHTML=`<div class="sec-title">🗂️ 단위사업별 예산·집행·공정률 <span class="sec-sub">예산집행=BMS · 공정률=WBS 작업 실시간 집계</span></div>
+    <div class="proj-grid">${cards}</div>${common}`;
+}
+
+async function loadBMS(){
+  try{
+    const b = await getJSON(SRC.bms);
+    state.bms = b; state.ts.push(b.updated_at);
+    const s = b.summary;
+    // KPI top row
+    const elapsed = elapsedInfo(b.project && b.project.end_date);
+    $('kpi').innerHTML = `
+      <div class="card"><div class="kl">총 사업비</div><div class="kv">${fmtEok(s.총사업비)}<span style="font-size:.9rem;color:var(--muted)">억</span></div><div class="ks">국비50·시비38·도비12 매칭</div></div>
+      <div class="card"><div class="kl">집행액 / 집행률</div><div class="kv" style="color:${barColor(s.전체집행률)}">${pct(s.전체집행률)}</div><div class="ks">${fmtEok(s.총집행액)}억 집행</div><div class="kb"><div style="width:${s.전체집행률}%;background:${barColor(s.전체집행률)}"></div></div></div>
+      <div class="card"><div class="kl">잔액</div><div class="kv" style="color:#94a3b8">${fmtEok(s.잔액)}<span style="font-size:.9rem;color:var(--muted)">억</span></div><div class="ks">미집행 ${s.상태별?.미집행??'-'}건 · 주의 ${s.상태별?.주의??'-'}건</div></div>
+      <div class="card"><div class="kl">사업 기간</div><div class="kv" style="color:${elapsed.dday<60?'#ef4444':'#e2e8f0'}">D-${elapsed.dday}</div><div class="ks">~${b.project?.end_date||'-'} · 경과 ${elapsed.rate}%</div><div class="kb"><div style="width:${elapsed.rate}%;background:#2e80e8"></div></div></div>`;
+    // source share
+    const ss = (b.source_summary||[]).map(x=>`<div class="bi"><div class="bih"><span class="bin">${x.재원} (${x.비율}%)</span><span class="bir">${fmtEok(x.금액)}억</span></div><div class="bb"><div style="width:${x.비율}%;background:#2e80e8;height:100%;border-radius:4px"></div></div></div>`).join('');
+    $('sourceCard').innerHTML = `<div class="sec-title">🏦 재원 구성 <span class="sec-sub">총 ${fmtEok(s.총사업비)}억</span></div>${ss}
+      <div class="bd" style="margin-top:6px">상태: 정상 ${s.상태별?.정상??'-'} · 주의 ${s.상태별?.주의??'-'} · 미집행 ${s.상태별?.미집행??'-'} (총 ${s.항목수}개 항목)</div>`;
+    // bimok
+    const bk = [...(b.bimok_summary||[])].sort((a,c)=>c.예산-a.예산).map(x=>{
+      const p=x.집행률; return `<div class="bi"><div class="bih"><span class="bin">${x.비목}</span><span class="bir" style="color:${barColor(p)}">${pct(p)}</span></div><div class="bb"><div style="width:${Math.min(p,100)}%;background:${barColor(p)};height:100%;border-radius:4px"></div></div><div class="bd">${fmtEok(x.예산)}억 예산 / ${fmtEok(x.집행)}억 집행</div></div>`;
+    }).join('');
+    $('bimokCard').innerHTML = `<div class="sec-title">💰 비목별 예산 집행 <span class="sec-sub">${b.bimok_summary?.length||0}개 비목</span></div>${bk}`;
+    maybeRenderProjects();
+    setPill(0, true, 'BMS 예산 ✓ '+(b.updated_at||''));
+  }catch(e){
+    setPill(0, false, 'BMS 예산 실패');
+    $('kpi').innerHTML = errBox('BMS 예산 데이터를 불러오지 못했습니다');
+    $('projectCard').innerHTML = `<div class="sec-title">🗂️ 단위사업별 예산·집행 현황</div>`+errBox('BMS 데이터를 불러오지 못해 단위사업 현황을 표시할 수 없습니다');
+  }
+}
+
+async function loadWBS(){
+  try{
+    const w = await getJSON(SRC.wbs);
+    state.wbs = w; state.ts.push(w.meta?.generatedAtKst);
+    const cats = w.byCategory||[];
+    const sum = {total:0,done:0,inProg:0,delayed:0,waiting:0};
+    cats.forEach(c=>{for(const k in sum) sum[k]+=(c[k]||0);});
+    const t = w.total||{};
+    const grid = `<div class="wbs-summary-grid">
+      <div class="wbs-stat"><div class="wbs-stat-val">${sum.total}</div><div class="wbs-stat-lbl">전체</div></div>
+      <div class="wbs-stat"><div class="wbs-stat-val" style="color:#22c55e">${sum.done}</div><div class="wbs-stat-lbl">완료</div></div>
+      <div class="wbs-stat"><div class="wbs-stat-val" style="color:#2e80e8">${sum.inProg}</div><div class="wbs-stat-lbl">진행</div></div>
+      <div class="wbs-stat"><div class="wbs-stat-val" style="color:#ef4444">${sum.delayed}</div><div class="wbs-stat-lbl">지연</div></div>
+      <div class="wbs-stat"><div class="wbs-stat-val" style="color:#f59e0b">${sum.waiting}</div><div class="wbs-stat-lbl">대기</div></div>
+      <div class="wbs-stat"><div class="wbs-stat-val" style="color:#7c3aed">${pct(t.achieveRate)}</div><div class="wbs-stat-lbl">달성률</div></div></div>`;
+    const rows = [...cats].sort((a,c)=>c.total-a.total).map(c=>{
+      const p=c.actualRate; return `<div class="bi"><div class="bih"><span class="bin">${c.name}</span><span class="bir" style="color:${barColor(p)}">${pct(p)}</span></div><div class="bb"><div style="width:${Math.min(p,100)}%;background:${barColor(p)};height:100%;border-radius:4px"></div></div><div class="bd">${c.total}건 (완료 ${c.done}·진행 ${c.inProg}·지연 ${c.delayed}) · 계획 ${pct(c.plannedRate)} · 달성 ${pct(c.achieveRate)}</div></div>`;
+    }).join('');
+    $('wbsCard').innerHTML = `<div class="sec-title">⚙️ WBS 공정률 (대분류) <span class="sec-sub">계획 ${pct(t.plannedRate)} · 실적 ${pct(t.actualRate)} · 편차 ${t.deviation>0?'+':''}${t.deviation}p</span></div>${grid}${rows}`;
+    setPill(1, true, 'WBS 공정 ✓ '+(w.meta?.generatedAtKst||''));
+    // 단위사업별 공정률 라이브 집계 (작업 단위 데이터)
+    try{
+      const wt = await getJSON(SRC.wbsTasks);
+      state.unitProgress = computeUnitProgress(wt.items||[]);
+      maybeRenderProjects();
+    }catch(e){ /* 작업 데이터 실패 시 공정률만 생략, 예산집행은 유지 */ }
+  }catch(e){
+    setPill(1, false, 'WBS 공정 실패');
+    $('wbsCard').innerHTML = `<div class="sec-title">⚙️ WBS 공정률</div>`+errBox('WBS 데이터를 불러오지 못했습니다');
+  }
+}
+
+async function loadAsset(){
+  try{
+    const a = await getJSON(SRC.asset);
+    state.asset = a; state.ts.push(a.meta?.synced_at);
+    const s = a.summary;
+    const catRows = Object.entries(s.by_category||{}).sort((x,y)=>y[1]-x[1]).map(([k,v])=>{
+      const val = (s.by_category_value||{})[k]||0;
+      return `<div class="bi"><div class="bih"><span class="bin">${k}</span><span class="bir">${v}점</span></div><div class="bd">평가액 ${fmtEok(val)}억</div></div>`;
+    }).join('');
+    $('assetCard').innerHTML = `<div class="sec-title">🏛️ 자산관리 현황 <span class="sec-sub">총 ${s.total_assets}점 · ${fmtEok(s.total_value)}억</span></div>
+      <div class="wbs-summary-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="wbs-stat"><div class="wbs-stat-val">${s.total_assets}</div><div class="wbs-stat-lbl">총 자산수</div></div>
+        <div class="wbs-stat"><div class="wbs-stat-val" style="color:#22c55e">${s.by_status?.['사용중']??'-'}</div><div class="wbs-stat-lbl">사용중</div></div>
+        <div class="wbs-stat"><div class="wbs-stat-val" style="color:#f59e0b">${s.by_status?.['대기중']??0}</div><div class="wbs-stat-lbl">대기중</div></div>
+      </div>${catRows}`;
+    setPill(2, true, '자산 ✓ '+(a.meta?.synced_at||''));
+  }catch(e){
+    setPill(2, false, '자산 실패');
+    $('assetCard').innerHTML = `<div class="sec-title">🏛️ 자산관리 현황</div>`+errBox('자산 데이터를 불러오지 못했습니다');
+  }
+}
+
+async function loadHR(){
+  try{
+    const html = await getHTML(SRC.hr);
+    const doc = new DOMParser().parseFromString(html,'text/html');
+    // find summary table: first table.dt; locate 합계 row and org rows
+    let total=null, active=null, ended=null; const orgs=[];
+    doc.querySelectorAll('table.dt').forEach(tb=>{
+      tb.querySelectorAll('tbody tr').forEach(tr=>{
+        const c=[...tr.children].map(td=>td.textContent.trim());
+        if(c[0]==='합계' && total===null){
+          total=parseInt(c[1]); active=parseInt(c[2]); ended=parseInt(c[3]);
+        } else if(c.length>=5 && /직접보조|간접보조/.test(c[5]||'') ){
+          orgs.push({name:c[0], total:parseInt(c[1]), active:parseInt(c[2]), ended:parseInt(c[3])});
+        }
+      });
+    });
+    if(total===null) throw new Error('합계 행 파싱 실패');
+    state.ts.push(extractHrTs(doc));
+    const orgRows = orgs.map(o=>`<div class="bi"><div class="bih"><span class="bin">${o.name}</span><span class="bir" style="color:#22c55e">활성 ${o.active} / ${o.total}명</span></div><div class="bb"><div style="width:${(o.active/o.total*100).toFixed(0)}%;background:#ec4899;height:100%;border-radius:4px"></div></div><div class="bd">종료 ${o.ended}명</div></div>`).join('');
+    $('hrCard').innerHTML = `<div class="sec-title">👥 참여인력 현황 <span class="sec-sub">총 ${total}명 · 활성 ${active} · 종료 ${ended}</span></div>
+      <div class="wbs-summary-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="wbs-stat"><div class="wbs-stat-val">${total}</div><div class="wbs-stat-lbl">총 인원</div></div>
+        <div class="wbs-stat"><div class="wbs-stat-val" style="color:#22c55e">${active}</div><div class="wbs-stat-lbl">활성</div></div>
+        <div class="wbs-stat"><div class="wbs-stat-val" style="color:#94a3b8">${ended}</div><div class="wbs-stat-lbl">종료</div></div>
+        <div class="wbs-stat"><div class="wbs-stat-val" style="color:#2e80e8">${(active/total*100).toFixed(1)}%</div><div class="wbs-stat-lbl">활성비율</div></div>
+      </div><div class="proj-grid" style="grid-template-columns:repeat(2,1fr)">${orgRows}</div>`;
+    setPill(3, true, '인력 ✓');
+  }catch(e){
+    setPill(3, false, '인력 실패');
+    $('hrCard').innerHTML = `<div class="sec-title">👥 참여인력 현황</div>`+errBox('인력 데이터를 불러오지 못했습니다 ('+e.message+')');
+  }
+}
+
+function renderRisk(){
+  const b=state.bms, w=state.wbs;
+  if(!b) return;
+  const s=b.summary; const items=[];
+  const el = elapsedInfo(b.project && b.project.end_date);
+  const gap = el.rate - s.전체집행률;
+  if(gap>=20) items.push({lv:'🔴 긴급',c:'#ef4444',t:`예산 집행률(${pct(s.전체집행률)})이 기간 경과율(${el.rate}%) 대비 ${gap.toFixed(0)}%p 부족 — 잔여 ${fmtEok(s.잔액)}억 집중 집행 필요`,a:fmtEok(s.잔액)+'억'});
+  // zero/low execution big line items
+  (b.items||[]).filter(it=>it.총예산>=1e9 && (it.집행률||0)<0.05).sort((x,y)=>y.총예산-x.총예산).slice(0,3).forEach(it=>{
+    items.push({lv:'🟠 높음',c:'#f59e0b',t:`${it.항목명} (${fmtEok(it.총예산)}억) 집행률 ${(it.집행률*100).toFixed(1)}%`,a:fmtEok(it.총예산)+'억'});
+  });
+  if(w){ (w.byCategory||[]).filter(c=>c.delayed>0).sort((x,y)=>y.delayed-x.delayed).slice(0,2).forEach(c=>{
+    items.push({lv:'🟡 주의',c:'#eab308',t:`WBS '${c.name}' 지연 ${c.delayed}건 · 계획대비 편차 ${c.deviation}p`,a:c.delayed+'건'});
+  });}
+  items.push({lv:'🟡 주의',c:'#eab308',t:`사업 종료까지 ${el.dday}일 잔여`,a:'D-'+el.dday});
+  const cnt = items.reduce((m,x)=>{m[x.lv[0]]=(m[x.lv[0]]||0)+1;return m;},{});
+  $('riskCard').innerHTML = `<div class="sec-title">⚠️ 리스크 현황 (자동 분석) <span class="sec-sub">실시간 산출</span></div>`+
+    items.map(x=>`<div class="irow" style="border-left:3px solid ${x.c}"><div class="ilv" style="color:${x.c}">${x.lv}</div><div class="ict">${x.t}</div><div class="iamt" style="color:${x.c}">${x.a}</div></div>`).join('');
+}
+
+function elapsedInfo(end){
+  const endD = new Date((end||'2026-12-31')+'T23:59:59+09:00');
+  const start = new Date('2023-12-01T00:00:00+09:00');
+  const now = new Date();
+  const dday = Math.max(0, Math.ceil((endD-now)/86400000));
+  const rate = Math.min(100, Math.max(0, ((now-start)/(endD-start)*100))).toFixed(0);
+  return {dday, rate};
+}
+function extractHrTs(doc){
+  const m = (doc.body.textContent.match(/\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}/)||[])[0];
+  return m||null;
+}
+function errBox(msg){return `<div class="note" style="background:rgba(239,68,68,.08);border-color:#ef444433;color:#fca5a5">⚠️ ${msg}. 잠시 후 새로고침하거나 단위 시스템 링크를 확인하세요.</div>`;}
+
+function finalize(){
+  renderRisk();
+  const valid = state.ts.filter(Boolean).sort();
+  const latest = valid.length?valid[valid.length-1]:'-';
+  const nowStr = new Date().toLocaleString('ko-KR',{hour12:false});
+  $('hdrUpd').textContent = '데이터 기준 '+latest+' · 조회 '+nowStr;
+  $('footer').textContent = '아산시 강소형 스마트시티 통합 포털 v5.2 · 제일엔지니어링 PMO · 단위 시스템(BMS·WBS·자산·인력) 실시간 직접 연동 · 조회 '+nowStr;
+}
+
+async function loadAll(){
+  state.ts=[];
+  for(let i=0;i<4;i++) $('srcbar').children[i].innerHTML='<span class="dot load"></span>'+['BMS 예산','WBS 공정','자산','인력'][i];
+  await Promise.allSettled([loadBMS(), loadWBS(), loadAsset(), loadHR()]);
+  finalize();
+}
+$('refreshBtn').addEventListener('click', loadAll);
+loadAll();
+setInterval(loadAll, REFRESH_MS);
+</script>
+</body></html>
