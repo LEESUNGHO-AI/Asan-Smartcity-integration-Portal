@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-07-22 19:38 KST",
+    "updated": "2026-07-22 20:06 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -21,13 +21,15 @@
       "budget": 11.35,
       "executed": 4.15,
       "exec_rate": 36.6,
-      "wbs_rate": 0,
+      "wbs_rate": 93.0,
       "status": "🔄 진행중",
       "vendor": "싸인텔레콤 컨소시엄",
       "note": "",
       "zone": "공통인프라",
       "icon": "📡",
-      "color": "#2e80e8"
+      "color": "#2e80e8",
+      "wbs_plan": 93.0,
+      "wbs_avail": true
     },
     {
       "num": 2,
@@ -35,13 +37,15 @@
       "budget": 12.0,
       "executed": 5.46,
       "exec_rate": 45.5,
-      "wbs_rate": 0,
+      "wbs_rate": 90.0,
       "status": "🔄 진행중",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
       "icon": "📱",
-      "color": "#7c3aed"
+      "color": "#7c3aed",
+      "wbs_plan": 97.0,
+      "wbs_avail": true
     },
     {
       "num": 3,
@@ -49,13 +53,15 @@
       "budget": 13.0,
       "executed": 11.88,
       "exec_rate": 91.4,
-      "wbs_rate": 0,
+      "wbs_rate": 100.0,
       "status": "✅ 완료",
       "vendor": "호서대학교",
       "note": "",
       "zone": "배방 이노베이션존",
       "icon": "🏢",
-      "color": "#22c55e"
+      "color": "#22c55e",
+      "wbs_plan": 100.0,
+      "wbs_avail": true
     },
     {
       "num": 4,
@@ -63,13 +69,15 @@
       "budget": 42.0,
       "executed": 0.37,
       "exec_rate": 0.9,
-      "wbs_rate": 0,
+      "wbs_rate": 5.6,
       "status": "🔄 진행중",
       "vendor": "(발주준비중)",
       "note": "",
       "zone": "도고 디지털 OASIS존",
       "icon": "🌿",
-      "color": "#f59e0b"
+      "color": "#f59e0b",
+      "wbs_plan": 61.1,
+      "wbs_avail": true
     },
     {
       "num": 5,
@@ -77,13 +85,15 @@
       "budget": 27.0,
       "executed": 7.09,
       "exec_rate": 26.3,
-      "wbs_rate": 0,
+      "wbs_rate": 88.0,
       "status": "🔄 진행중",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
       "icon": "☁️",
-      "color": "#06b6d4"
+      "color": "#06b6d4",
+      "wbs_plan": 88.0,
+      "wbs_avail": true
     },
     {
       "num": 6,
@@ -91,13 +101,15 @@
       "budget": 16.0,
       "executed": 9.29,
       "exec_rate": 58.1,
-      "wbs_rate": 0,
+      "wbs_rate": 93.0,
       "status": "🔄 진행중",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
       "icon": "🤖",
-      "color": "#ec4899"
+      "color": "#ec4899",
+      "wbs_plan": 97.0,
+      "wbs_avail": true
     },
     {
       "num": 7,
@@ -105,13 +117,15 @@
       "budget": 22.6,
       "executed": 10.93,
       "exec_rate": 48.4,
-      "wbs_rate": 0,
+      "wbs_rate": 80.0,
       "status": "🔄 진행중",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "도고 디지털 OASIS존",
       "icon": "📊",
-      "color": "#10b981"
+      "color": "#10b981",
+      "wbs_plan": 88.0,
+      "wbs_avail": true
     },
     {
       "num": 8,
@@ -119,13 +133,15 @@
       "budget": 10.0,
       "executed": 0.0,
       "exec_rate": 0.0,
-      "wbs_rate": 0,
+      "wbs_rate": 0.0,
       "status": "⏸️ 미착수",
       "vendor": "(미선정)",
       "note": "",
       "zone": "도고 디지털 OASIS존",
       "icon": "🚌",
-      "color": "#f97316"
+      "color": "#f97316",
+      "wbs_plan": 87.0,
+      "wbs_avail": true
     },
     {
       "num": 9,
@@ -139,7 +155,8 @@
       "note": "",
       "zone": "공통인프라",
       "icon": "🔍",
-      "color": "#a78bfa"
+      "color": "#a78bfa",
+      "wbs_avail": false
     },
     {
       "num": 10,
@@ -147,13 +164,15 @@
       "budget": 6.0,
       "executed": 0.0,
       "exec_rate": 0.0,
-      "wbs_rate": 0,
+      "wbs_rate": 43.0,
       "status": "⏸️ 미착수",
       "vendor": "(발주준비중)",
       "note": "",
       "zone": "공통인프라",
       "icon": "🔔",
-      "color": "#14b8a6"
+      "color": "#14b8a6",
+      "wbs_plan": 93.0,
+      "wbs_avail": true
     },
     {
       "num": 11,
@@ -161,13 +180,15 @@
       "budget": 6.0,
       "executed": 0.0,
       "exec_rate": 0.0,
-      "wbs_rate": 0,
+      "wbs_rate": 3.0,
       "status": "⏸️ 미착수",
       "vendor": "(발주준비중)",
       "note": "",
       "zone": "공통인프라",
       "icon": "🌐",
-      "color": "#8b5cf6"
+      "color": "#8b5cf6",
+      "wbs_plan": 67.0,
+      "wbs_avail": true
     },
     {
       "num": 12,
@@ -175,13 +196,15 @@
       "budget": 20.0,
       "executed": 8.2,
       "exec_rate": 41.0,
-      "wbs_rate": 0,
+      "wbs_rate": 93.0,
       "status": "🔄 진행중",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "도고 디지털 OASIS존",
       "icon": "💻",
-      "color": "#0ea5e9"
+      "color": "#0ea5e9",
+      "wbs_plan": 97.0,
+      "wbs_avail": true
     },
     {
       "num": 13,
@@ -189,13 +212,15 @@
       "budget": 7.5,
       "executed": 4.37,
       "exec_rate": 58.3,
-      "wbs_rate": 0,
+      "wbs_rate": 90.0,
       "status": "🔄 진행중",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
       "icon": "🧠",
-      "color": "#d946ef"
+      "color": "#d946ef",
+      "wbs_plan": 93.0,
+      "wbs_avail": true
     },
     {
       "num": 14,
@@ -203,13 +228,15 @@
       "budget": 2.0,
       "executed": 0.0,
       "exec_rate": 0.0,
-      "wbs_rate": 0,
+      "wbs_rate": 33.0,
       "status": "⏸️ 미착수",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
       "icon": "🔗",
-      "color": "#84cc16"
+      "color": "#84cc16",
+      "wbs_plan": 73.0,
+      "wbs_avail": true
     },
     {
       "num": 0,
@@ -225,7 +252,8 @@
       "icon": "🏛️",
       "color": "#64748b",
       "etc_budget": 0.25,
-      "etc_exec": 0.16
+      "etc_exec": 0.16,
+      "wbs_avail": false
     }
   ],
   "cats": [
