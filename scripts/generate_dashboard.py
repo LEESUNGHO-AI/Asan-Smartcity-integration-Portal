@@ -47,6 +47,14 @@ BMS_UNIT_MAP = {
     "국제표준 디지털링크 공유 플랫폼": 14,
 }
 
+# ── 공통경비로 집계할 비목 (인건비·운영비·여비·사업비배분) ──
+# ※ '매핑 안 된 나머지'를 잔여로 쓸어담으면 건설비/무형자산 등이 섞여 과다집계됨.
+#    반드시 아래 비목만 공통경비로 한정한다.
+COMMON_BIMOK = {
+    "인건비(110)", "운영비(210)", "여비(220)",
+    "사업비 배분(320)", "사업비배분(320)",
+}
+
 UNIT_DEF = {
     1:  {"name":"유무선 네트워크 구축",    "vendor":"싸인텔레콤 컨소시엄",   "zone":"공통인프라",          "icon":"📡","color":"#2e80e8"},
     2:  {"name":"모바일 전자시민증(ECC)",  "vendor":"한국정보기술 컨소시엄", "zone":"공통인프라",          "icon":"📱","color":"#7c3aed"},
@@ -170,7 +178,8 @@ def parse_bms_projects(bms):
                 units[num] = {"budget":0,"exec":0}
             units[num]["budget"] += (it.get("총예산") or 0)/1e8
             units[num]["exec"] += (it.get("집행액") or it.get("사용금액합계") or it.get("사용금액") or 0)/1e8
-        else:
+        elif it.get("비목", "") in COMMON_BIMOK:
+            # 공통경비: 인건비·운영비·여비·사업비배분 비목만 집계
             common_budget += (it.get("총예산") or 0)/1e8
             common_exec += (it.get("집행액") or it.get("사용금액합계") or it.get("사용금액") or 0)/1e8
 
