@@ -72,6 +72,54 @@ COMMON_BIMOK = {
     "사업비 배분(320)", "사업비배분(320)",
 }
 
+# ── WBS Level-2 [4.x] → 단위사업 매핑 (wbsId : (단위사업번호, 예산가중치)) ──
+# ※ WBS는 '공정 단계'가 아니라 [4] 서비스구축 하위 L2가 단위사업과 1:1 대응함.
+#   단위사업 4(디지털 OASIS SPOT+무인매장)만 2개 항목이라 예산비중(35:7)으로 가중평균.
+#   단위사업 9(감리용역)은 WBS 미편성 → 공정 N/A.
+WBS_UNIT_MAP = {
+    "4.8": (1, 1),   # 유무선 네트워크
+    "4.3": (2, 1),   # 모바일 전자시민증(ECC)
+    "4.12": (3, 1),  # 이노베이션 관제 센터
+    "4.10": (4, 35), # 디지털 OASIS SPOT (예산 35억)
+    "4.14": (4, 7),  # 무인매장 (예산 7억)
+    "4.6": (5, 1),   # SDDC
+    "4.4": (6, 1),   # AI 시티관제(ACP)
+    "4.7": (7, 1),   # 데이터허브·정보관리(OIM)
+    "4.9": (8, 1),   # DRT
+    "4.13": (10, 1), # 스마트폴&디스플레이
+    "4.1": (11, 1),  # 메타버스
+    "4.2": (12, 1),  # 디지털 노마드(NOP)
+    "4.5": (13, 1),  # AI 융복합
+    "4.11": (14, 1), # 시설물 위치기반 표준 서비스 플랫폼
+}
+
+
+def _wbs_rate(by_id, wid, field="actualRate"):
+    """wbsId의 값. 부모행이 없으면(예: 4.10) 직속 하위(4.10.x) 평균으로 대체."""
+    r = by_id.get(wid)
+    if r is not None and r.get(field) is not None:
+        return r.get(field)
+    kids = [v.get(field, 0) for k, v in by_id.items()
+            if k.startswith(wid + ".") and str(v.get("level")) == "3"]
+    return round(sum(kids) / len(kids), 1) if kids else None
+
+
+def compute_unit_wbs(by_id):
+    """단위사업번호 → {'actual':x, 'plan':y} (예산가중평균). 미편성이면 없음."""
+    agg = {}
+    for wid, (unum, w) in WBS_UNIT_MAP.items():
+        a = _wbs_rate(by_id, wid, "actualRate")
+        p = _wbs_rate(by_id, wid, "plannedRate")
+        if a is None:
+            continue
+        d = agg.setdefault(unum, {"an": 0, "pn": 0, "w": 0})
+        d["an"] += a * w
+        d["pn"] += (p or 0) * w
+        d["w"] += w
+    return {u: {"actual": round(v["an"] / v["w"], 1),
+                "plan": round(v["pn"] / v["w"], 1)}
+            for u, v in agg.items() if v["w"]}
+
 UNIT_DEF = {
     1:  {"name":"유무선 네트워크 구축",    "vendor":"싸인텔레콤 컨소시엄",   "zone":"공통인프라",          "icon":"📡","color":"#2e80e8"},
     2:  {"name":"모바일 전자시민증(ECC)",  "vendor":"한국정보기술 컨소시엄", "zone":"공통인프라",          "icon":"📱","color":"#7c3aed"},
@@ -143,6 +191,7 @@ def source_all():
         wd = fetch_json(URL_WBS_DATA, "WBS data")
         if wd and "items" in wd:
             svcs = []
+            by_id = {str(r.get("wbsId","")): r for r in wd["items"]}
             for r in wd["items"]:
                 if r.get("level")=="1" and r.get("weight",0)>0:
                     svcs.append({"name":r["name"],"rate":round(r.get("actualRate",0)),
@@ -150,6 +199,16 @@ def source_all():
                                  "weight":r.get("weight",0)})
             svcs.sort(key=lambda x: -x["rate"])
             wbs_data["services"] = svcs
+            # 단위사업별 WBS 공정률 주입 (예산 카드에 이원 표기용)
+            unit_wbs = compute_unit_wbs(by_id)
+            for p in projects:
+                uw = unit_wbs.get(p["num"])
+                if uw:
+                    p["wbs_rate"] = uw["actual"]
+                    p["wbs_plan"] = uw["plan"]
+                    p["wbs_avail"] = True
+                else:
+                    p["wbs_avail"] = False
     else:
         sources["WBS"] = "Fallback"
         wbs_data = {"overall":52.3,"services":[],"summary":None}
@@ -331,12 +390,23 @@ def build_html(projects, cats, wbs_data, dday, sources, bms_info):
     hc = sum(1 for i in issues if "높음" in i["level"])
     sl = " + ".join(set(sources.values()))
 
-    # Project cards
+    # Project cards (이원 표기: 예산 집행 + WBS 공정)
     ph = ""
     for p in main_projects:
         col=p.get("color","#2e80e8"); ic=p.get("icon","📋"); z=p.get("zone","-")
-        er=p["exec_rate"]; wr=p["wbs_rate"]; rm=round(p["budget"]-p["executed"],2)
+        er=p["exec_rate"]; rm=round(p["budget"]-p["executed"],2)
         zc="badge-oasis" if "OASIS" in z else ("badge-inno" if "이노" in z else "badge-common")
+        exec_word = SB.get(p["status"], ("", p["status"]))[1]  # 집행(예산) 상태 단어
+        # ── 공정(WBS) 이원 표기 ──
+        if p.get("wbs_avail"):
+            wr=p.get("wbs_rate",0); wp=p.get("wbs_plan",0); dev=round(wr-wp,1)
+            wcol = "#22c55e" if dev>=-5 else ("#eab308" if dev>=-15 else "#ef4444")
+            wstat = "완료" if wr>=100 else ("진행" if wr>0 else "대기")
+            wbs_bar = f'<div class="pbar-row"><span class="pbar-lbl">공정(WBS)</span><div class="pbar-wrap"><div class="bb"><div style="width:{min(wr,100)}%;background:{wcol};height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:{wcol}">{wr:.0f}%</span></div>'
+            dual = f'💰 집행 <b>{exec_word}</b> · 📐 공정 <b style="color:{wcol}">{wstat} {wr:.0f}%</b> <span style="color:var(--muted)">계획 {wp:.0f}%</span>'
+        else:
+            wbs_bar = '<div class="pbar-row"><span class="pbar-lbl">공정(WBS)</span><div class="pbar-wrap"><div class="bb"></div></div><span class="pbar-pct" style="color:var(--muted)">미편성</span></div>'
+            dual = f'💰 집행 <b>{exec_word}</b> · 📐 공정 <b style="color:var(--muted)">미편성(용역)</b>'
         ph += f'''
 <div class="pcard" style="border-top:3px solid {col}">
   <div class="pcard-h"><span class="pcard-num" style="color:{col}">{ic} #{p["num"]}</span><span class="pzone {zc}">{z}</span>{sbadge(p["status"])}</div>
@@ -348,6 +418,8 @@ def build_html(projects, cats, wbs_data, dday, sources, bms_info):
     <div class="pm-block"><div class="pm-label">잔액</div><div class="pm-val" style="color:#94a3b8">{rm:.2f}<span class="pm-unit">억</span></div></div>
   </div>
   <div class="pbar-row"><span class="pbar-lbl">예산집행</span><div class="pbar-wrap"><div class="bb"><div style="width:{min(er,100)}%;background:{col};height:100%;border-radius:4px"></div></div></div><span class="pbar-pct" style="color:{col}">{er:.1f}%</span></div>
+  {wbs_bar}
+  <div style="font-size:.68rem;color:var(--muted);margin-top:6px;padding-top:5px;border-top:1px solid var(--bdr)">{dual}</div>
   <div class="pcard-note">{str(p.get("note",""))[:65]}</div>
 </div>'''
 
