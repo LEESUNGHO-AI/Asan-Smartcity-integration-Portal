@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-07-22 19:00 KST",
+    "updated": "2026-07-22 19:38 KST",
     "sources": {
       "예산": "BMS",
       "WBS": "WBS-JSON"
@@ -18,8 +18,8 @@
     {
       "num": 1,
       "name": "유무선 네트워크 구축",
-      "budget": 7.35,
-      "executed": 2.69,
+      "budget": 11.35,
+      "executed": 4.15,
       "exec_rate": 36.6,
       "wbs_rate": 0,
       "status": "🔄 진행중",
@@ -46,11 +46,11 @@
     {
       "num": 3,
       "name": "이노베이션 센터 구축",
-      "budget": 0,
-      "executed": 0,
-      "exec_rate": 0,
+      "budget": 13.0,
+      "executed": 11.88,
+      "exec_rate": 91.4,
       "wbs_rate": 0,
-      "status": "🆕 신설",
+      "status": "✅ 완료",
       "vendor": "호서대학교",
       "note": "",
       "zone": "배방 이노베이션존",
@@ -200,11 +200,11 @@
     {
       "num": 14,
       "name": "디지털링크 플랫폼",
-      "budget": 0,
-      "executed": 0,
-      "exec_rate": 0,
+      "budget": 2.0,
+      "executed": 0.0,
+      "exec_rate": 0.0,
       "wbs_rate": 0,
-      "status": "🆕 신설",
+      "status": "⏸️ 미착수",
       "vendor": "한국정보기술 컨소시엄",
       "note": "",
       "zone": "공통인프라",
@@ -214,16 +214,18 @@
     {
       "num": 0,
       "name": "공통경비 (인건비·운영비·여비 등)",
-      "budget": 62.05,
-      "executed": 53.0,
-      "exec_rate": 85.4,
+      "budget": 42.8,
+      "executed": 39.49,
+      "exec_rate": 92.3,
       "wbs_rate": 0,
       "status": "🔄 진행중",
       "vendor": "제일엔지니어링 등",
       "note": "인건비·운영비·여비·사업비배분",
       "zone": "공통",
       "icon": "🏛️",
-      "color": "#64748b"
+      "color": "#64748b",
+      "etc_budget": 0.25,
+      "etc_exec": 0.16
     }
   ],
   "cats": [
