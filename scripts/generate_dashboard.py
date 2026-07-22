@@ -28,23 +28,40 @@ URL_WBS_DATA = "https://leesungho-ai.github.io/Asan-Smartcity-WBS/data/wbs-data.
 
 # ── BMS 항목 → 단위사업 매핑 ──
 BMS_UNIT_MAP = {
+    # ⚠️ key는 BMS budget.json의 '항목명'과 정확히 일치해야 함 (글자·띄어쓰기 포함).
+    #    불일치 시 해당 항목이 매핑 실패 → 단위사업 0억 표기 버그 발생.
+    # 1. 유무선 네트워크 구축
     "스마트 공공 WIFI": 1,
-    "아산시 강소형 스마트시티 네트워크 구축": 1,
+    "네트워크 구축": 1,
+    # 2. 모바일 전자시민증(ECC)
     "모바일 전자시민증 플랫폼 / 인프라": 2,
-    "이노베이션 센터/ 관제 시스템 구축": 3,
+    # 3. 이노베이션 센터 구축
+    "이노베이션센터 구축": 3,
+    # 4. 디지털 OASIS SPOT (+ 무인매장)
     "디지털 OASIS SPOT": 4,
     "무인매장": 4,
+    # 5. SDDC Platform 구축
     "SDDC Platform 구축": 5,
+    # 6. AI 통합관제 플랫폼
     "AI통합관제 및 운영 플랫폼 / 인프라": 6,
+    # 7. 디지털 OASIS 정보관리
     "디지털OASIS 정보관리 시스템": 7,
+    # 8. DRT 수요응답형 교통
     "수요응답형 DRT 서비스 운영 플랫폼 구축": 8,
     "수요응답형 DRT 서비스 운영 HW 구축": 8,
+    # 9. 감리용역
     "정보통신감리": 9,
+    # 10. 스마트폴&디스플레이
     "스마트폴&디스플레이": 10,
+    # 11. 메타버스 플랫폼
     "메타버스 플랫폼": 11,
+    # 12. 디지털 노마드(NOP)
     "디지털 노마드접수/운영 및 거래관리": 12,
+    # 13. AI 융복합 서비스
     "데이터기반 AI 융복합 서비스 구축": 13,
-    "국제표준 디지털링크 공유 플랫폼": 14,
+    # 14. 디지털링크 플랫폼
+    #     ※ [확인필요] BMS '시설물 위치기반 표준 서비스 플랫폼'(무형자산 2.0억)을 14번으로 매핑함.
+    "시설물 위치기반 표준 서비스 플랫폼": 14,
 }
 
 # ── 공통경비로 집계할 비목 (인건비·운영비·여비·사업비배분) ──
@@ -170,18 +187,30 @@ def parse_bms_projects(bms):
     """BMS 항목을 단위사업에 매핑하여 집행현황 생성"""
     units = {}
     common_budget = common_exec = 0
+    etc_budget = etc_exec = 0
+    etc_names = []
     for it in bms.get("items",[]):
         name = it["항목명"]
+        b = (it.get("총예산") or 0)/1e8
+        e = (it.get("집행액") or it.get("사용금액합계") or it.get("사용금액") or 0)/1e8
         num = BMS_UNIT_MAP.get(name)
         if num:
             if num not in units:
                 units[num] = {"budget":0,"exec":0}
-            units[num]["budget"] += (it.get("총예산") or 0)/1e8
-            units[num]["exec"] += (it.get("집행액") or it.get("사용금액합계") or it.get("사용금액") or 0)/1e8
+            units[num]["budget"] += b
+            units[num]["exec"] += e
         elif it.get("비목", "") in COMMON_BIMOK:
             # 공통경비: 인건비·운영비·여비·사업비배분 비목만 집계
-            common_budget += (it.get("총예산") or 0)/1e8
-            common_exec += (it.get("집행액") or it.get("사용금액합계") or it.get("사용금액") or 0)/1e8
+            common_budget += b
+            common_exec += e
+        else:
+            # 안전망: 단위사업 매핑 실패 + 공통비목도 아닌 사업성 항목(건설비/무형·유형자산 등)
+            #        → 누락 없이 '미분류'로 포착하고 경고 출력 (240억 정합성 유지)
+            etc_budget += b
+            etc_exec += e
+            etc_names.append(f"{name}({it.get('비목','')}, {b:.2f}억)")
+    if etc_names:
+        print(f"  ⚠️ 미분류(확인필요) {len(etc_names)}건 / 예산 {etc_budget:.2f}억: " + " | ".join(etc_names))
 
     projects = []
     for num in sorted(UNIT_DEF.keys()):
@@ -210,6 +239,7 @@ def parse_bms_projects(bms):
             "wbs_rate": 0, "status": "🔄 진행중", "vendor": "제일엔지니어링 등",
             "note": "인건비·운영비·여비·사업비배분", "zone": "공통",
             "icon": "🏛️", "color": "#64748b",
+            "etc_budget": round(etc_budget,2), "etc_exec": round(etc_exec,2),
         })
 
     projects.sort(key=lambda x: (x["num"]==0, x["num"]))
@@ -324,9 +354,16 @@ def build_html(projects, cats, wbs_data, dday, sources, bms_info):
     # 공통경비 요약
     common_html = ""
     if common:
+        etc_line = ""
+        if common.get("etc_budget",0) > 0:
+            etc_line = f'''
+  <div style="flex-basis:100%;border-top:1px dashed var(--bdr);margin-top:6px;padding-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+    <span style="font-size:.72rem;color:#f59e0b">🧩 미분류(확인필요) <span style="color:var(--muted)">단위사업 귀속 확정 전</span></span>
+    <span style="font-size:.74rem"><span style="color:var(--muted)">예산</span> <b>{common["etc_budget"]:.2f}억</b> · <span style="color:var(--muted)">집행</span> <b>{common["etc_exec"]:.2f}억</b></span>
+  </div>'''
         common_html = f'''<div style="background:rgba(100,116,139,.08);border:1px solid var(--bdr);border-radius:10px;padding:12px 16px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
   <div><span style="font-size:.82rem;font-weight:600">🏛️ 공통경비</span><span style="font-size:.70rem;color:var(--muted);margin-left:8px">{common["note"]}</span></div>
-  <div style="display:flex;gap:16px;font-size:.80rem"><span>예산 <b>{common["budget"]:.1f}억</b></span><span>집행 <b>{common["executed"]:.1f}억</b></span><span style="color:#22c55e;font-weight:700">{common["exec_rate"]:.1f}%</span></div>
+  <div style="display:flex;gap:16px;font-size:.80rem"><span>예산 <b>{common["budget"]:.1f}억</b></span><span>집행 <b>{common["executed"]:.1f}억</b></span><span style="color:#22c55e;font-weight:700">{common["exec_rate"]:.1f}%</span></div>{etc_line}
 </div>'''
 
     # Budget categories
