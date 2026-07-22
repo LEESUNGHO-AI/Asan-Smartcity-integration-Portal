@@ -134,6 +134,11 @@
   .risk-row .ra{font-size:.8rem;font-weight:800;font-family:var(--mono);white-space:nowrap}
 
   .sys{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px}
+  .sys-label{font-size:.72rem;font-weight:800;color:var(--muted);margin:18px 0 10px;display:flex;align-items:center;gap:7px;
+    padding-bottom:7px;border-bottom:1px solid var(--bdr)}
+  .sys-label:first-child{margin-top:0}
+  .sc .live{margin-left:auto;font-size:.55rem;font-weight:800;color:var(--ok);
+    border:1px solid rgba(34,197,94,.45);border-radius:4px;padding:1px 5px;letter-spacing:.3px}
   .sc{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--bdr);
     border-radius:11px;padding:13px 15px;text-decoration:none;color:var(--txt);transition:border-color .15s,transform .15s}
   .sc:hover{border-color:var(--acc);transform:translateY(-2px)}
@@ -221,12 +226,44 @@
   </section>
 
   <section>
-    <div class="shead"><h2>원천 시스템</h2><span class="src">데이터 소스 바로가기</span></div>
+    <div class="shead"><h2>업무 시스템 바로가기</h2><span class="src">관련 시스템 · 데이터 소스</span></div>
+
+    <div class="sys-label">📈 GitHub Pages 대시보드</div>
     <div class="sys">
       <a class="sc" href="https://leesungho-ai.github.io/Asan-Smart-City-Budget-Management-System-BMS-/" target="_blank" rel="noopener">
-        <span class="si">💳</span><div><div class="sn">BMS 예산관리</div><div class="sd">비목·단위사업별 집행</div></div><span class="sa">→</span></a>
+        <span class="si">💳</span><div><div class="sn">BMS 예산 대시보드</div><div class="sd">예산집행 · 비목별 분석</div></div><span class="live">LIVE</span></a>
       <a class="sc" href="https://leesungho-ai.github.io/Asan-Smartcity-WBS/" target="_blank" rel="noopener">
-        <span class="si">📐</span><div><div class="sn">WBS 공정관리</div><div class="sd">175개 작업 공정률</div></div><span class="sa">→</span></a>
+        <span class="si">📐</span><div><div class="sn">WBS 공정 대시보드</div><div class="sd">Gantt · 175개 작업 공정률</div></div><span class="live">LIVE</span></a>
+      <a class="sc" href="https://leesungho-ai.github.io/Asan-asset-management/" target="_blank" rel="noopener">
+        <span class="si">🏛️</span><div><div class="sn">자산관리 시스템</div><div class="sd">사업 자산 · 물품 현황</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://leesungho-ai.github.io/Asan-HR-Management-Portal/" target="_blank" rel="noopener">
+        <span class="si">👤</span><div><div class="sn">인력관리 시스템</div><div class="sd">투입인력 · 기관별 현황</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://leesungho-ai.github.io/Asan-Report-Generator/" target="_blank" rel="noopener">
+        <span class="si">📄</span><div><div class="sn">보고서 생성 시스템</div><div class="sd">주간·월간·분기·연간 AI 보고서</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://leesungho-ai.github.io/Asan-Smartcity-integration-Portal/" target="_blank" rel="noopener">
+        <span class="si">🛰️</span><div><div class="sn">통합 포털 (현재)</div><div class="sd">본 페이지 · 실시간 연동</div></div><span class="sa">→</span></a>
+    </div>
+
+    <div class="sys-label">📋 Notion 데이터베이스</div>
+    <div class="sys">
+      <a class="sc" href="https://www.notion.so/21650aa9577d80dc8278e0187c54677f" target="_blank" rel="noopener">
+        <span class="si">📌</span><div><div class="sn">프로젝트 관리</div><div class="sd">사업 총괄 · 단위사업 현황</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://www.notion.so/559654aed9404d9f88225ea0adc7d746?v=3aa59e73-6641-4463-b157-d7c06c129bfb" target="_blank" rel="noopener">
+        <span class="si">📊</span><div><div class="sn">WBS 관리</div><div class="sd">175개 작업 · 공정률 추적</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://www.notion.so/2aa50aa9577d8128b6d4c5c21d845796" target="_blank" rel="noopener">
+        <span class="si">💰</span><div><div class="sn">예산관리 DB</div><div class="sd">비목별 · 단위사업별 집행현황</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://www.notion.so/2b850aa9577d8128ad35d86b79f67d12" target="_blank" rel="noopener">
+        <span class="si">👥</span><div><div class="sn">인력 현황</div><div class="sd">기관별 투입 현황</div></div><span class="sa">→</span></a>
+    </div>
+
+    <div class="sys-label">🏛️ 외부 시스템</div>
+    <div class="sys">
+      <a class="sc" href="https://www.g2b.go.kr" target="_blank" rel="noopener">
+        <span class="si">🛒</span><div><div class="sn">나라장터 (G2B)</div><div class="sd">입찰공고 · 계약관리</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://www.gosims.go.kr" target="_blank" rel="noopener">
+        <span class="si">💼</span><div><div class="sn">e나라도움</div><div class="sd">보조금 집행 · 정산</div></div><span class="sa">→</span></a>
+      <a class="sc" href="https://app.slack.com/client/T070J9TK0MY/C07061F0MFG" target="_blank" rel="noopener">
+        <span class="si">💬</span><div><div class="sn">Slack #wbs</div><div class="sd">WBS 파일 공유 · 협업</div></div><span class="sa">→</span></a>
     </div>
   </section>
 
