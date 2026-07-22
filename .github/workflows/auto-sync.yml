@@ -1,48 +1,25 @@
-name: 대시보드 Notion 자동 동기화
+# ─────────────────────────────────────────────────────────────
+# [사용 중지] 정적 대시보드 자동생성 워크플로
+#
+# 통합포털이 브라우저에서 BMS·WBS JSON을 실시간으로 직접 조회하는
+# 방식(클라이언트 사이드)으로 전환됨에 따라, 서버측 정적 생성
+# (generate_dashboard.py → index.html 커밋)은 더 이상 필요하지 않습니다.
+#
+# 이 워크플로가 계속 돌면 실시간 index.html을 정적 스냅샷으로
+# 덮어써 데이터가 다시 어긋나므로, 자동 스케줄을 비활성화합니다.
+# (수동 실행은 남겨두되 index.html은 건드리지 않습니다.)
+# ─────────────────────────────────────────────────────────────
+name: (중지됨) 대시보드 정적 생성
 
 on:
-  schedule:
-    - cron: "*/30 * * * *"
-  workflow_dispatch:
+  workflow_dispatch:   # 수동으로만 실행 가능. 자동 스케줄(cron) 제거.
 
 jobs:
-  sync:
+  noop:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    permissions:
-      contents: write
-
     steps:
-      - name: 📥 저장소 체크아웃
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🐍 Python 3.11 설정
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          # cache: pip 제거 → requirements.txt 없어도 동작
-
-      - name: 📦 패키지 설치
-        run: pip install requests
-
-      - name: 🔄 대시보드 생성
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          NOTION_BUDGET_PAGE_ID: ${{ secrets.NOTION_BUDGET_PAGE_ID }}
-        run: python scripts/generate_dashboard.py
-
-      - name: 📤 변경사항 커밋 & 푸시
+      - name: 안내
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html data/snapshot.json
-          if git diff --cached --quiet; then
-            echo "ℹ️ 변경사항 없음 - 커밋 생략"
-          else
-            git commit -m "🔄 대시보드 자동 갱신 $(date +'%Y-%m-%d %H:%M' -d '+9 hours') KST"
-            git push
-            echo "✅ 푸시 완료"
-          fi
+          echo "이 워크플로는 중지되었습니다."
+          echo "통합포털은 이제 실시간 클라이언트 방식으로 동작합니다."
+          echo "정적 생성이 다시 필요하면 scripts/generate_dashboard.py 를 수동 실행하세요."
